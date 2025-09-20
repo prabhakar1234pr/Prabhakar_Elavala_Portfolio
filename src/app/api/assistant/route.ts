@@ -9,6 +9,7 @@ type Message = { role: "user" | "assistant" | "system"; content: string };
 export async function POST(req: Request) {
   try {
     const { messages } = (await req.json()) as { messages: Message[] };
+    console.log("API Request received:", { messagesCount: messages?.length, lastMessage: messages?.at(-1) });
 
     const contextText = buildContext();
     const last = messages?.at(-1)?.content || "";
@@ -16,13 +17,20 @@ export async function POST(req: Request) {
     // Prefer Groq if configured
     const groqKey = process.env.GROQ_API_KEY;
     const groqModel = process.env.GROQ_MODEL || "llama-3.1-70b-versatile";
+    console.log("Environment check:", { hasGroqKey: !!groqKey, groqModel });
+    
     if (groqKey) {
       try {
+        console.log("Attempting Groq API call...");
         const ai = await callGroq({ apiKey: groqKey, model: groqModel, messages, contextText });
+        console.log("Groq API success:", { responseLength: ai?.length });
         return NextResponse.json({ ok: true, message: { role: "assistant", content: ai }, provider: "groq" });
       } catch (gErr) {
+        console.error("Groq call failed:", gErr);
         console.warn("Groq call failed, trying Azure/mock:", gErr);
       }
+    } else {
+      console.log("No GROQ API key found, skipping Groq");
     }
 
     const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
@@ -42,7 +50,9 @@ export async function POST(req: Request) {
     }
 
     // Mock fallback
+    console.log("Falling back to mock reply");
     const reply = simpleMockReply(last, contextText);
+    console.log("Mock reply generated:", { replyLength: reply?.length });
     return NextResponse.json({ ok: true, message: { role: "assistant", content: reply }, mock: true });
   } catch (err) {
     console.error("/api/assistant error", err);

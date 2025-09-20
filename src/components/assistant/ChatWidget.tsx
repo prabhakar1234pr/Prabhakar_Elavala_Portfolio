@@ -17,13 +17,35 @@ export function ChatWidget() {
     const next = [...messages, { role: "user", content: input } as Message];
     setMessages(next);
     setInput("");
-    const res = await fetch("/api/assistant", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: next, context: { suggest: "Suggest a project to explore" } }),
-    });
-    const data = await res.json();
-    if (data?.message) setMessages((m) => [...m, data.message]);
+    
+    try {
+      const res = await fetch("/api/assistant", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: next, context: { suggest: "Suggest a project to explore" } }),
+      });
+      
+      if (!res.ok) {
+        console.error("API Error:", res.status, res.statusText);
+        const errorText = await res.text();
+        console.error("Error response:", errorText);
+        setMessages((m) => [...m, { role: "assistant", content: `Sorry, there was an error: ${res.status} - ${res.statusText}` }]);
+        return;
+      }
+      
+      const data = await res.json();
+      console.log("API Response:", data);
+      
+      if (data?.message) {
+        setMessages((m) => [...m, data.message]);
+      } else {
+        console.error("No message in response:", data);
+        setMessages((m) => [...m, { role: "assistant", content: "Sorry, I received an invalid response. Please try again." }]);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      setMessages((m) => [...m, { role: "assistant", content: `Network error: ${error}` }]);
+    }
   }
 
   return (
