@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
     // Prefer Groq if configured
     const groqKey = process.env.GROQ_API_KEY;
-    const groqModel = process.env.GROQ_MODEL || "llama-3.1-70b-versatile";
+    const groqModel = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
     console.log("Environment check:", { hasGroqKey: !!groqKey, groqModel });
     
     if (groqKey) {
