@@ -55,12 +55,12 @@ export default function Home() {
               Specializing in data analytics, machine learning, and AI systems with hands-on experience in real-world projects.
             </p>
           </div>
-          <div className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-300/20 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-green-300 mb-3">💼 Data Science Intern</h3>
-            <p className="text-muted-foreground mb-2">CommandL • San Francisco, CA (Remote)</p>
-            <p className="text-sm text-green-200">Apr 2025 - Jul 2025</p>
+          <div className="bg-gradient-to-r from-orange-500/10 to-purple-500/10 border border-orange-300/20 rounded-2xl p-6">
+            <h3 className="text-lg font-semibold text-orange-300 mb-3">🚀 Seeking Opportunities</h3>
+            <p className="text-muted-foreground mb-2">AI/ML Engineer • Full-time & Internship Roles</p>
+            <p className="text-sm text-orange-200">Available Now • Open to Relocation</p>
             <p className="text-sm text-muted-foreground mt-3">
-              Analyzing learner interactions, improving AI-generated content quality, and optimizing LLM performance monitoring.
+              Actively seeking full-time and internship opportunities in AI/ML engineering, backend development, and data science roles.
             </p>
           </div>
         </div>
