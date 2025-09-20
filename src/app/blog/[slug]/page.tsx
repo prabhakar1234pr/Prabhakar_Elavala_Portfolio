@@ -174,28 +174,30 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       </div>
 
       {/* Article Content */}
-      <article className="mx-auto max-w-4xl px-6 py-12">
-        <div className="prose prose-lg prose-invert max-w-none
-          prose-headings:text-purple-300 prose-headings:font-semibold
-          prose-h1:text-3xl prose-h1:mb-6 prose-h1:text-purple-200
-          prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-purple-500/30 prose-h2:pb-2
-          prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4 prose-h3:text-purple-300
-          prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
-          prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300 hover:prose-a:underline
-          prose-strong:text-purple-200 prose-strong:font-semibold
-          prose-em:text-blue-200
-          prose-code:text-purple-300 prose-code:bg-purple-950/50 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono
-          prose-pre:bg-slate-900 prose-pre:border prose-pre:border-purple-500/20 prose-pre:rounded-xl prose-pre:p-6 prose-pre:overflow-x-auto prose-pre:shadow-2xl
-          prose-pre:ring-1 prose-pre:ring-purple-500/10
-          prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:bg-purple-950/20 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-lg
-          prose-ul:space-y-2 prose-ul:text-gray-300
-          prose-ol:space-y-2 prose-ol:text-gray-300
-          prose-li:text-gray-300 prose-li:leading-relaxed
-          prose-img:rounded-lg prose-img:shadow-xl prose-img:mx-auto
-          prose-hr:border-purple-500/30 prose-hr:my-12
-          prose-table:border-collapse prose-table:w-full
-          prose-th:bg-purple-900/30 prose-th:border prose-th:border-purple-500/30 prose-th:px-4 prose-th:py-2 prose-th:text-left prose-th:font-semibold prose-th:text-purple-200
-          prose-td:border prose-td:border-purple-500/20 prose-td:px-4 prose-td:py-2 prose-td:text-gray-300"
+      <article className="mx-auto max-w-5xl px-8 py-16">
+        <div className="prose prose-xl prose-invert max-w-none
+          prose-headings:text-purple-300 prose-headings:font-bold prose-headings:tracking-tight
+          prose-h1:text-4xl prose-h1:leading-tight prose-h1:mb-8 prose-h1:mt-0 prose-h1:text-purple-200
+          prose-h2:text-3xl prose-h2:leading-tight prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-b prose-h2:border-purple-500/30 prose-h2:pb-4
+          prose-h3:text-2xl prose-h3:leading-tight prose-h3:mt-12 prose-h3:mb-6 prose-h3:text-purple-300
+          prose-h4:text-xl prose-h4:leading-tight prose-h4:mt-8 prose-h4:mb-4 prose-h4:text-purple-400
+          prose-p:text-gray-200 prose-p:leading-loose prose-p:mb-8 prose-p:text-lg
+          prose-a:text-blue-400 prose-a:no-underline prose-a:font-medium hover:prose-a:text-blue-300 hover:prose-a:underline prose-a:transition-colors
+          prose-strong:text-purple-100 prose-strong:font-bold
+          prose-em:text-blue-300 prose-em:font-medium
+          prose-code:text-purple-300 prose-code:bg-purple-950/60 prose-code:px-3 prose-code:py-1.5 prose-code:rounded-md prose-code:text-base prose-code:font-mono prose-code:font-medium
+          prose-pre:bg-slate-900/90 prose-pre:border prose-pre:border-purple-500/30 prose-pre:rounded-2xl prose-pre:p-8 prose-pre:overflow-x-auto prose-pre:shadow-2xl
+          prose-pre:ring-2 prose-pre:ring-purple-500/20 prose-pre:my-10 prose-pre:text-sm prose-pre:leading-relaxed
+          prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:bg-purple-950/30 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:rounded-r-xl prose-blockquote:my-8 prose-blockquote:text-purple-100
+          prose-ul:space-y-3 prose-ul:text-gray-200 prose-ul:my-8 prose-ul:text-lg
+          prose-ol:space-y-3 prose-ol:text-gray-200 prose-ol:my-8 prose-ol:text-lg
+          prose-li:text-gray-200 prose-li:leading-loose prose-li:pl-2
+          prose-li:marker:text-purple-400
+          prose-img:rounded-xl prose-img:shadow-2xl prose-img:mx-auto prose-img:my-12 prose-img:border prose-img:border-purple-500/20
+          prose-hr:border-purple-500/40 prose-hr:my-16 prose-hr:border-t-2
+          prose-table:border-collapse prose-table:w-full prose-table:my-10 prose-table:rounded-lg prose-table:overflow-hidden prose-table:shadow-xl
+          prose-th:bg-purple-900/40 prose-th:border prose-th:border-purple-500/30 prose-th:px-6 prose-th:py-4 prose-th:text-left prose-th:font-bold prose-th:text-purple-200 prose-th:text-lg
+          prose-td:border prose-td:border-purple-500/20 prose-td:px-6 prose-td:py-4 prose-td:text-gray-200 prose-td:text-lg prose-td:leading-relaxed"
         >
           <MDX />
         </div>
