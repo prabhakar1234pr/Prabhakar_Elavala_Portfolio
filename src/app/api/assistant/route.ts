@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { projects } from "@/data/projects";
-import { experience } from "@/data/experience";
+import { experience, education } from "@/data/experience";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -72,8 +72,12 @@ function buildContext(): string {
     })
     .join("\n");
   
+  const edu = education
+    .map((e) => `- **${e.role}** @ **${e.org}** (${e.dates})${e.location ? ` | ${e.location}` : ""}${e.gpa ? ` | GPA: ${e.gpa}` : ""}: ${e.bullets.join("; ")}`)
+    .join("\n");
+  
   const exp = experience
-    .map((e) => `- **${e.role}** @ **${e.org}** (${e.dates}): ${e.bullets.join("; ")}`)
+    .map((e) => `- **${e.role}** @ **${e.org}** (${e.dates})${e.location ? ` | ${e.location}` : ""} [${e.type || 'work'}]: ${e.bullets.join("; ")}`)
     .join("\n");
   
   const blogDir = path.join(process.cwd(), "src", "content", "blog");
@@ -85,20 +89,23 @@ function buildContext(): string {
         .join("\n")
     : "- hello-world";
   
-  return `You are the portfolio assistant for Prabhakar Elavala, an AI/ML Engineer specializing in backend services, SaaS integrations, and LLM automation.
+  return `You are the portfolio assistant for Prabhakar Elavala, an AI/ML Engineer and Master's student at Northeastern University specializing in backend services, SaaS integrations, and LLM automation.
+
+## Education:
+${edu}
+
+## Professional Experience:
+${exp}
 
 ## Projects:
 ${proj}
-
-## Experience:
-${exp}
 
 ## Blog Posts:
 ${posts}
 
 ## Website Sections:
+- **Experience Page**: /experience - Education and full work history 
 - **Projects Page**: /projects - View all projects with detailed descriptions
-- **Experience Page**: /experience - Full work history and achievements  
 - **Contact Page**: /contact - Get in touch with Prabhakar
 - **Blog Page**: /blog - Technical articles and insights`;
 }
@@ -113,8 +120,8 @@ function simpleMockReply(user: string, context: string): string {
       return `• **${p.title}** – ${p.summary}\n   Tech: **${p.tech.join(", ")}**${linkText}`;
     }).join("\n\n")}\n\n💡 *Visit the [Projects page](/projects) for more details!*`;
   }
-  if (/experience|work/i.test(user)) {
-    return `## 💼 Current Role\n\n**${experience[0].role}** @ **${experience[0].org}** (${experience[0].dates})\n\n• ${experience[0].bullets.join("\n• ")}\n\n💡 *Check out the [Experience page](/experience) for my full work history!*`;
+  if (/experience|work|education|background/i.test(user)) {
+    return `## 🎓 Education & Experience\n\n**Currently pursuing:** ${education[0].role} @ ${education[0].org} (GPA: ${education[0].gpa})\n\n**Latest Role:** ${experience[0].role} @ ${experience[0].org}\n• ${experience[0].bullets.slice(0, 2).join("\n• ")}\n\n💡 *Visit the [Experience page](/experience) for complete education and work history!*`;
   }
   return `## 👋 Hi there!\n\nI'm Prabhakar Elavala's AI assistant. I can help you learn about:\n\n• **Projects** – AI/ML projects and backend systems\n• **Experience** – Professional background in AI/ML engineering\n• **Skills** – Technical expertise and achievements\n• **Contact** – How to get in touch\n\n💡 *Try asking: "Tell me about your projects" or "What's your experience?"*`;
 }
