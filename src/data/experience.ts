@@ -4,7 +4,7 @@ export type ExperienceItem = {
   dates: string;
   bullets: string[];
   location?: string;
-  type?: 'education' | 'work' | 'internship' | 'volunteer';
+  type?: 'education' | 'work' | 'internship' | 'volunteer' | 'part-time';
   gpa?: string;
 };
 
@@ -71,7 +71,7 @@ export const experience: ExperienceItem[] = [
     org: "Northeastern University",
     dates: "Nov 2024 - Apr 2025",
     location: "Boston, MA (On-campus)",
-    type: "work",
+    type: "part-time",
     bullets: [
       "On-campus part-time position supporting healthcare education by managing high-fidelity simulators",
       "Ensure optimal equipment performance through maintenance, calibration, and technical support",

@@ -38,16 +38,19 @@ export default function ExperiencePage() {
             <li key={e.org + e.role} className="mb-8 ms-4">
               <div className={`absolute w-3 h-3 rounded-full mt-2 -start-1.5 border-2 border-background ${
                 e.type === 'internship' ? 'bg-orange-500' : 
-                e.type === 'volunteer' ? 'bg-purple-500' : 'bg-green-500'
+                e.type === 'volunteer' ? 'bg-purple-500' : 
+                e.type === 'part-time' ? 'bg-blue-500' : 'bg-green-500'
               }`} />
               <div className="flex items-center gap-2 mb-1">
                 <time className="text-xs text-muted-foreground font-medium">{e.dates}</time>
                 <span className={`text-xs px-2 py-1 rounded-full text-white font-medium ${
                   e.type === 'internship' ? 'bg-orange-500' : 
-                  e.type === 'volunteer' ? 'bg-purple-500' : 'bg-green-500'
+                  e.type === 'volunteer' ? 'bg-purple-500' : 
+                  e.type === 'part-time' ? 'bg-blue-500' : 'bg-green-500'
                 }`}>
                   {e.type === 'internship' ? 'Internship' : 
-                   e.type === 'volunteer' ? 'Volunteer' : 'Full-time'}
+                   e.type === 'volunteer' ? 'Volunteer' : 
+                   e.type === 'part-time' ? 'Part-time' : 'Full-time'}
                 </span>
               </div>
               <h3 className="text-lg font-semibold text-foreground">
