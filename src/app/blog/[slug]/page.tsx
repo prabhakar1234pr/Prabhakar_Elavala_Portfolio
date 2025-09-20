@@ -11,8 +11,9 @@ export async function generateStaticParams() {
     .map((file) => ({ slug: file.replace(/\.mdx$/, "") }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  return { title: params.slug.replace(/-/g, " ") };
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  return { title: slug.replace(/-/g, " ") };
 }
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
