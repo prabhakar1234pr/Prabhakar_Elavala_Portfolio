@@ -13,6 +13,18 @@ export async function POST(req: Request) {
     const contextText = buildContext();
     const last = messages?.at(-1)?.content || "";
 
+    // Prefer Groq if configured
+    const groqKey = process.env.GROQ_API_KEY;
+    const groqModel = process.env.GROQ_MODEL || "llama-3.1-70b-versatile";
+    if (groqKey) {
+      try {
+        const ai = await callGroq({ apiKey: groqKey, model: groqModel, messages, contextText });
+        return NextResponse.json({ ok: true, message: { role: "assistant", content: ai }, provider: "groq" });
+      } catch (gErr) {
+        console.warn("Groq call failed, trying Azure/mock:", gErr);
+      }
+    }
+
     const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
     const apiKey = process.env.AZURE_OPENAI_KEY;
     const apiVersion = process.env.AZURE_OPENAI_API_VERSION;
@@ -164,6 +176,40 @@ async function safeText(res: Response): Promise<string> {
   } catch {
     return "";
   }
+}
+
+async function callGroq({
+  apiKey,
+  model,
+  messages,
+  contextText,
+}: {
+  apiKey: string;
+  model: string;
+  messages: Message[];
+  contextText: string;
+}): Promise<string> {
+  const system = `You are an expert assistant for a personal portfolio website. Be concise, helpful, and reference site sections.\n${contextText}`;
+  const url = "https://api.groq.com/openai/v1/chat/completions";
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model,
+      messages: [{ role: "system", content: system }, ...messages],
+      temperature: 0.2,
+      max_tokens: 512,
+    }),
+  });
+  if (!res.ok) {
+    const errBody = await safeText(res);
+    throw new Error(`Groq error ${res.status}: ${errBody}`);
+  }
+  const data: unknown = await res.json();
+  return extractChatCompletionsText(data);
 }
 
 function extractChatCompletionsText(data: unknown): string {
