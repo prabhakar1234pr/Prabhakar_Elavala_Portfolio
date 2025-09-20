@@ -3,6 +3,7 @@ import path from "node:path";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 interface BlogMetadata {
   title: string;
@@ -110,8 +111,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
   const content = fs.readFileSync(filePath, "utf-8");
   const metadata = extractMetadata(content);
-  const MDXModule = await import(`@/content/blog/${slug}.mdx`);
-  const MDX = MDXModule.default;
+  
+  // Extract content after frontmatter
+  const contentAfterFrontmatter = content.replace(/^---[\s\S]*?---\n/, '');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-950/20">
@@ -201,7 +203,137 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               prose-td:border prose-td:border-purple-500/20 prose-td:px-8 prose-td:py-6 prose-td:text-gray-100 prose-td:text-lg prose-td:leading-relaxed
 "
             >
-          <MDX />
+          <ReactMarkdown
+            components={{
+              // Custom link component that opens in new tab
+              a: ({ href, children }) => (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 underline transition-colors decoration-blue-400/50 underline-offset-4"
+                >
+                  {children}
+                </a>
+              ),
+              h1: ({ children }) => (
+                <h1 className="text-4xl font-bold mt-12 mb-6 first:mt-0 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent leading-tight">
+                  {children}
+                </h1>
+              ),
+              h2: ({ children }) => (
+                <h2 className="text-3xl font-semibold mt-16 mb-8 text-purple-200 border-b border-purple-500/30 pb-4 leading-tight">
+                  {children}
+                </h2>
+              ),
+              h3: ({ children }) => (
+                <h3 className="text-2xl font-medium mt-12 mb-6 text-purple-300 leading-tight">
+                  {children}
+                </h3>
+              ),
+              h4: ({ children }) => (
+                <h4 className="text-xl font-medium mt-10 mb-5 text-purple-400 leading-tight">
+                  {children}
+                </h4>
+              ),
+              h5: ({ children }) => (
+                <h5 className="text-lg font-medium mt-8 mb-4 text-purple-400 leading-tight">
+                  {children}
+                </h5>
+              ),
+              h6: ({ children }) => (
+                <h6 className="text-base font-medium mt-6 mb-3 text-purple-500 leading-tight">
+                  {children}
+                </h6>
+              ),
+              p: ({ children }) => (
+                <p className="text-gray-100 leading-relaxed mb-8 text-lg tracking-wide">
+                  {children}
+                </p>
+              ),
+              // Custom styling for code blocks
+              pre: ({ children }) => (
+                <pre className="bg-slate-900/90 border border-purple-500/30 rounded-2xl p-8 overflow-x-auto shadow-2xl ring-2 ring-purple-500/20 my-12 text-sm leading-relaxed">
+                  {children}
+                </pre>
+              ),
+              code: ({ className, children }) => {
+                const isInline = !className;
+                return isInline ? (
+                  <code className="text-purple-300 bg-purple-950/60 px-3 py-2 rounded-lg text-base font-mono font-medium tracking-tight">
+                    {children}
+                  </code>
+                ) : (
+                  <code className={className}>{children}</code>
+                );
+              },
+              // Custom styling for lists
+              ul: ({ children }) => (
+                <ul className="space-y-4 text-gray-100 my-10 text-lg leading-relaxed list-disc pl-6">
+                  {children}
+                </ul>
+              ),
+              ol: ({ children }) => (
+                <ol className="space-y-4 text-gray-100 my-10 text-lg leading-relaxed list-decimal pl-6">
+                  {children}
+                </ol>
+              ),
+              li: ({ children }) => (
+                <li className="text-gray-100 leading-relaxed pl-3 my-2 marker:text-purple-400 marker:text-lg">
+                  {children}
+                </li>
+              ),
+              // Custom styling for blockquotes
+              blockquote: ({ children }) => (
+                <blockquote className="border-l-4 border-purple-500 bg-purple-950/30 py-8 px-10 rounded-r-xl my-10 text-purple-100 italic text-lg">
+                  {children}
+                </blockquote>
+              ),
+              // Images
+              img: ({ src, alt }) => (
+                <img
+                  src={src}
+                  alt={alt}
+                  className="rounded-2xl shadow-2xl mx-auto my-16 border border-purple-500/20 max-w-full h-auto"
+                />
+              ),
+              // Tables
+              table: ({ children }) => (
+                <table className="border-collapse w-full my-12 rounded-lg overflow-hidden shadow-xl">
+                  {children}
+                </table>
+              ),
+              th: ({ children }) => (
+                <th className="bg-purple-900/40 border border-purple-500/30 px-8 py-6 text-left font-bold text-purple-200 text-lg">
+                  {children}
+                </th>
+              ),
+              td: ({ children }) => (
+                <td className="border border-purple-500/20 px-8 py-6 text-gray-100 text-lg leading-relaxed">
+                  {children}
+                </td>
+              ),
+              // Horizontal rule
+              hr: ({ children }) => (
+                <hr className="border-purple-500/40 my-20 border-t-2">
+                  {children}
+                </hr>
+              ),
+              // Strong and emphasis
+              strong: ({ children }) => (
+                <strong className="text-purple-100 font-bold tracking-wide">
+                  {children}
+                </strong>
+              ),
+              em: ({ children }) => (
+                <em className="text-blue-300 font-medium italic">
+                  {children}
+                </em>
+              ),
+            }}
+          >
+            {contentAfterFrontmatter}
+          </ReactMarkdown>
         </div>
       </article>
 
