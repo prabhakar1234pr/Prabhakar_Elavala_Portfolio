@@ -81,8 +81,9 @@ async function callAzure({
   messages: Message[];
   contextText: string;
 }): Promise<string> {
-  // Prefer the Responses API for GPT-4.1 deployments
-  const useResponses = /4\.1/i.test(deployment);
+  // Prefer Chat Completions unless explicitly opting into Responses API
+  // Some Azure regions/models don't support `responses` yet → 404.
+  const useResponses = (process.env.AZURE_OPENAI_USE_RESPONSES === "1") || /4\.1/i.test(deployment);
   const system = `You are an expert assistant for a personal portfolio website. Be concise, helpful, and reference site sections.\n${contextText}`;
 
   if (useResponses) {
@@ -102,6 +103,10 @@ async function callAzure({
         max_output_tokens: 512,
       }),
     });
+    if (!res.ok) {
+      const errBody = await safeText(res);
+      throw new Error(`Azure responses error ${res.status}: ${errBody}`);
+    }
     const data: unknown = await res.json();
     const text = extractResponsesText(data);
     return text;
@@ -121,6 +126,10 @@ async function callAzure({
       max_tokens: 512,
     }),
   });
+  if (!res.ok) {
+    const errBody = await safeText(res);
+    throw new Error(`Azure chat error ${res.status}: ${errBody}`);
+  }
   const data: unknown = await res.json();
   const text = extractChatCompletionsText(data);
   return text;
@@ -144,6 +153,14 @@ function extractResponsesText(data: unknown): string {
   }
   try {
     return JSON.stringify(data);
+  } catch {
+    return "";
+  }
+}
+
+async function safeText(res: Response): Promise<string> {
+  try {
+    return await res.text();
   } catch {
     return "";
   }
