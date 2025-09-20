@@ -21,7 +21,8 @@ export const projects: Project[] = [
     summary: "🎵 Professional-grade ML pipeline predicting song popularity using 600K+ Spotify tracks with ZenML orchestration and MLflow tracking.",
     tech: ["Python", "XGBoost", "ZenML", "MLflow", "FastAPI", "Docker"],
     links: { 
-      github: "https://github.com/prabhakar1234pr/Predicting-song-popularity"
+      github: "https://github.com/prabhakar1234pr/Predicting-song-popularity",
+      demo: "https://huggingface.co/spaces/Prabhakar554/song-popularity-predictor"
     },
     highlightMetrics: ["R² ≈ 0.51 accuracy", "600K+ tracks analyzed", "MLOps best practices"],
   },
