@@ -10,15 +10,6 @@ const Canvas = dynamic(
   { ssr: false }
 );
 
-function FloatingIcosahedron() {
-  const geometry = useMemo(() => new THREE.IcosahedronGeometry(2, 1), []);
-  const material = useMemo(
-    () => new THREE.MeshPhongMaterial({ color: 0x7c3aed, shininess: 60 }),
-    []
-  );
-  return <mesh geometry={geometry} material={material} rotation={[0.4, 0.2, 0]} />;
-}
-
 export function HeroCanvas() {
   return (
     <div className="absolute inset-0 -z-10 md:block [@media(prefers-reduced-motion:reduce)]:hidden">
@@ -31,14 +22,11 @@ export function HeroCanvas() {
           <ambientLight intensity={0.55} />
           <directionalLight position={[5, 7, 5]} intensity={1} />
 
-          {/* Centerpiece geometry */}
-          <FloatingIcosahedron />
+          {/* Centerpiece: Retro computer */}
+          <RetroComputer position={[0, -0.2, 0]} scale={1.15} />
 
           {/* Orbiting mini solar system */}
           <SolarSystem />
-
-          {/* Retro computer accent */}
-          <RetroComputer position={[2.8, -1.2, -0.8]} />
 
           <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
         </Canvas>
@@ -86,14 +74,14 @@ function SolarSystem() {
   );
 }
 
-function RetroComputer({ position = [0, 0, 0] as [number, number, number] }) {
+function RetroComputer({ position = [0, 0, 0] as [number, number, number], scale = 1 }: { position?: [number, number, number]; scale?: number }) {
   const groupRef = useRef<THREE.Group>(null);
   useFrame((_, delta) => {
     if (groupRef.current) groupRef.current.rotation.y += delta * 0.15;
   });
 
   return (
-    <group ref={groupRef} position={position}>
+    <group ref={groupRef} position={position} scale={[scale, scale, scale]}>
       {/* Monitor */}
       <mesh position={[0, 0.4, 0]}>
         <boxGeometry args={[0.9, 0.6, 0.5]} />
