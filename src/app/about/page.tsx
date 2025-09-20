@@ -84,20 +84,10 @@ export default function AboutPage() {
             </h3>
             <div className="space-y-4 text-muted-foreground">
               <p>
-                I&apos;m a passionate AI/ML engineer currently pursuing my Master&apos;s in Informatics (Analytics) 
-                at Northeastern University with a 3.8 GPA. My journey began in Electronics and Communication 
-                Engineering, but I found my true calling in the intersection of data science, artificial 
-                intelligence, and full-stack development.
+                I&apos;m an AI/ML engineer with a strong foundation in backend development, data engineering, and applied machine learning. My technical strengths include building scalable APIs, integrating SaaS platforms, deploying LLM-powered applications, and designing reliable MLOps pipelines. I&apos;m comfortable working across the stack—from data modeling and pipelines to model training, inference services, and cloud deployments—with a focus on testing, observability, and performance optimization.
               </p>
               <p>
-                I specialize in building production-grade AI/ML systems with a focus on reliability, 
-                scalability, and developer experience. My work spans from data engineering and model 
-                development to inference services and product integrations.
-              </p>
-              <p>
-                Currently, I&apos;m working as a Data Science Intern at CommandL, where I analyze learner 
-                interactions and improve AI-generated instructional data quality. I&apos;ve also contributed 
-                to healthcare AI as a volunteer Chatbot Engineer at CareEscapes AI.
+                Beyond technical skills, I bring a startup-ready mindset: curiosity to learn fast, adaptability in dynamic environments, and a bias for shipping features quickly without sacrificing reliability. I value clear communication, collaboration, and ownership, and thrive when solving problems that require both creativity and precision.
               </p>
             </div>
           </div>

@@ -1,8 +1,5 @@
 "use client";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -14,8 +11,6 @@ const nav = [
 ];
 
 export function Header() {
-  const { theme, setTheme } = useTheme();
-  const isDark = theme === "dark";
   return (
     <header className="sticky top-0 z-40 w-full glass">
       <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
@@ -27,16 +22,6 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="icon"
-            aria-label="Toggle dark mode"
-            onClick={() => setTheme(isDark ? "light" : "dark")}
-          >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
-          </Button>
-        </div>
       </div>
     </header>
   );

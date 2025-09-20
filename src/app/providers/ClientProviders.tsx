@@ -20,7 +20,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
   const hasPosthog = Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY);
 
   const content = (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
       {children}
       <ChatWidget />
       <Toaster richColors position="top-right" />

@@ -9,7 +9,7 @@ type Message = { role: "user" | "assistant"; content: string };
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Hi! Ask about my projects or experience." },
+    { role: "assistant", content: "👋 **Hey there!** I'm Prabhakar's AI assistant.\n\nI can help you explore:\n• **🚀 Projects** - AI/ML systems, backend APIs, and full-stack apps\n• **💼 Experience** - My journey from electronics engineering to AI/ML\n• **🛠️ Skills** - Technical expertise and certifications\n• **📧 Contact** - How to connect with me\n\n💡 *Try asking: \"Tell me about your GitGuide project\" or \"What's your experience with LangChain?\"*" },
   ]);
   const [input, setInput] = useState("");
 
