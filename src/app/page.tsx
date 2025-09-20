@@ -3,9 +3,75 @@ import { HeroCanvas } from "@/components/home/HeroCanvas";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Prabhakar Elavala",
+  "jobTitle": "AI/ML Engineer",
+  "description": "AI/ML Engineer specializing in backend development, data engineering, and machine learning systems. MS Informatics student at Northeastern University.",
+  "url": "https://prabhakar-elavala-portfolio.vercel.app",
+  "sameAs": [
+    "https://www.linkedin.com/in/prabhakarelavala",
+    "https://github.com/prabhakar1234pr"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Northeastern University"
+  },
+  "alumniOf": {
+    "@type": "Organization", 
+    "name": "Northeastern University"
+  },
+  "knowsAbout": [
+    "Artificial Intelligence",
+    "Machine Learning", 
+    "Data Science",
+    "Python Programming",
+    "Next.js",
+    "FastAPI",
+    "AWS",
+    "Azure",
+    "LangChain",
+    "MLOps"
+  ],
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "degree",
+      "name": "MS in Informatics (Analytics)",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Northeastern University"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential", 
+      "credentialCategory": "certification",
+      "name": "Microsoft Certified: Azure AI Engineer Associate",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "certification", 
+      "name": "Databricks Certified Machine Learning Associate",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Databricks"
+      }
+    }
+  ]
+};
+
 export default function Home() {
   return (
     <div className="relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <HeroCanvas />
       
       {/* Hero Section */}
