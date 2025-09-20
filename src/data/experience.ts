@@ -67,13 +67,13 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    role: "Simulation Laboratory Assistant",
+    role: "Simulation Laboratory Assistant (Part-time)",
     org: "Northeastern University",
     dates: "Nov 2024 - Apr 2025",
-    location: "Boston, MA (On-site)",
+    location: "Boston, MA (On-campus)",
     type: "work",
     bullets: [
-      "Support healthcare education by managing high-fidelity simulators and training environments",
+      "On-campus part-time position supporting healthcare education by managing high-fidelity simulators",
       "Ensure optimal equipment performance through maintenance, calibration, and technical support",
       "Collaborate with multidisciplinary teams to design and execute realistic medical scenarios",
       "Collect and analyze simulation data to maintain training integrity and assessment reliability",
