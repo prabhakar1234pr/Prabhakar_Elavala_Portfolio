@@ -13,8 +13,8 @@ export default function ProjectsPage() {
           Featured Projects
         </h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          A collection of AI/ML projects, full-stack applications, and innovative solutions I've built. 
-          Click "Deep Dive" to explore detailed documentation and technical insights.
+          A collection of AI/ML projects, full-stack applications, and innovative solutions I&apos;ve built. 
+          Click &quot;Deep Dive&quot; to explore detailed documentation and technical insights.
         </p>
       </div>
 

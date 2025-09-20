@@ -44,14 +44,14 @@ export async function POST(req: Request) {
         return NextResponse.json({ ok: true, message: { role: "assistant", content: ai } });
       } catch (azureErr) {
         console.warn("Azure call failed, falling back to mock:", azureErr);
-        const reply = simpleMockReply(last, contextText);
+        const reply = simpleMockReply(last);
         return NextResponse.json({ ok: true, message: { role: "assistant", content: reply }, mock: true });
       }
     }
 
     // Mock fallback
     console.log("Falling back to mock reply");
-    const reply = simpleMockReply(last, contextText);
+    const reply = simpleMockReply(last);
     console.log("Mock reply generated:", { replyLength: reply?.length });
     return NextResponse.json({ ok: true, message: { role: "assistant", content: reply }, mock: true });
   } catch (err) {
@@ -110,7 +110,7 @@ ${posts}
 - **Blog Page**: /blog - Technical articles and insights`;
 }
 
-function simpleMockReply(user: string, context: string): string {
+function simpleMockReply(user: string): string {
   if (/project|portfolio/i.test(user)) {
     return `## 🚀 Featured Projects\n\n${projects.slice(0, 3).map((p) => {
       const links = [];
