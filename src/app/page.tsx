@@ -172,30 +172,96 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Recent Achievements */}
+      {/* Professional Certifications */}
       <section className="mx-auto max-w-6xl px-6 py-16 border-t border-white/10">
         <div className="text-center mb-12">
           <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            🏆 Recent Achievements
+            🏅 Professional Certifications
           </h2>
+          <p className="text-muted-foreground">
+            Industry-recognized certifications in AI/ML and cloud technologies
+          </p>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-purple-300">3.8</div>
-            <div className="text-sm text-muted-foreground">Current GPA</div>
+        <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+          {/* Microsoft Azure AI Engineer Associate */}
+          <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-300/20 rounded-xl p-6 hover:border-blue-300/40 transition-all duration-300">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                <span className="text-2xl">🔵</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-blue-300">Microsoft Certified</h3>
+                <p className="text-sm text-muted-foreground">Azure AI Engineer Associate</p>
+              </div>
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Issued:</span>
+                <span className="text-blue-200">Mar 2025</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Expires:</span>
+                <span className="text-blue-200">Mar 2026</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Credential ID:</span>
+                <span className="text-blue-200 font-mono text-xs">41EE28B38B80F0D0</span>
+              </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-blue-300/20">
+              <a
+                href="https://learn.microsoft.com/en-us/users/prabhakarelavala-8349/transcript/d5ylxuolzp2g314?tab=credentials-tab"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium"
+              >
+                🔗 Verify Credential
+              </a>
+            </div>
           </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-blue-300">600K+</div>
-            <div className="text-sm text-muted-foreground">Data Points Processed</div>
+
+          {/* Databricks Certified ML Engineer Associate */}
+          <div className="bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-300/20 rounded-xl p-6 hover:border-orange-300/40 transition-all duration-300">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                <span className="text-2xl">🧱</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-orange-300">Databricks Certified</h3>
+                <p className="text-sm text-muted-foreground">Machine Learning Associate</p>
+              </div>
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Issued:</span>
+                <span className="text-orange-200">Jan 2025</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Expires:</span>
+                <span className="text-orange-200">Jan 2027</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Credential ID:</span>
+                <span className="text-orange-200 font-mono text-xs">130997553</span>
+              </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-orange-300/20">
+              <a
+                href="https://credentials.databricks.com/e0e3e060-6be5-4cba-ad5e-f28b92b0dc3c#acc.5Ma7ZxPT"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 transition-colors text-sm font-medium"
+              >
+                🔗 Verify Credential
+              </a>
+            </div>
           </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-green-300">7</div>
-            <div className="text-sm text-muted-foreground">Production Projects</div>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-yellow-300">R² 0.51</div>
-            <div className="text-sm text-muted-foreground">ML Model Accuracy</div>
-          </div>
+        </div>
+        <div className="text-center mt-8">
+          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+            These certifications validate expertise in cloud AI services, machine learning operations, 
+            and production ML systems on industry-leading platforms.
+          </p>
         </div>
       </section>
 
