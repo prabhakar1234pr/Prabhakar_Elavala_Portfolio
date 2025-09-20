@@ -28,7 +28,7 @@ function getPosts(): BlogPost[] {
       
       // Extract frontmatter
       const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-      let frontmatter: any = {};
+      const frontmatter: Record<string, string | string[]> = {};
       
       if (frontmatterMatch) {
         const frontmatterText = frontmatterMatch[1];
