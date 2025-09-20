@@ -11,6 +11,7 @@ export async function POST(req: Request) {
     const { messages } = (await req.json()) as { messages: Message[] };
 
     const contextText = buildContext();
+    const last = messages?.at(-1)?.content || "";
 
     const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
     const apiKey = process.env.AZURE_OPENAI_KEY;
@@ -18,12 +19,17 @@ export async function POST(req: Request) {
     const deployment = process.env.AZURE_OPENAI_DEPLOYMENT_GPT_4_1;
 
     if (endpoint && apiKey && apiVersion && deployment) {
-      const ai = await callAzure({ endpoint, apiKey, apiVersion, deployment, messages, contextText });
-      return NextResponse.json({ ok: true, message: { role: "assistant", content: ai } });
+      try {
+        const ai = await callAzure({ endpoint, apiKey, apiVersion, deployment, messages, contextText });
+        return NextResponse.json({ ok: true, message: { role: "assistant", content: ai } });
+      } catch (azureErr) {
+        console.warn("Azure call failed, falling back to mock:", azureErr);
+        const reply = simpleMockReply(last, contextText);
+        return NextResponse.json({ ok: true, message: { role: "assistant", content: reply }, mock: true });
+      }
     }
 
     // Mock fallback
-    const last = messages?.at(-1)?.content || "";
     const reply = simpleMockReply(last, contextText);
     return NextResponse.json({ ok: true, message: { role: "assistant", content: reply }, mock: true });
   } catch (err) {
