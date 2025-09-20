@@ -10,30 +10,45 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="mx-auto max-w-6xl px-6 pt-28 pb-20 sm:pt-36 sm:pb-28">
-        <p className="text-sm text-muted-foreground">Prabhakar Elavala</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-6xl">
-          AI/ML Engineer for Backend, Integrations & LLM Automation
+        {/* Title */}
+        <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+          Prabhakar Elavala
         </h1>
-        <p className="mt-4 text-base text-muted-foreground max-w-3xl">
-          I build reliable backend services, SaaS integrations, and LLM agents that automate B2B workflows—shipping fast with tests, metrics, and clean APIs.
+        
+        {/* Subtitle */}
+        <p className="mt-6 text-lg text-muted-foreground max-w-4xl leading-relaxed">
+          I design and build scalable systems that bring together data, AI, and software engineering—from pipelines and models to APIs and cloud deployments. My work balances reliability, performance, and innovation to deliver real-world impact.
         </p>
-        <div className="mt-6 grid gap-2 text-sm text-muted-foreground">
-          <div>• Backend APIs (FastAPI/Node) • Webhooks • OAuth • Rate-limit safe clients</div>
-          <div>• LLM apps (LangChain/LangGraph) • RAG • tool-calling • evals & telemetry</div>
-          <div>• Cloud deploys (Vercel/AWS) • CI/CD • unit/integration/E2E tests</div>
+        
+        {/* Key Highlights */}
+        <div className="mt-8 space-y-3 text-base text-muted-foreground max-w-4xl">
+          <div className="flex items-start gap-3">
+            <span className="text-purple-400 font-medium mt-0.5">•</span>
+            <span><strong className="text-purple-300">Data Science & Machine Learning:</strong> modeling, evaluation, experimentation</span>
+          </div>
+          <div className="flex items-start gap-3">
+            <span className="text-blue-400 font-medium mt-0.5">•</span>
+            <span><strong className="text-blue-300">Backend & Systems:</strong> APIs, integrations, testing, performance optimization</span>
+          </div>
+          <div className="flex items-start gap-3">
+            <span className="text-green-400 font-medium mt-0.5">•</span>
+            <span><strong className="text-green-300">Cloud & Deployment:</strong> AWS, Azure, Docker, CI/CD, monitoring & telemetry</span>
+          </div>
         </div>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/projects" className={cn(buttonVariants(), "shadow")}>
+        
+        {/* CTA Buttons */}
+        <div className="mt-10 flex flex-wrap gap-4">
+          <Link href="/projects" className={cn(buttonVariants(), "shadow-lg")}>
             View Projects
           </Link>
           <a
             href="/Prabhakar_Resume.pdf"
-            className={cn(buttonVariants({ variant: "secondary" }))}
+            className={cn(buttonVariants({ variant: "secondary" }), "shadow-lg")}
             download
           >
             Download Resume
           </a>
-          <Link href="/contact" className={cn(buttonVariants({ variant: "outline" }))}>
+          <Link href="/contact" className={cn(buttonVariants({ variant: "outline" }), "shadow-lg")}>
             Contact
           </Link>
         </div>
