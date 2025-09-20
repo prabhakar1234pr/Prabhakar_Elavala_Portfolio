@@ -47,11 +47,11 @@ function getPosts(): BlogPost[] {
       
       return {
         slug,
-        title: frontmatter.title || slug.split("-").map((w) => w[0]?.toUpperCase() + w.slice(1)).join(" "),
-        summary: frontmatter.summary || "No summary available",
-        date: frontmatter.date || "2025-01-20",
-        readTime: frontmatter.readTime || "5 min read",
-        tags: frontmatter.tags || ["Tech"]
+        title: Array.isArray(frontmatter.title) ? frontmatter.title[0] : (frontmatter.title || slug.split("-").map((w) => w[0]?.toUpperCase() + w.slice(1)).join(" ")),
+        summary: Array.isArray(frontmatter.summary) ? frontmatter.summary[0] : (frontmatter.summary || "No summary available"),
+        date: Array.isArray(frontmatter.date) ? frontmatter.date[0] : (frontmatter.date || "2025-01-20"),
+        readTime: Array.isArray(frontmatter.readTime) ? frontmatter.readTime[0] : (frontmatter.readTime || "5 min read"),
+        tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : (frontmatter.tags ? [frontmatter.tags] : ["Tech"])
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
