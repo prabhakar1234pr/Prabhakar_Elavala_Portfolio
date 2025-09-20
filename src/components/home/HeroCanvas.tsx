@@ -203,7 +203,7 @@ function GridFloor() {
 
 function CameraRig() {
   const group = useRef<THREE.Group>(null);
-  useFrame(({ camera }, delta) => {
+  useFrame(({ camera }) => {
     const t = performance.now() * 0.00025;
     const x = Math.sin(t) * 0.4;
     const y = 1.2 + Math.cos(t * 0.7) * 0.2;

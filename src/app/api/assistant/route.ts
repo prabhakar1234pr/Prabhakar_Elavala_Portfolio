@@ -96,9 +96,9 @@ async function callAzure({
         max_output_tokens: 512,
       }),
     });
-    const data = (await res.json()) as any;
-    const text = data?.output_text || data?.content?.[0]?.text || JSON.stringify(data);
-    return text as string;
+    const data: unknown = await res.json();
+    const text = extractResponsesText(data);
+    return text;
   }
 
   // Fallback to Chat Completions for non-4.1 deployments
@@ -115,9 +115,52 @@ async function callAzure({
       max_tokens: 512,
     }),
   });
-  const data = (await res.json()) as any;
-  const text = data?.choices?.[0]?.message?.content || JSON.stringify(data);
-  return text as string;
+  const data: unknown = await res.json();
+  const text = extractChatCompletionsText(data);
+  return text;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function extractResponsesText(data: unknown): string {
+  if (isRecord(data)) {
+    const output = data["output_text"];
+    if (typeof output === "string") return output;
+    const content = data["content"];
+    if (Array.isArray(content) && content.length > 0) {
+      const first = content[0];
+      if (isRecord(first) && typeof first["text"] === "string") {
+        return first["text"] as string;
+      }
+    }
+  }
+  try {
+    return JSON.stringify(data);
+  } catch {
+    return "";
+  }
+}
+
+function extractChatCompletionsText(data: unknown): string {
+  if (isRecord(data)) {
+    const choices = data["choices"];
+    if (Array.isArray(choices) && choices.length > 0) {
+      const first = choices[0];
+      if (isRecord(first)) {
+        const message = first["message"];
+        if (isRecord(message) && typeof message["content"] === "string") {
+          return message["content"] as string;
+        }
+      }
+    }
+  }
+  try {
+    return JSON.stringify(data);
+  } catch {
+    return "";
+  }
 }
 
 
