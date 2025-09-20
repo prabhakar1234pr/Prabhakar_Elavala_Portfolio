@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Production-ready personal portfolio for Prabhakar Elavala built with Next.js 14, TypeScript, Tailwind, shadcn/ui, Framer Motion, Three.js, and MDX.
 
-## Getting Started
-
-First, run the development server:
+### Quickstart
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment variables (.env.local)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_POSTHOG_KEY=
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+RESEND_API_KEY=
+NEXT_PUBLIC_VERCEL_ANALYTICS=1
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Deploy to Vercel
 
-## Learn More
+1. Push to a Git repo
+2. Import in Vercel, add env vars above
+3. Deploy
 
-To learn more about Next.js, take a look at the following resources:
+### Optional: Render FastAPI microservice
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- See `render/` folder for a minimal FastAPI agent proxy and Dockerfile (optional)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Scripts
 
-## Deploy on Vercel
+- `npm run dev` – start dev server
+- `npm run build` – production build
+- `npm run start` – start production server
+- `npm run lint` – run ESLint
+- `npm run test` – run Playwright smoke tests
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- App Router, MDX blog, code highlighting
+- shadcn/ui components and dark mode toggle
+- Three.js lightweight hero background (degrades on mobile)
+- Contact form with Resend or mock
+- AI assistant chat widget hitting `/api/assistant`
+- Sitemap and robots, next-seo defaults
+- Vercel Analytics and PostHog (env-gated)
