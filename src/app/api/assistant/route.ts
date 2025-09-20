@@ -104,10 +104,11 @@ ${proj}
 ${posts}
 
 ## Website Sections:
-- **Experience Page**: /experience - Education and full work history 
-- **Projects Page**: /projects - View all projects with detailed descriptions
-- **Contact Page**: /contact - Get in touch with Prabhakar
-- **Blog Page**: /blog - Technical articles and insights`;
+- **Experience Page**: https://prabhakar-elavala-portfolio.vercel.app/experience - Education and full work history 
+- **Projects Page**: https://prabhakar-elavala-portfolio.vercel.app/projects - View all projects with detailed descriptions
+- **Contact Page**: https://prabhakar-elavala-portfolio.vercel.app/contact - Get in touch with Prabhakar
+- **Blog Page**: https://prabhakar-elavala-portfolio.vercel.app/blog - Technical articles and insights
+- **About Page**: https://prabhakar-elavala-portfolio.vercel.app/about - Learn more about Prabhakar`;
 }
 
 function simpleMockReply(user: string): string {
@@ -118,10 +119,10 @@ function simpleMockReply(user: string): string {
       if (p.links.demo) links.push(`[Demo](${p.links.demo})`);
       const linkText = links.length > 0 ? `\n   Links: ${links.join(" | ")}` : "";
       return `• **${p.title}** – ${p.summary}\n   Tech: **${p.tech.join(", ")}**${linkText}`;
-    }).join("\n\n")}\n\n💡 *Visit the [Projects page](/projects) for more details!*`;
+    }).join("\n\n")}\n\n💡 *Visit the [Projects page](https://prabhakar-elavala-portfolio.vercel.app/projects) for more details!*`;
   }
   if (/experience|work|education|background/i.test(user)) {
-    return `## 🎓 Education & Experience\n\n**Currently pursuing:** ${education[0].role} @ ${education[0].org} (GPA: ${education[0].gpa})\n\n**Latest Role:** ${experience[0].role} @ ${experience[0].org}\n• ${experience[0].bullets.slice(0, 2).join("\n• ")}\n\n💡 *Visit the [Experience page](/experience) for complete education and work history!*`;
+    return `## 🎓 Education & Experience\n\n**Currently pursuing:** ${education[0].role} @ ${education[0].org} (GPA: ${education[0].gpa})\n\n**Latest Role:** ${experience[0].role} @ ${experience[0].org}\n• ${experience[0].bullets.slice(0, 2).join("\n• ")}\n\n💡 *Visit the [Experience page](https://prabhakar-elavala-portfolio.vercel.app/experience) for complete education and work history!*`;
   }
   return `## 👋 Hi there!\n\nI'm Prabhakar Elavala's AI assistant. I can help you learn about:\n\n• **Projects** – AI/ML projects and backend systems\n• **Experience** – Professional background in AI/ML engineering\n• **Skills** – Technical expertise and achievements\n• **Contact** – How to get in touch\n\n💡 *Try asking: "Tell me about your projects" or "What's your experience?"*`;
 }
@@ -150,6 +151,7 @@ FORMATTING GUIDELINES:
 - Use clear headings with "##" for sections
 - Use bullet points with "•" for lists
 - Include relevant links when mentioning projects or experiences
+- ALWAYS use full URLs (https://prabhakar-elavala-portfolio.vercel.app/page) when linking to portfolio pages
 - Keep responses well-structured and easy to scan
 - Use emojis sparingly but effectively (🚀, 💻, 🔧, etc.)
 - Format technical skills and technologies in **bold**
@@ -158,7 +160,7 @@ RESPONSE STYLE:
 - Be conversational but professional
 - Highlight key achievements and metrics
 - Include specific technologies and tools used
-- Reference portfolio sections (Projects, Experience, Contact)
+- Reference portfolio sections with full URLs (Projects, Experience, Contact, Blog, About)
 - Encourage exploration of the website
 
 ${contextText}`;
@@ -260,6 +262,7 @@ FORMATTING GUIDELINES:
 - Use clear headings with "##" for sections
 - Use bullet points with "•" for lists
 - Include relevant links when mentioning projects or experiences
+- ALWAYS use full URLs (https://prabhakar-elavala-portfolio.vercel.app/page) when linking to portfolio pages
 - Keep responses well-structured and easy to scan
 - Use emojis sparingly but effectively (🚀, 💻, 🔧, etc.)
 - Format technical skills and technologies in **bold**
@@ -268,7 +271,7 @@ RESPONSE STYLE:
 - Be conversational but professional
 - Highlight key achievements and metrics
 - Include specific technologies and tools used
-- Reference portfolio sections (Projects, Experience, Contact)
+- Reference portfolio sections with full URLs (Projects, Experience, Contact, Blog, About)
 - Encourage exploration of the website
 
 ${contextText}`;

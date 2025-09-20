@@ -2,10 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 
 const skills = [
-  "Machine Learning", "Deep Learning", "Python", "SQL", "TypeScript", "JavaScript",
-  "React", "Next.js", "FastAPI", "Node.js", "PostgreSQL", "MongoDB",
-  "AWS", "Azure", "Docker", "Git", "LangChain", "PyTorch", "TensorFlow",
-  "Pandas", "NumPy", "Scikit-learn", "MLOps", "Data Science", "AI/ML"
+  // Backend & APIs
+  "Python", "FastAPI", "Node.js", "Express.js", "REST APIs", "Webhooks", "OAuth 2.0", "GraphQL", "SQL",
+  
+  // Integrations & SaaS Tools
+  "HubSpot API", "Slack API", "Apollo API", "Salesforce", "Postman", "Redis",
+  
+  // AI/LLMs
+  "LangChain", "LangGraph", "OpenAI API", "Hugging Face", "Prompt Engineering", "RAG Pipelines", "Tool Calling", "Embeddings", "FAISS", "pgvector",
+  
+  // Data & Storage
+  "PostgreSQL", "MongoDB", "BigQuery", "Redis", "Data Warehousing", "dbt", "ETL/ELT", "Pandas", "NumPy", "PySpark",
+  
+  // Machine Learning & Deep Learning
+  "scikit-learn", "PyTorch", "TensorFlow", "XGBoost", "LightGBM", "MLflow", "ZenML",
+  
+  // Testing & Quality
+  "Unit Testing", "Integration Testing", "Playwright", "GitHub Actions", "Contract Testing",
+  
+  // Cloud & Deployment
+  "AWS Lambda", "S3", "CloudWatch", "Glue", "Redshift", "Azure", "Vercel", "Docker", "Kubernetes",
+  
+  // Frontend & Tools
+  "JavaScript", "TypeScript", "React", "Next.js", "Git", "GitHub", "VSCode", "PostHog", "OpenTelemetry"
 ];
 
 const interests = [
