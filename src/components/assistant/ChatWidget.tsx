@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import ReactMarkdown from "react-markdown";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -61,8 +62,45 @@ export function ChatWidget() {
           <div className="mt-4 flex-1 overflow-y-auto space-y-3">
             {messages.map((m, i) => (
               <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
-                <div className={`inline-block px-3 py-2 rounded-md ${m.role === "user" ? "bg-foreground text-background" : "glass"}`}>
-                  {m.content}
+                <div className={`inline-block px-3 py-2 rounded-md max-w-[85%] ${m.role === "user" ? "bg-foreground text-background" : "glass"}`}>
+                  {m.role === "assistant" ? (
+                    <div className="prose prose-sm dark:prose-invert max-w-none">
+                      <ReactMarkdown 
+                        components={{
+                        // Custom link component that opens in new tab
+                        a: ({ href, children }) => (
+                          <a 
+                            href={href} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:text-blue-600 underline"
+                          >
+                            {children}
+                          </a>
+                        ),
+                        // Custom styling for headers
+                        h2: ({ children }) => (
+                          <h2 className="text-lg font-semibold mt-3 mb-2 first:mt-0">{children}</h2>
+                        ),
+                        // Custom styling for paragraphs
+                        p: ({ children }) => (
+                          <p className="mb-2 last:mb-0">{children}</p>
+                        ),
+                        // Custom styling for lists
+                        ul: ({ children }) => (
+                          <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>
+                        ),
+                        li: ({ children }) => (
+                          <li className="text-sm">{children}</li>
+                        ),
+                      }}
+                        >
+                          {m.content}
+                        </ReactMarkdown>
+                      </div>
+                  ) : (
+                    m.content
+                  )}
                 </div>
               </div>
             ))}

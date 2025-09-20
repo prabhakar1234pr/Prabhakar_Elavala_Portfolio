@@ -62,11 +62,20 @@ export async function POST(req: Request) {
 
 function buildContext(): string {
   const proj = projects
-    .map((p) => `- ${p.title}: ${p.summary} [tech: ${p.tech.join(", ")}]`)
+    .map((p) => {
+      const links = [];
+      if (p.links.github) links.push(`GitHub: ${p.links.github}`);
+      if (p.links.demo) links.push(`Demo: ${p.links.demo}`);
+      const linkText = links.length > 0 ? ` | Links: ${links.join(", ")}` : "";
+      const metrics = p.highlightMetrics ? ` | Metrics: ${p.highlightMetrics.join(", ")}` : "";
+      return `- **${p.title}**: ${p.summary} | Tech: **${p.tech.join(", ")}**${linkText}${metrics}`;
+    })
     .join("\n");
+  
   const exp = experience
-    .map((e) => `- ${e.role} @ ${e.org} (${e.dates}): ${e.bullets.join("; ")}`)
+    .map((e) => `- **${e.role}** @ **${e.org}** (${e.dates}): ${e.bullets.join("; ")}`)
     .join("\n");
+  
   const blogDir = path.join(process.cwd(), "src", "content", "blog");
   const posts = fs.existsSync(blogDir)
     ? fs
@@ -74,18 +83,40 @@ function buildContext(): string {
         .filter((f) => f.endsWith(".mdx"))
         .map((f) => `- ${f.replace(/\.mdx$/, "")}`)
         .join("\n")
-    : "";
-  return `You are the portfolio assistant for Prabhakar Elavala. Projects:\n${proj}\n\nExperience:\n${exp}\n\nBlog posts:\n${posts}`;
+    : "- hello-world";
+  
+  return `You are the portfolio assistant for Prabhakar Elavala, an AI/ML Engineer specializing in backend services, SaaS integrations, and LLM automation.
+
+## Projects:
+${proj}
+
+## Experience:
+${exp}
+
+## Blog Posts:
+${posts}
+
+## Website Sections:
+- **Projects Page**: /projects - View all projects with detailed descriptions
+- **Experience Page**: /experience - Full work history and achievements  
+- **Contact Page**: /contact - Get in touch with Prabhakar
+- **Blog Page**: /blog - Technical articles and insights`;
 }
 
 function simpleMockReply(user: string, context: string): string {
   if (/project|portfolio/i.test(user)) {
-    return `Here are a few highlighted projects:\n${projects.slice(0, 3).map((p) => `• ${p.title} – ${p.summary}`).join("\n")}`;
+    return `## 🚀 Featured Projects\n\n${projects.slice(0, 3).map((p) => {
+      const links = [];
+      if (p.links.github) links.push(`[GitHub](${p.links.github})`);
+      if (p.links.demo) links.push(`[Demo](${p.links.demo})`);
+      const linkText = links.length > 0 ? `\n   Links: ${links.join(" | ")}` : "";
+      return `• **${p.title}** – ${p.summary}\n   Tech: **${p.tech.join(", ")}**${linkText}`;
+    }).join("\n\n")}\n\n💡 *Visit the [Projects page](/projects) for more details!*`;
   }
   if (/experience|work/i.test(user)) {
-    return `Recent experience includes ${experience[0].org} (${experience[0].role}).`;
+    return `## 💼 Current Role\n\n**${experience[0].role}** @ **${experience[0].org}** (${experience[0].dates})\n\n• ${experience[0].bullets.join("\n• ")}\n\n💡 *Check out the [Experience page](/experience) for my full work history!*`;
   }
-  return `Context summary:\n${context}\n\nAsk about projects, experience, or blog posts.`;
+  return `## 👋 Hi there!\n\nI'm Prabhakar Elavala's AI assistant. I can help you learn about:\n\n• **Projects** – AI/ML projects and backend systems\n• **Experience** – Professional background in AI/ML engineering\n• **Skills** – Technical expertise and achievements\n• **Contact** – How to get in touch\n\n💡 *Try asking: "Tell me about your projects" or "What's your experience?"*`;
 }
 
 async function callAzure({
@@ -106,7 +137,24 @@ async function callAzure({
   // Prefer Chat Completions unless explicitly opting into Responses API
   // Some Azure regions/models don't support `responses` yet → 404.
   const useResponses = (process.env.AZURE_OPENAI_USE_RESPONSES === "1") || /4\.1/i.test(deployment);
-  const system = `You are an expert assistant for a personal portfolio website. Be concise, helpful, and reference site sections.\n${contextText}`;
+  const system = `You are Prabhakar Elavala's AI assistant for his portfolio website. You are knowledgeable, professional, and engaging.
+
+FORMATTING GUIDELINES:
+- Use clear headings with "##" for sections
+- Use bullet points with "•" for lists
+- Include relevant links when mentioning projects or experiences
+- Keep responses well-structured and easy to scan
+- Use emojis sparingly but effectively (🚀, 💻, 🔧, etc.)
+- Format technical skills and technologies in **bold**
+
+RESPONSE STYLE:
+- Be conversational but professional
+- Highlight key achievements and metrics
+- Include specific technologies and tools used
+- Reference portfolio sections (Projects, Experience, Contact)
+- Encourage exploration of the website
+
+${contextText}`;
 
   if (useResponses) {
     const url = `${endpoint}/openai/deployments/${deployment}/responses?api-version=${apiVersion}`;
@@ -199,7 +247,24 @@ async function callGroq({
   messages: Message[];
   contextText: string;
 }): Promise<string> {
-  const system = `You are an expert assistant for a personal portfolio website. Be concise, helpful, and reference site sections.\n${contextText}`;
+  const system = `You are Prabhakar Elavala's AI assistant for his portfolio website. You are knowledgeable, professional, and engaging.
+
+FORMATTING GUIDELINES:
+- Use clear headings with "##" for sections
+- Use bullet points with "•" for lists
+- Include relevant links when mentioning projects or experiences
+- Keep responses well-structured and easy to scan
+- Use emojis sparingly but effectively (🚀, 💻, 🔧, etc.)
+- Format technical skills and technologies in **bold**
+
+RESPONSE STYLE:
+- Be conversational but professional
+- Highlight key achievements and metrics
+- Include specific technologies and tools used
+- Reference portfolio sections (Projects, Experience, Contact)
+- Encourage exploration of the website
+
+${contextText}`;
   const url = "https://api.groq.com/openai/v1/chat/completions";
   const res = await fetch(url, {
     method: "POST",
