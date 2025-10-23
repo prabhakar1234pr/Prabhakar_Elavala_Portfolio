@@ -12,7 +12,8 @@ export const projects: Project[] = [
     summary: "🚀 Transform GitHub repositories into personalized learning journeys with AI-powered guidance and context-aware chat assistance.",
     tech: ["Next.js", "FastAPI", "PostgreSQL", "Azure OpenAI", "TypeScript"],
     links: { 
-      github: "https://github.com/prabhakar1234pr/gitguide_frontend"
+      github: "https://github.com/prabhakar1234pr/gitguide_frontend",
+      demo: "https://gitguidefrontend.vercel.app/"
     },
     highlightMetrics: ["AI-powered learning paths", "Context-aware chat", "Full-stack architecture"],
   },

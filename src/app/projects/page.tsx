@@ -2,8 +2,61 @@ import { projects } from "@/data/projects";
 import { projectReadmes } from "@/data/project-readmes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import Link from "next/link";
 import { DeepDiveDialog } from "./DeepDiveDialog";
+import { useState } from "react";
+
+"use client";
+
+// Cold Start Warning Component for GitGuide
+function ColdStartWarning({ demoUrl }: { demoUrl: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <button className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 underline transition-colors">
+          <span>🚀</span> Live Demo
+        </button>
+      </DialogTrigger>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <span>⏰</span> Cold Start Notice
+          </DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4">
+          <p className="text-muted-foreground">
+            This demo uses free-tier backend servers, which means there will be a <strong>~2 minute cold start</strong> the first time you visit.
+          </p>
+          <p className="text-sm text-yellow-400 bg-yellow-400/10 border border-yellow-400/20 rounded-lg p-3">
+            ⚡ <strong>Please be patient</strong> - the app will load normally after the initial startup time.
+          </p>
+          <div className="flex gap-3 pt-2">
+            <Button
+              onClick={() => {
+                window.open(demoUrl, '_blank');
+                setIsOpen(false);
+              }}
+              className="flex-1 bg-green-600 hover:bg-green-700"
+            >
+              Continue to Demo
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setIsOpen(false)}
+              className="flex-1"
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 export default function ProjectsPage() {
   return (
@@ -81,13 +134,17 @@ export default function ProjectsPage() {
                     </Link>
                   )}
                   {project.links.demo && (
-                    <Link 
-                      href={project.links.demo} 
-                      target="_blank"
-                      className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 underline transition-colors"
-                    >
-                      <span>🚀</span> Live Demo
-                    </Link>
+                    project.title === "GitGuide" ? (
+                      <ColdStartWarning demoUrl={project.links.demo} />
+                    ) : (
+                      <Link 
+                        href={project.links.demo} 
+                        target="_blank"
+                        className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 underline transition-colors"
+                      >
+                        <span>🚀</span> Live Demo
+                      </Link>
+                    )
                   )}
                   
                   {/* Deep Dive Button */}
