@@ -1,3 +1,5 @@
+"use client";
+
 import { projects } from "@/data/projects";
 import { projectReadmes } from "@/data/project-readmes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,8 +9,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import Link from "next/link";
 import { DeepDiveDialog } from "./DeepDiveDialog";
 import { useState } from "react";
-
-"use client";
 
 // Cold Start Warning Component for GitGuide
 function ColdStartWarning({ demoUrl }: { demoUrl: string }) {
