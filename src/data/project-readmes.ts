@@ -4,6 +4,159 @@ export interface ProjectReadme {
 }
 
 export const projectReadmes: { [key: string]: ProjectReadme } = {
+  "Job Search MCP Server": {
+    projectTitle: "Job Search MCP Server - AI-Powered Job Search Assistant",
+    content: `# Job Search MCP Server
+
+🔍 **MCP server for searching AI/ML jobs across multiple job boards with AI-powered resume tailoring and referral assistance.**
+
+## Overview
+
+Job Search MCP Server is a Model Context Protocol (MCP) server that integrates with Claude Desktop to provide comprehensive job search capabilities. It searches across multiple platforms (Greenhouse, Lever, and Adzuna), analyzes job postings, and helps you tailor your application materials and find referrals.
+
+## Features
+
+- **🏢 Greenhouse Search**: Search jobs on Greenhouse boards across multiple AI/ML companies
+- **📋 Lever Search**: Search jobs on Lever boards across multiple companies  
+- **🌐 Adzuna Search**: Search across all major job boards (Indeed, Monster, company sites, etc.)
+- **📄 Job Details**: Fetch full job descriptions from any URL
+- **✨ Resume Tailoring**: AI-powered analysis that extracts job requirements and suggests how to tailor your resume
+- **🤝 Referral Helper**: Generate personalized outreach messages and strategies for getting referrals
+
+## Installation
+
+This project uses \`uv\` as the package manager:
+
+\`\`\`bash
+# Install uv if you haven't already
+pip install uv
+
+# Initialize and sync dependencies
+uv sync
+\`\`\`
+
+## Configuration
+
+### Get Adzuna API Credentials (Free)
+1. Sign up at https://developer.adzuna.com/
+2. Get your App ID and API Key
+3. Add them to your Claude Desktop configuration
+
+### Adding to Claude Desktop
+
+Add this configuration to your Claude Desktop config file:
+
+**Windows**: \`%APPDATA%\\Claude\\claude_desktop_config.json\`  
+**macOS**: \`~/Library/Application Support/Claude/claude_desktop_config.json\`
+
+\`\`\`json
+{
+  "mcpServers": {
+    "job-search-mcp": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "mcp_server.server"],
+      "cwd": "C:\\\\apply_jobs",
+      "env": {
+        "ADZUNA_APP_ID": "your_app_id_here",
+        "ADZUNA_API_KEY": "your_api_key_here"
+      }
+    }
+  }
+}
+\`\`\`
+
+After configuration, restart Claude Desktop.
+
+## MCP Tools
+
+### search_greenhouse_jobs
+Search for jobs on Greenhouse job boards across multiple AI/ML companies.
+
+**Parameters:**
+- \`keywords\` (required): Job title keywords (e.g., "AI Engineer", "Machine Learning")
+- \`location\` (optional): Location filter (e.g., "San Francisco", "Remote")
+- \`companies\` (optional): List of company board names to search
+
+**Default companies:** anthropic, scale, perplexity, cohere, wandb, huggingface, replicate, modal
+
+### search_lever_jobs
+Search for jobs on Lever job boards across multiple companies.
+
+**Parameters:**
+- \`keywords\` (required): Job title keywords
+- \`location\` (optional): Location filter
+- \`companies\` (optional): List of company names to search
+
+**Default companies:** cohere, together, runwayml, pinecone
+
+### search_adzuna_jobs
+Search across all major job boards using Adzuna aggregator (searches Indeed, Monster, company sites, etc.).
+
+**Parameters:**
+- \`keywords\` (required): Job search query
+- \`location\` (optional): Location
+- \`results_per_page\` (optional): Number of results (default 20, max 50)
+- \`salary_min\` (optional): Minimum salary filter (annual)
+- \`max_days_old\` (optional): Only jobs posted within this many days (default 7)
+
+### tailor_resume_for_job
+Analyze a job posting and get personalized recommendations for tailoring your resume.
+
+**Parameters:**
+- \`job_url\` (required): URL of the job posting
+- \`your_skills\` (required): Array of your skills
+- \`your_experience_years\` (optional): Your years of relevant experience
+
+**What it does:**
+- Extracts required skills and keywords from job description
+- Matches your skills against job requirements
+- Identifies skills you should highlight
+- Suggests keywords to add to your resume
+- Provides specific resume tailoring recommendations
+
+### find_referrals
+Generate personalized outreach message templates for requesting referrals.
+
+**Parameters:**
+- \`company_name\` (required): Name of the company
+- \`job_title\` (required): Job title you're applying for
+- \`your_background\` (required): Brief description of your background
+
+**What it provides:**
+- Step-by-step strategy for finding connections on LinkedIn
+- 4 different message templates (for different scenarios)
+- Best practices and timing tips
+- Pro tips and red flags to avoid
+- Action items checklist
+
+## Example Usage with Claude
+
+Once configured, you can ask Claude:
+
+**Job Search:**
+- "Search for AI Engineer jobs at Anthropic and OpenAI"
+- "Find Machine Learning jobs in San Francisco with salary over $150k"
+- "Show me remote Data Scientist positions posted in the last 3 days"
+
+**Resume Tailoring:**
+- "Analyze this job posting and tell me how to tailor my resume: [URL]"
+- "What skills should I highlight for this AI Engineer role?"
+- "Compare my skills [Python, ML, AWS] against this job: [URL]"
+
+**Getting Referrals:**
+- "Help me find referrals at Anthropic for the AI Engineer position"
+- "Generate an outreach message for someone at OpenAI"
+- "I want to reach out to John Doe at Google for a referral"
+
+## Project Highlights
+
+- **Claude Desktop Integration**: Seamless MCP server integration for AI-powered job search
+- **Multi-Platform Search**: Combines Greenhouse, Lever, and Adzuna APIs for comprehensive coverage
+- **AI-Powered Resume Tailoring**: Automatically analyzes job requirements and provides personalized suggestions
+- **Referral Assistance**: Generates customized outreach messages and networking strategies
+- **Real-Time Job Data**: Searches thousands of job boards simultaneously through Adzuna aggregation
+- **Professional Automation**: Streamlines the entire job search and application process`
+  },
   "GitGuide": {
     projectTitle: "GitGuide - AI-Powered Learning Platform",
     content: `# GitGuide

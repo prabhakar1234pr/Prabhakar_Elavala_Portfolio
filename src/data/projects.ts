@@ -8,6 +8,15 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Job Search MCP Server",
+    summary: "🔍 MCP server for Claude Desktop that searches AI/ML jobs across multiple platforms with AI-powered resume tailoring and referral assistance.",
+    tech: ["Python", "MCP", "Claude AI", "Adzuna API", "Greenhouse API", "Lever API"],
+    links: { 
+      github: "https://github.com/prabhakar1234pr/Applying-Jobs-MCP-server"
+    },
+    highlightMetrics: ["Multi-platform job search", "AI resume tailoring", "Referral message generator"],
+  },
+  {
     title: "GitGuide",
     summary: "🚀 Transform GitHub repositories into personalized learning journeys with AI-powered guidance and context-aware chat assistance.",
     tech: ["Next.js", "FastAPI", "PostgreSQL", "Azure OpenAI", "TypeScript"],

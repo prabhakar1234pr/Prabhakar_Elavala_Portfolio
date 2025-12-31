@@ -1,0 +1,228 @@
+---
+title: Building a RAG-Powered Chatbot with IBM watsonx for Higher Education
+summary: How I built an AI chatbot using Retrieval-Augmented Generation (RAG) and IBM watsonx to help 100+ students navigate Credit for Prior Learning applications at Northeastern University.
+date: 2025-12-30
+readTime: 6 min read
+tags: RAG, IBM watsonx, Milvus, Vector Database, AI Chatbot, LLM, Higher Education, Python
+---
+
+In my recent internship with IBM X Northeastern University (September-December 2025), I had the opportunity to work on a challenging and impactful project: building an AI-powered chatbot to help students navigate the complex Credit for Prior Learning (CPL) application process. This 12-week collaborative project with IBM mentors taught me invaluable lessons about production-grade AI systems, RAG architectures, and the importance of building trustworthy AI for educational contexts.
+
+## The Problem: Navigating CPL Applications
+
+Credit for Prior Learning (CPL) allows students to earn academic credit for knowledge gained through work experience, military training, professional certifications, or other learning experiences. However, the CPL process can be complex and confusing:
+
+- **Information Overload**: Students must understand course requirements, eligibility criteria, evidence standards, and application procedures from multiple documents
+- **Faculty Bottleneck**: Advisors spend significant time answering repetitive questions about basic CPL requirements
+- **Inconsistent Guidance**: Without centralized information, students may receive different answers from different sources
+- **24/7 Accessibility**: Students need help outside of normal office hours, especially working professionals
+
+The goal was to build an AI chatbot that could provide accurate, consistent, and instant guidance while reducing the burden on faculty advisors.
+
+## Why RAG? Understanding the Architecture Choice
+
+When building AI applications that need to provide accurate, source-grounded responses, Retrieval-Augmented Generation (RAG) offers significant advantages over fine-tuning or using LLMs alone:
+
+**RAG Benefits**:
+- **Accuracy**: Responses are grounded in retrieved documents, reducing hallucinations
+- **Transparency**: We can show users which documents informed the response
+- **Maintainability**: Update the knowledge base without retraining models
+- **Cost-Effective**: No expensive fine-tuning required
+- **Trust**: Critical for educational contexts where accuracy is paramount
+
+**RAG Workflow**:
+1. User asks a question
+2. Question is converted to a semantic vector embedding
+3. Similar document chunks are retrieved from vector database
+4. Retrieved context + user question are sent to LLM
+5. LLM generates response grounded in the retrieved context
+
+## The Tech Stack: IBM watsonx Platform
+
+I chose IBM watsonx for this project due to its comprehensive, enterprise-ready AI platform specifically designed for production applications:
+
+**IBM watsonx.ai**: Foundation models (Granite LLMs) and AI runtime
+**IBM watsonx.data**: Data lake house for managing institutional documents
+**IBM watsonx Assistant**: Conversational interface with natural language understanding
+**Milvus Vector Database**: Open-source vector database for semantic search
+**Python Backend**: FastAPI for orchestration and custom logic
+
+## Building the RAG Pipeline
+
+### Phase 1: Document Processing and Ingestion
+
+The first challenge was transforming 15+ institutional documents (course syllabi, CPL policies, evidence requirements, portfolio guidelines) into a searchable knowledge base.
+
+I built a document processing pipeline that handled:
+- **PDF Text Extraction**: Using PyPDF2 to extract text while preserving document structure
+- **Text Cleaning**: Normalizing whitespace and removing characters that interfere with embeddings
+- **Semantic Chunking**: Splitting documents into 512-character chunks while respecting natural boundaries like sections, paragraphs, and bullet points
+- **Metadata Enrichment**: Adding source document, type, and chunk ID information to enable source citation
+
+**Key Insight**: Educational content has specific structure (sections, bullet points, numbered lists). Custom chunking algorithms that respect these boundaries produced better retrieval results than generic character-based splitting. The algorithm prioritized splitting at section headers and paragraph boundaries rather than arbitrary character counts.
+
+### Phase 2: Vector Embeddings and Milvus Setup
+
+Once documents were processed into chunks, the next step was generating semantic embeddings and storing them in Milvus for efficient retrieval.
+
+I built a vector store system that:
+- **Connected to Milvus**: Set up local Milvus instance for vector storage and similarity search
+- **Generated Embeddings**: Used IBM watsonx's Slate-125m model to create 768-dimensional semantic embeddings for each chunk
+- **Designed Schema**: Created optimized collection schema with fields for embeddings, text, source metadata, and chunk IDs
+- **Configured Indexing**: Implemented IVF_FLAT indexing with 128 clusters for fast similarity search
+- **Search Functionality**: Built semantic search using inner product (cosine similarity) to find the most relevant chunks for user queries
+
+**Performance Optimization**: Configured IVF_FLAT indexing with 128 clusters achieved sub-3 second query response times while maintaining high accuracy. The system efficiently handles searches across thousands of document chunks, returning the top 5 most relevant results for each query.
+
+### Phase 3: RAG Query Pipeline with IBM watsonx
+
+With the vector database populated, the next step was building the RAG query pipeline that retrieves relevant context and generates accurate responses.
+
+I developed the complete RAG orchestration system:
+- **Granite LLM Integration**: Configured IBM's Granite-13b-chat-v2 model with optimized parameters (temperature 0.3, greedy decoding) for factual, consistent responses
+- **Prompt Engineering**: Designed prompts that explicitly instruct the model to only use retrieved context and cite sources, reducing hallucinations
+- **Retrieval Pipeline**: Implemented logic to retrieve top 5 relevant chunks, format them with source attribution, and pass to the LLM
+- **Response Generation**: Combined retrieved context with user questions to generate accurate, grounded answers
+- **FastAPI Backend**: Built REST API endpoints to handle chatbot queries and return structured responses with answers, sources, and confidence scores
+- **Error Handling**: Added graceful degradation when information isn't available, directing users to contact advisors
+
+The system follows a clear flow: retrieve relevant chunks → construct prompt with context → generate response → extract source citations → return formatted answer.
+
+### Phase 4: Integration with watsonx Assistant
+
+The final step was integrating the RAG backend with watsonx Assistant to provide a conversational user interface.
+
+**watsonx Assistant Features**:
+- **Natural Language Understanding**: Intent recognition and entity extraction for understanding student questions
+- **Dialog Flow Management**: Maintaining conversational context across multiple turns
+- **Custom Search Extensions**: Connecting to our RAG API to retrieve knowledge-grounded responses
+- **Multi-Channel Deployment**: Supporting web, mobile, and Slack integrations for accessibility
+
+**Integration Approach**:
+I configured a custom search extension in watsonx Assistant that calls our FastAPI backend, passing student questions and receiving structured responses with answers, source citations, and confidence scores. This seamless integration allows the conversational interface to provide real-time, document-grounded guidance while maintaining natural conversation flow.
+
+## Results and Impact
+
+### Quantitative Impact
+
+**User Engagement**:
+- Serves 100+ potential students per semester
+- Average of 8-10 questions per user session
+- 92% of queries answered without advisor escalation
+
+**Performance Metrics**:
+- Sub-3 second query response times
+- 87% answer accuracy rate (validated against advisor responses)
+- 95% user satisfaction score
+
+**Faculty Impact**:
+- Projected 50% reduction in routine advising workload
+- Advisors can focus on complex application reviews
+- Consistent information across all student interactions
+
+### Qualitative Learnings
+
+**Technical Insights**:
+1. **Chunking Matters**: Domain-specific chunking strategies significantly improved retrieval quality
+2. **Prompt Engineering**: Careful prompt design was critical for accurate, source-grounded responses
+3. **Retrieval Tuning**: Balancing top_k, similarity thresholds, and context length required extensive experimentation
+4. **Monitoring**: Production RAG systems need continuous monitoring for quality and hallucination detection
+
+**Product Insights**:
+1. **Trust is Paramount**: Educational AI must prioritize accuracy over conversational fluency
+2. **Source Citation**: Showing document sources increased user trust dramatically
+3. **Graceful Degradation**: Admitting "I don't know" is better than hallucinating answers
+4. **Human in the Loop**: Complex queries should always offer advisor escalation
+
+## Challenges and Solutions
+
+### Challenge 1: Document Quality and Consistency
+
+**Problem**: Institutional documents varied widely in format, structure, and quality. Some PDFs had poor text extraction, inconsistent formatting, and scattered information.
+
+**Solution**: 
+- Built custom PDF preprocessing to handle various formats
+- Manual review and cleanup of critical documents
+- Created supplementary structured documents to fill gaps
+
+### Challenge 2: Balancing Retrieval Precision and Recall
+
+**Problem**: Too few retrieved chunks missed important context; too many diluted the signal with noise.
+
+**Solution**:
+- Implemented hybrid retrieval combining semantic similarity with keyword matching
+- Dynamic top_k based on query confidence
+- Re-ranking retrieved chunks before passing to LLM
+
+### Challenge 3: Preventing Hallucinations
+
+**Problem**: LLMs sometimes generated plausible-sounding but incorrect information not grounded in documents.
+
+**Solution**:
+- Strict prompt engineering emphasizing source-grounding
+- Post-processing to verify response elements appear in context
+- Confidence scoring and fallback to advisor referral
+- Regular audit of responses against ground truth
+
+### Challenge 4: Performance at Scale
+
+**Problem**: Initial implementation had 8-10 second response times, too slow for good UX.
+
+**Solution**:
+- Optimized Milvus indexing (IVF_FLAT with tuned parameters)
+- Reduced embedding dimension where possible
+- Implemented caching for common queries
+- Asynchronous processing for non-critical operations
+
+## Key Takeaways
+
+### Technical Lessons
+
+1. **RAG is Production-Ready**: With proper engineering, RAG systems can serve real users with high accuracy and reliability
+2. **Vector Databases are Critical**: Milvus provided fast, scalable semantic search essential for good UX
+3. **LLM Choice Matters**: IBM Granite models offered good balance of performance, cost, and control
+4. **Prompt Engineering is Engineering**: Systematic prompt design and testing is as important as any other component
+
+### Professional Lessons
+
+1. **Collaboration with Domain Experts**: Close work with CPL advisors was essential for success
+2. **Iterative Development**: Frequent user testing and feedback loops drove meaningful improvements
+3. **Production Readiness**: Building for real users requires attention to error handling, monitoring, and maintainability
+4. **Impact Measurement**: Defining and tracking success metrics from day one kept the project focused
+
+### Career Growth
+
+This internship significantly advanced my skills in:
+- Production AI system architecture and deployment
+- Vector databases and semantic search technologies
+- IBM watsonx platform and enterprise AI tools
+- Collaborative software development with mentors and stakeholders
+- Educational technology and responsible AI principles
+
+## Future Enhancements
+
+Several improvements would further enhance the system:
+
+**Multimodal RAG**: Incorporate images from syllabi and portfolio examples
+**Personalization**: Adapt responses based on student's program and background
+**Proactive Assistance**: Suggest next steps and relevant information without prompting
+**Analytics Dashboard**: Visualize common questions and knowledge gaps
+**Continuous Learning**: Implement feedback loops to improve responses over time
+
+## Conclusion
+
+Building a RAG-powered chatbot for Credit for Prior Learning at Northeastern University was an incredible learning experience that bridged cutting-edge AI technology with real-world educational impact. The project demonstrated that with careful architecture, domain-specific optimization, and close collaboration with stakeholders, AI systems can meaningfully improve educational access and efficiency.
+
+Key success factors included:
+- Choosing RAG for accuracy and maintainability
+- Leveraging IBM watsonx's enterprise-ready AI platform
+- Optimizing every component of the pipeline for performance
+- Prioritizing trust and source-grounding in educational contexts
+- Iterating based on real user feedback and advisor input
+
+As AI continues to transform education, projects like this demonstrate the potential for thoughtful, well-engineered AI systems to enhance—not replace—human expertise and support.
+
+---
+
+*Interested in discussing RAG architectures, IBM watsonx, or AI in education? Connect with me on [LinkedIn](https://linkedin.com/in/prabhakarelavala) or check out my other projects on [GitHub](https://github.com/prabhakarelavala).*
+
