@@ -46,13 +46,13 @@ export const experience: ExperienceItem[] = [
     location: "Boston, MA (On-site)",
     type: "internship",
     bullets: [
-      "Led data architecture and management for an AI-powered chatbot helping 100+ students per semester navigate Credit for Prior Learning (CPL) applications in a 12-week collaborative project with IBM mentors",
-      "Architected and implemented complete RAG (Retrieval-Augmented Generation) pipeline using IBM watsonx platform, transforming 15+ institutional documents into an intelligent knowledge base with Milvus vector database",
-      "Built end-to-end document processing pipeline in Python integrating watsonx.ai SDK, PyPDF2, and custom text chunking algorithms optimized for educational content",
-      "Configured Milvus vector database with IVF_FLAT indexing and 768-dimensional semantic embeddings, achieving sub-3 second query response times through performance optimization",
-      "Integrated watsonx Assistant conversational interface with Milvus through custom search extensions, enabling seamless real-time document retrieval during student conversations",
-      "Implemented semantic search capabilities that automated initial CPL screening, with projected 50% reduction in faculty advising workload while providing 24/7 student support",
-      "Technologies: IBM watsonx (ai, data, Assistant), Milvus Vector Database, Python, RAG Architecture, Semantic Search, LLM Integration, Granite Models, FastAPI, PyPDF2"
+      "Led 12-week collaborative project with IBM mentors to build AI-powered chatbot serving 100+ students for Credit for Prior Learning (CPL) applications",
+      "Architected complete RAG pipeline using IBM watsonx platform, transforming 15+ institutional documents into intelligent knowledge base with Milvus vector database",
+      "Built Python document processing pipeline integrating watsonx.ai SDK, PyPDF2, and custom text chunking algorithms for educational content",
+      "Configured Milvus with IVF_FLAT indexing and 768-dimensional embeddings, achieving sub-3 second query response times",
+      "Integrated watsonx Assistant with Milvus via custom search extensions for real-time document retrieval",
+      "Automated CPL screening with semantic search, projecting 50% reduction in faculty workload while providing 24/7 student support",
+      "Tech Stack: IBM watsonx • Milvus Vector DB • Python • RAG Architecture • Semantic Search • Granite LLMs • FastAPI"
     ],
   },
   {
