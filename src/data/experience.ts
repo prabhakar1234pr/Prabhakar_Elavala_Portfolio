@@ -40,6 +40,22 @@ export const education: ExperienceItem[] = [
 // Professional Experience & Internships
 export const experience: ExperienceItem[] = [
   {
+    role: "AI and Data Intern",
+    org: "IBM X Northeastern University",
+    dates: "Sep 2025 - Dec 2025",
+    location: "Boston, MA (On-site)",
+    type: "internship",
+    bullets: [
+      "Led data architecture and management for an AI-powered chatbot helping 100+ students per semester navigate Credit for Prior Learning (CPL) applications in a 12-week collaborative project with IBM mentors",
+      "Architected and implemented complete RAG (Retrieval-Augmented Generation) pipeline using IBM watsonx platform, transforming 15+ institutional documents into an intelligent knowledge base with Milvus vector database",
+      "Built end-to-end document processing pipeline in Python integrating watsonx.ai SDK, PyPDF2, and custom text chunking algorithms optimized for educational content",
+      "Configured Milvus vector database with IVF_FLAT indexing and 768-dimensional semantic embeddings, achieving sub-3 second query response times through performance optimization",
+      "Integrated watsonx Assistant conversational interface with Milvus through custom search extensions, enabling seamless real-time document retrieval during student conversations",
+      "Implemented semantic search capabilities that automated initial CPL screening, with projected 50% reduction in faculty advising workload while providing 24/7 student support",
+      "Technologies: IBM watsonx (ai, data, Assistant), Milvus Vector Database, Python, RAG Architecture, Semantic Search, LLM Integration, Granite Models, FastAPI, PyPDF2"
+    ],
+  },
+  {
     role: "Data Science Intern",
     org: "CommandL",
     dates: "Apr 2025 - Jul 2025",
