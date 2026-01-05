@@ -648,5 +648,114 @@ AZURE_IMAGE_DEPLOYMENT=dalle-3
 - **Interactive Interface**: User-friendly Streamlit web application
 - **Multi-modal AI**: Combines vision, text processing, and image generation
 - **Creative Tool**: Transforms natural hand gestures into digital content`
+  },
+
+  "SubsGen": {
+    projectTitle: "SubsGen - Instagram Subtitle Generator",
+    content: `# SubsGen - Instagram Subtitle Generator
+
+🎬 **Generate viral Instagram-style subtitles for your talking head videos. Free, fast, and trendy with word-by-word highlighting (Hormozi/CapCut style).**
+
+**Live Demo:** [https://subsgen-frontend.vercel.app/](https://subsgen-frontend.vercel.app/)
+
+## ✨ Features
+
+- **🎬 Word-by-Word Highlighting** - Viral Hormozi/CapCut style subtitles
+- **🎨 6 Unique Styles** - Choose from Hormozi, Minimal, Neon, Fire, Karaoke, Purple
+- **🤖 AI-Powered** - Automatic speech recognition using Whisper AI
+- **⚡ Fast Processing** - Optimized for speed with faster-whisper
+- **🆓 100% Free** - No watermarks, no sign-up required
+- **📱 Mobile Friendly** - Works on all devices
+
+## 🎨 Subtitle Styles
+
+| Style | Description | Best For |
+|-------|-------------|----------|
+| **Hormozi** | Yellow highlights on white text | Business, motivational content |
+| **Minimal** | Clean white text | Professional, corporate |
+| **Neon Glow** | Cyan/magenta glowing effect | Gaming, tech content |
+| **Fire** | Orange/red highlights | High energy, sports |
+| **Karaoke** | Green word highlights | Music, entertainment |
+| **Purple Vibes** | Purple aesthetic | Lifestyle, beauty |
+
+## 🏗️ Tech Stack
+
+| Component | Technology |
+|-----------|------------|
+| Backend | FastAPI + Python |
+| Speech-to-Text | OpenAI Whisper (base model) |
+| Video Processing | FFmpeg |
+| Frontend | Next.js 14 + Tailwind CSS |
+| Backend Hosting | Hugging Face Spaces (Docker) |
+| Frontend Hosting | Vercel |
+
+## 📁 Project Structure
+
+\`\`\`
+instagram-talkinghead-subs/
+├── backend/                    # FastAPI backend
+│   ├── main.py                 # API entry point
+│   ├── routers/video.py        # Video processing endpoint
+│   ├── services/
+│   │   ├── transcription.py    # Whisper transcription
+│   │   └── subtitle.py         # ASS subtitle generation
+│   ├── utils/file_handler.py   # Temp file management
+│   ├── Dockerfile              # HF Spaces config
+│   └── pyproject.toml          # Python dependencies
+├── frontend/                   # Next.js frontend
+│   ├── app/                    # App router pages
+│   ├── components/             # React components
+│   └── package.json
+└── README.md
+\`\`\`
+
+## 🎯 How It Works
+
+1. **Upload** - User uploads a video file (MP4, MOV, WebM)
+2. **Style Selection** - Choose from 6 subtitle styles
+3. **Processing** - Backend transcribes audio and generates subtitles
+4. **Download** - Get the video with burned-in subtitles
+
+## 🔌 API Integration
+
+The frontend communicates with a FastAPI backend hosted on Hugging Face Spaces.
+
+### Endpoint
+\`\`\`
+POST /api/process
+\`\`\`
+
+### Request
+\`\`\`javascript
+const formData = new FormData();
+formData.append("video", file);
+formData.append("style", "hormozi");
+
+const response = await fetch(\`\${API_URL}/api/process\`, {
+  method: "POST",
+  body: formData,
+});
+\`\`\`
+
+## ⚙️ Configuration
+
+### Supported Video Formats
+- MP4 (.mp4)
+- QuickTime (.mov)
+- WebM (.webm)
+- AVI (.avi)
+
+### Limits
+- **Max file size**: 100MB
+- **Max duration**: ~3 minutes (recommended)
+- **Language**: English only
+
+## Project Highlights
+
+- **Full-Stack Architecture**: Next.js frontend with FastAPI backend
+- **AI-Powered Transcription**: OpenAI Whisper for accurate speech recognition
+- **Multiple Styles**: 6 trendy subtitle styles for different content types
+- **Production Deployment**: Backend on HF Spaces, frontend on Vercel
+- **Modern UI**: Responsive design with drag-and-drop upload`
   }
 };

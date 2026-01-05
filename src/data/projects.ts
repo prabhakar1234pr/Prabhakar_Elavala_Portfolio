@@ -84,6 +84,16 @@ export const projects: Project[] = [
     },
     highlightMetrics: ["Hand gesture recognition", "OCR integration", "Text-to-image generation"],
   },
+  {
+    title: "SubsGen",
+    summary: "🎬 Generate viral Instagram-style subtitles for your talking head videos with word-by-word highlighting (Hormozi/CapCut style).",
+    tech: ["Next.js", "FastAPI", "OpenAI Whisper", "FFmpeg", "TypeScript", "Tailwind CSS"],
+    links: { 
+      github: "https://github.com/prabhakar1234pr/subsgen-frontend",
+      demo: "https://subsgen-frontend.vercel.app/"
+    },
+    highlightMetrics: ["AI-powered transcription", "6 subtitle styles", "Burned-in subtitles"],
+  },
 ];
 
 
