@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import Link from "next/link";
 import { DeepDiveDialog } from "./DeepDiveDialog";
+import { VideoDemoDialog } from "./VideoDemoDialog";
 import { useState } from "react";
 
 // Cold Start Warning Component for GitGuide
@@ -145,6 +146,14 @@ export default function ProjectsPage() {
                         <span>🚀</span> Live Demo
                       </Link>
                     )
+                  )}
+                  
+                  {/* Video Demo Button for GitGuide */}
+                  {project.title === "GitGuide" && (
+                    <VideoDemoDialog 
+                      videoSrc="/gitguide-demo.mp4"
+                      title="GitGuide Video Demo"
+                    />
                   )}
                   
                   {/* Deep Dive Button */}

@@ -2,6 +2,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 interface DeepDiveDialogProps {
   title: string;
@@ -29,6 +30,7 @@ export function DeepDiveDialog({ title, content }: DeepDiveDialogProps) {
         <div className="max-h-[70vh] overflow-y-auto pr-4 -mr-4">
           <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:text-purple-300 prose-links:text-blue-400 prose-code:text-purple-200 prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10">
             <ReactMarkdown 
+              rehypePlugins={[rehypeRaw]}
               components={{
                 // Custom link component that opens in new tab
                 a: ({ href, children }) => (
@@ -92,6 +94,19 @@ export function DeepDiveDialog({ title, content }: DeepDiveDialogProps) {
                   <blockquote className="border-l-4 border-purple-400 pl-4 my-4 italic text-purple-200 bg-purple-500/10 py-2 rounded-r-lg">
                     {children}
                   </blockquote>
+                ),
+                // Support for iframe embeds (videos)
+                iframe: ({ src, title, ...props }) => (
+                  <div className="my-6 rounded-lg overflow-hidden border border-white/10">
+                    <iframe
+                      src={src}
+                      title={title}
+                      className="w-full aspect-video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      {...props}
+                    />
+                  </div>
                 ),
               }}
             >

@@ -22,7 +22,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "FastAPI", "PostgreSQL", "Azure OpenAI", "TypeScript"],
     links: { 
       github: "https://github.com/prabhakar1234pr/gitguide_frontend",
-      demo: "https://gitguidefrontend.vercel.app/"
+      demo: "https://frontend-nextjs-sage-eta.vercel.app/"
     },
     highlightMetrics: ["AI-powered learning paths", "Context-aware chat", "Full-stack architecture"],
   },
