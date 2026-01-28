@@ -113,18 +113,18 @@ ${posts}
 
 function simpleMockReply(user: string): string {
   if (/project|portfolio/i.test(user)) {
-    return `## 🚀 Featured Projects\n\n${projects.slice(0, 3).map((p) => {
+    return `${projects.slice(0, 3).map((p) => {
       const links = [];
       if (p.links.github) links.push(`[GitHub](${p.links.github})`);
       if (p.links.demo) links.push(`[Demo](${p.links.demo})`);
       const linkText = links.length > 0 ? `\n   Links: ${links.join(" | ")}` : "";
-      return `• **${p.title}** – ${p.summary}\n   Tech: **${p.tech.join(", ")}**${linkText}`;
-    }).join("\n\n")}\n\n💡 *Visit the [Projects page](https://prabhakar-elavala-portfolio.vercel.app/projects) for more details!*`;
+      return `• **${p.title}** – ${p.summary}\n  Tech: **${p.tech.join(", ")}**${linkText}`;
+    }).join("\n\n")}\n\nMore: https://prabhakar-elavala-portfolio.vercel.app/projects`;
   }
   if (/experience|work|education|background/i.test(user)) {
-    return `## 🎓 Education & Experience\n\n**Currently pursuing:** ${education[0].role} @ ${education[0].org} (GPA: ${education[0].gpa})\n\n**Latest Role:** ${experience[0].role} @ ${experience[0].org}\n• ${experience[0].bullets.slice(0, 2).join("\n• ")}\n\n💡 *Visit the [Experience page](https://prabhakar-elavala-portfolio.vercel.app/experience) for complete education and work history!*`;
+    return `Currently: ${education[0].role} @ ${education[0].org} (GPA: ${education[0].gpa}).\nLatest: ${experience[0].role} @ ${experience[0].org}.\nMore: https://prabhakar-elavala-portfolio.vercel.app/experience`;
   }
-  return `## 👋 Hi there!\n\nI'm Prabhakar Elavala's AI assistant. I can help you learn about:\n\n• **Projects** – AI/ML projects and backend systems\n• **Experience** – Professional background in AI/ML engineering\n• **Skills** – Technical expertise and achievements\n• **Contact** – How to get in touch\n\n💡 *Try asking: "Tell me about your projects" or "What's your experience?"*`;
+  return `Hi—ask me about projects, experience, skills, or contact details.`;
 }
 
 async function callAzure({
@@ -145,23 +145,15 @@ async function callAzure({
   // Prefer Chat Completions unless explicitly opting into Responses API
   // Some Azure regions/models don't support `responses` yet → 404.
   const useResponses = (process.env.AZURE_OPENAI_USE_RESPONSES === "1") || /4\.1/i.test(deployment);
-  const system = `You are Prabhakar Elavala's AI assistant for his portfolio website. You are knowledgeable, professional, and engaging.
+  const system = `You are Prabhakar Elavala's AI assistant for his portfolio website.
 
-FORMATTING GUIDELINES:
-- Use clear headings with "##" for sections
-- Use bullet points with "•" for lists
-- Include relevant links when mentioning projects or experiences
-- ALWAYS use full URLs (https://prabhakar-elavala-portfolio.vercel.app/page) when linking to portfolio pages
-- Keep responses well-structured and easy to scan
-- Use emojis sparingly but effectively (🚀, 💻, 🔧, etc.)
-- Format technical skills and technologies in **bold**
-
-RESPONSE STYLE:
-- Be conversational but professional
-- Highlight key achievements and metrics
-- Include specific technologies and tools used
-- Reference portfolio sections with full URLs (Projects, Experience, Contact, Blog, About)
-- Encourage exploration of the website
+CRITICAL RESPONSE RULES:
+- Be concise and brief. Aim for 2–5 short sentences.
+- If a list is needed, use at most 3 bullet points.
+- Do NOT use emojis.
+- Avoid long headings/sections.
+- Include a link only when directly relevant, and use full URLs.
+- If the user question is broad/unclear, ask ONE clarifying question instead of giving a long answer.
 
 ${contextText}`;
 
@@ -256,23 +248,15 @@ async function callGroq({
   messages: Message[];
   contextText: string;
 }): Promise<string> {
-  const system = `You are Prabhakar Elavala's AI assistant for his portfolio website. You are knowledgeable, professional, and engaging.
+  const system = `You are Prabhakar Elavala's AI assistant for his portfolio website.
 
-FORMATTING GUIDELINES:
-- Use clear headings with "##" for sections
-- Use bullet points with "•" for lists
-- Include relevant links when mentioning projects or experiences
-- ALWAYS use full URLs (https://prabhakar-elavala-portfolio.vercel.app/page) when linking to portfolio pages
-- Keep responses well-structured and easy to scan
-- Use emojis sparingly but effectively (🚀, 💻, 🔧, etc.)
-- Format technical skills and technologies in **bold**
-
-RESPONSE STYLE:
-- Be conversational but professional
-- Highlight key achievements and metrics
-- Include specific technologies and tools used
-- Reference portfolio sections with full URLs (Projects, Experience, Contact, Blog, About)
-- Encourage exploration of the website
+CRITICAL RESPONSE RULES:
+- Be concise and brief. Aim for 2–5 short sentences.
+- If a list is needed, use at most 3 bullet points.
+- Do NOT use emojis.
+- Avoid long headings/sections.
+- Include a link only when directly relevant, and use full URLs.
+- If the user question is broad/unclear, ask ONE clarifying question instead of giving a long answer.
 
 ${contextText}`;
   const url = "https://api.groq.com/openai/v1/chat/completions";

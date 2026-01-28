@@ -3,19 +3,21 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import ReactMarkdown from "react-markdown";
+import { BotMessageSquare, Send } from "lucide-react";
 
 type Message = { role: "user" | "assistant"; content: string };
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "👋 **Hey there!** I'm Prabhakar's AI assistant.\n\nI can help you explore:\n• **🚀 Projects** - AI/ML systems, backend APIs, and full-stack apps\n• **💼 Experience** - My journey from electronics engineering to AI/ML\n• **🛠️ Skills** - Technical expertise and certifications\n• **📧 Contact** - How to connect with me\n\n💡 *Try asking: \"Tell me about your GitGuide project\" or \"What's your experience with LangChain?\"*" },
+    { role: "assistant", content: "Hi, I'm Prabhakar's portfolio assistant.\n\nI can help with projects, experience, skills, and contact details.\n\nTry: \"Tell me about GitGuide\" or \"Summarize your experience in 2 lines\"." },
   ]);
   const [input, setInput] = useState("");
 
-  async function send() {
-    if (!input.trim()) return;
-    const next = [...messages, { role: "user", content: input } as Message];
+  async function send(text?: string) {
+    const toSend = (text ?? input).trim();
+    if (!toSend) return;
+    const next = [...messages, { role: "user", content: toSend } as Message];
     setMessages(next);
     setInput("");
     
@@ -53,7 +55,13 @@ export function ChatWidget() {
     <div className="fixed bottom-4 right-4 z-50">
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button size="lg" className="shadow-lg">Chat</Button>
+          <Button
+            size="icon"
+            className="h-14 w-14 rounded-full shadow-lg bg-purple-600 hover:bg-purple-700 text-white"
+            aria-label="Open chat assistant"
+          >
+            <BotMessageSquare className="size-6" />
+          </Button>
         </SheetTrigger>
         <SheetContent className="flex flex-col w-[90vw] sm:w-[420px]">
           <SheetHeader>
@@ -105,7 +113,7 @@ export function ChatWidget() {
               </div>
             ))}
           </div>
-          <div className="mt-3 flex gap-2">
+          <div className="mt-3 flex items-center gap-2">
             <input
               className="flex-1 rounded-md border bg-background px-3 py-2"
               placeholder="Type your message..."
@@ -113,12 +121,14 @@ export function ChatWidget() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
             />
-            <Button onClick={send}>Send</Button>
+            <Button onClick={() => send()} className="gap-2">
+              <Send className="size-4" />
+              Send
+            </Button>
           </div>
         </SheetContent>
       </Sheet>
     </div>
   );
 }
-
 
