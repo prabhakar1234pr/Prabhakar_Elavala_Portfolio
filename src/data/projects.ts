@@ -6,16 +6,8 @@ export type Project = {
   highlightMetrics?: string[];
 };
 
+// Ordered by profile value: AI/ML, MLOps, Data Science, full-stack AI at top; basic CRUD/UI at bottom
 export const projects: Project[] = [
-  {
-    title: "Job Search MCP Server",
-    summary: "🔍 MCP server for Claude Desktop that searches AI/ML jobs across multiple platforms with AI-powered resume tailoring and referral assistance.",
-    tech: ["Python", "MCP", "Claude AI", "Adzuna API", "Greenhouse API", "Lever API"],
-    links: { 
-      github: "https://github.com/prabhakar1234pr/Applying-Jobs-MCP-server"
-    },
-    highlightMetrics: ["Multi-platform job search", "AI resume tailoring", "Referral message generator"],
-  },
   {
     title: "GitGuide",
     summary: "🚀 Transform GitHub repositories into personalized learning journeys with AI-powered guidance and context-aware chat assistance.",
@@ -25,6 +17,15 @@ export const projects: Project[] = [
       demo: "https://frontend-nextjs-sage-eta.vercel.app/"
     },
     highlightMetrics: ["AI-powered learning paths", "Context-aware chat", "Full-stack architecture"],
+  },
+  {
+    title: "Job Search MCP Server",
+    summary: "🔍 MCP server for Claude Desktop that searches AI/ML jobs across multiple platforms with AI-powered resume tailoring and referral assistance.",
+    tech: ["Python", "MCP", "Claude AI", "Adzuna API", "Greenhouse API", "Lever API"],
+    links: { 
+      github: "https://github.com/prabhakar1234pr/Applying-Jobs-MCP-server"
+    },
+    highlightMetrics: ["Multi-platform job search", "AI resume tailoring", "Referral message generator"],
   },
   {
     title: "Song Popularity ML Pipeline",
@@ -37,42 +38,14 @@ export const projects: Project[] = [
     highlightMetrics: ["R² ≈ 0.51 accuracy", "600K+ tracks analyzed", "MLOps best practices"],
   },
   {
-    title: "Blog Manager",
-    summary: "📝 Full-stack blog management application with user authentication, CRUD operations, and responsive design.",
-    tech: ["React", "Node.js", "Express", "PostgreSQL", "JWT"],
+    title: "BrowserFriend",
+    summary: "Browser analytics tool that tracks tab activity, generates AI-powered insights, and emails you a dashboard with session summaries.",
+    tech: ["Python", "Chrome Extension", "SQLite", "Gemini", "Resend", "FastAPI"],
     links: { 
-      github: "https://github.com/prabhakar1234pr/Blog-manager", 
-      demo: "https://blog-manager-omega.vercel.app/" 
+      github: "https://github.com/prabhakar1234pr/browserfriend",
+      demo: "https://pypi.org/project/browserfriend/"
     },
-    highlightMetrics: ["Full CRUD operations", "User authentication", "Responsive UI"],
-  },
-  {
-    title: "Traffic Safety Analysis System",
-    summary: "🚦 Data-driven analysis of traffic collisions in Montgomery County using ML clustering to identify high-risk zones and infrastructure needs.",
-    tech: ["Python", "K-Means", "DBSCAN", "Pandas", "Matplotlib", "Statistical Analysis"],
-    links: { 
-      github: "https://github.com/prabhakar1234pr/Traffic-Safety-Analysis-and-Prediction-System-"
-    },
-    highlightMetrics: ["192K+ collision records", "ML clustering analysis", "Safety recommendations"],
-  },
-  {
-    title: "Sentiment Analysis ML Model",
-    summary: "🎭 Deep learning sentiment analysis for IMDB movie reviews using LSTM networks with Streamlit deployment.",
-    tech: ["TensorFlow", "Keras", "LSTM", "Streamlit", "Python", "NLP"],
-    links: { 
-      github: "https://github.com/prabhakar1234pr/sentiment-analysis-ml-model", 
-      demo: "https://sentiment-analysis-ml-model-398g7mjum7qmvrbee73afo.streamlit.app/" 
-    },
-    highlightMetrics: ["LSTM neural network", "Real-time predictions", "Interactive web app"],
-  },
-  {
-    title: "Avatar Store",
-    summary: "🎨 Modern 3D avatar customization web app built with React, Vite, and Tailwind CSS for immersive user experiences.",
-    tech: ["React", "Vite", "Tailwind CSS", "Three.js", "JavaScript"],
-    links: { 
-      github: "https://github.com/prabhakar1234pr/Avatar_Store"
-    },
-    highlightMetrics: ["3D avatar customization", "Hot Module Replacement", "Responsive design"],
+    highlightMetrics: ["Tab tracking", "AI-powered insights", "Email dashboard"],
   },
   {
     title: "AirText",
@@ -95,13 +68,42 @@ export const projects: Project[] = [
     highlightMetrics: ["AI-powered transcription", "6 subtitle styles", "Burned-in subtitles"],
   },
   {
-    title: "BrowserFriend",
-    summary: "Browser analytics tool that tracks tab activity, generates AI-powered insights, and emails you a dashboard with session summaries.",
-    tech: ["Python", "Chrome Extension", "SQLite", "Gemini", "Resend", "FastAPI"],
+    title: "Traffic Safety Analysis System",
+    summary: "🚦 Data-driven analysis of traffic collisions in Montgomery County using ML clustering to identify high-risk zones and infrastructure needs.",
+    tech: ["Python", "K-Means", "DBSCAN", "Pandas", "Matplotlib", "Statistical Analysis"],
     links: { 
-      github: "https://github.com/prabhakar1234pr/browserfriend"
+      github: "https://github.com/prabhakar1234pr/Traffic-Safety-Analysis-and-Prediction-System-"
     },
-    highlightMetrics: ["Tab tracking", "AI-powered insights", "Email dashboard"],
+    highlightMetrics: ["192K+ collision records", "ML clustering analysis", "Safety recommendations"],
+  },
+  {
+    title: "Sentiment Analysis ML Model",
+    summary: "🎭 Deep learning sentiment analysis for IMDB movie reviews using LSTM networks with Streamlit deployment.",
+    tech: ["TensorFlow", "Keras", "LSTM", "Streamlit", "Python", "NLP"],
+    links: { 
+      github: "https://github.com/prabhakar1234pr/sentiment-analysis-ml-model", 
+      demo: "https://sentiment-analysis-ml-model-398g7mjum7qmvrbee73afo.streamlit.app/" 
+    },
+    highlightMetrics: ["LSTM neural network", "Real-time predictions", "Interactive web app"],
+  },
+  {
+    title: "Blog Manager",
+    summary: "📝 Full-stack blog management application with user authentication, CRUD operations, and responsive design.",
+    tech: ["React", "Node.js", "Express", "PostgreSQL", "JWT"],
+    links: { 
+      github: "https://github.com/prabhakar1234pr/Blog-manager", 
+      demo: "https://blog-manager-omega.vercel.app/" 
+    },
+    highlightMetrics: ["Full CRUD operations", "User authentication", "Responsive UI"],
+  },
+  {
+    title: "Avatar Store",
+    summary: "🎨 Modern 3D avatar customization web app built with React, Vite, and Tailwind CSS for immersive user experiences.",
+    tech: ["React", "Vite", "Tailwind CSS", "Three.js", "JavaScript"],
+    links: { 
+      github: "https://github.com/prabhakar1234pr/Avatar_Store"
+    },
+    highlightMetrics: ["3D avatar customization", "Hot Module Replacement", "Responsive design"],
   },
 ];
 
