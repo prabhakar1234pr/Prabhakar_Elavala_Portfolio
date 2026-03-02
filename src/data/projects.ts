@@ -94,6 +94,15 @@ export const projects: Project[] = [
     },
     highlightMetrics: ["AI-powered transcription", "6 subtitle styles", "Burned-in subtitles"],
   },
+  {
+    title: "BrowserFriend",
+    summary: "Browser analytics tool that tracks tab activity, generates AI-powered insights, and emails you a dashboard with session summaries.",
+    tech: ["Python", "Chrome Extension", "SQLite", "Gemini", "Resend", "FastAPI"],
+    links: { 
+      github: "https://github.com/prabhakar1234pr/browserfriend"
+    },
+    highlightMetrics: ["Tab tracking", "AI-powered insights", "Email dashboard"],
+  },
 ];
 
 
