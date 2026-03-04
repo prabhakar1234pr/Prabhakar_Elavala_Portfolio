@@ -1324,112 +1324,70 @@ AZURE_IMAGE_DEPLOYMENT=dalle-3
   },
 
   "SubsGen": {
-    projectTitle: "SubsGen - Instagram Subtitle Generator",
-    content: `# SubsGen - Instagram Subtitle Generator
+    projectTitle: "SubsGen — Instagram Talking Head Subtitles & AI Reel Pipeline",
+    content: `# SubsGen — Instagram Talking Head Subtitles & AI Reel Pipeline
 
-🎬 **Generate viral Instagram-style subtitles for your talking head videos. Free, fast, and trendy with word-by-word highlighting (Hormozi/CapCut style).**
+Generate viral Instagram-style subtitles for your videos, or let AI build a complete reel from raw clips. Word-by-word highlighting, CrewAI Flow orchestration, and creative agent-driven editing.
 
-**Live Demo:** [https://subsgen-frontend.vercel.app/](https://subsgen-frontend.vercel.app/)
+**Live Demo:** [https://subsgen-frontend-qk75e3hl0-prabhakar-elavalas-projects.vercel.app/](https://subsgen-frontend-qk75e3hl0-prabhakar-elavalas-projects.vercel.app/)
 
-## ✨ Features
+## Features
 
-- **🎬 Word-by-Word Highlighting** - Viral Hormozi/CapCut style subtitles
-- **🎨 6 Unique Styles** - Choose from Hormozi, Minimal, Neon, Fire, Karaoke, Purple
-- **🤖 AI-Powered** - Automatic speech recognition using Whisper AI
-- **⚡ Fast Processing** - Optimized for speed with faster-whisper
-- **🆓 100% Free** - No watermarks, no sign-up required
-- **📱 Mobile Friendly** - Works on all devices
+### Subtitles Mode
+- **Word-by-Word Highlighting** — Each word pops with color as it's spoken (Hormozi/CapCut style)
+- **Multiple Styles** — Hormozi, minimal, neon, fire, karaoke, purple
+- **Burned-In Subtitles** — Ready to post, no additional editing required
 
-## 🎨 Subtitle Styles
+### AI Reel Pipeline
+- **CrewAI Flows** — Event-driven orchestration with state management
+- **6-Step AI Pipeline** — Transcribe → Analyze → Holistic Review → Edit Plan → Music → Blueprint
+- **Holistic Reviewer** — Human-like view of all clips before editing
+- **Creative EditDirector** — Agent picks transitions (fade, wipe, slide), trim points, pacing
+- **Internet Archive Music** — CC0/public domain tracks, no API key
+- **Audio Ducking** — Music lowers when speech is present
+- **Agent-Driven Transitions** — Per-segment transition type and duration
 
-| Style | Description | Best For |
-|-------|-------------|----------|
-| **Hormozi** | Yellow highlights on white text | Business, motivational content |
-| **Minimal** | Clean white text | Professional, corporate |
-| **Neon Glow** | Cyan/magenta glowing effect | Gaming, tech content |
-| **Fire** | Orange/red highlights | High energy, sports |
-| **Karaoke** | Green word highlights | Music, entertainment |
-| **Purple Vibes** | Purple aesthetic | Lifestyle, beauty |
-
-## 🏗️ Tech Stack
+## Tech Stack
 
 | Component | Technology |
 |-----------|------------|
 | Backend | FastAPI + Python |
-| Speech-to-Text | OpenAI Whisper (base model) |
+| Orchestration | CrewAI Flows |
+| Speech-to-Text | Groq Whisper Large v3 |
+| Vision | Groq Llama 4 Scout VLM |
+| LLM | Groq Llama 3.3 70B |
+| Music | Internet Archive (CC0) |
 | Video Processing | FFmpeg |
 | Frontend | Next.js 14 + Tailwind CSS |
-| Backend Hosting | Hugging Face Spaces (Docker) |
-| Frontend Hosting | Vercel |
 
-## 📁 Project Structure
+## AI Pipeline Flow
 
 \`\`\`
-instagram-talkinghead-subs/
-├── backend/                    # FastAPI backend
-│   ├── main.py                 # API entry point
-│   ├── routers/video.py        # Video processing endpoint
-│   ├── services/
-│   │   ├── transcription.py    # Whisper transcription
-│   │   └── subtitle.py         # ASS subtitle generation
-│   ├── utils/file_handler.py   # Temp file management
-│   ├── Dockerfile              # HF Spaces config
-│   └── pyproject.toml          # Python dependencies
-├── frontend/                   # Next.js frontend
-│   ├── app/                    # App router pages
-│   ├── components/             # React components
-│   └── package.json
-└── README.md
+@start → ingest_clips
+  → transcribe_all (Groq Whisper Large v3)
+  → analyze_all (Llama 4 Scout VLM)
+  → holistic_review (human-like summary)
+  → edit_director (creative EditPlan + transitions)
+  → music_supervisor (Internet Archive)
+  → build_blueprint
 \`\`\`
 
-## 🎯 How It Works
+## API Endpoints
 
-1. **Upload** - User uploads a video file (MP4, MOV, WebM)
-2. **Style Selection** - Choose from 6 subtitle styles
-3. **Processing** - Backend transcribes audio and generates subtitles
-4. **Download** - Get the video with burned-in subtitles
-
-## 🔌 API Integration
-
-The frontend communicates with a FastAPI backend hosted on Hugging Face Spaces.
-
-### Endpoint
-\`\`\`
-POST /api/process
-\`\`\`
-
-### Request
-\`\`\`javascript
-const formData = new FormData();
-formData.append("video", file);
-formData.append("style", "hormozi");
-
-const response = await fetch(\`\${API_URL}/api/process\`, {
-  method: "POST",
-  body: formData,
-});
-\`\`\`
-
-## ⚙️ Configuration
-
-### Supported Video Formats
-- MP4 (.mp4)
-- QuickTime (.mov)
-- WebM (.webm)
-- AVI (.avi)
-
-### Limits
-- **Max file size**: 100MB
-- **Max duration**: ~3 minutes (recommended)
-- **Language**: English only
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| /api/process | POST | Single video → subtitles |
+| /api/process-reel | POST | Multiple videos → ZIP of subtitled videos |
+| /api/reel-pipeline | POST | Multiple clips → AI reel (trim, music, subs) |
+| /api/reel-pipeline/status | GET | Groq keys, models info |
 
 ## Project Highlights
 
+- **CrewAI Flow Orchestration**: Event-driven multi-agent pipeline with state management
+- **AI Reel Pipeline**: Transcribe, analyze, holistic review, creative EditDirector, music selection
 - **Full-Stack Architecture**: Next.js frontend with FastAPI backend
-- **AI-Powered Transcription**: OpenAI Whisper for accurate speech recognition
-- **Multiple Styles**: 6 trendy subtitle styles for different content types
-- **Production Deployment**: Backend on HF Spaces, frontend on Vercel
-- **Modern UI**: Responsive design with drag-and-drop upload`
+- **6 Subtitle Styles**: Hormozi, minimal, neon, fire, karaoke, purple
+- **Agent-Driven Editing**: Per-segment transitions, trim points, audio ducking`
   },
 
   "BrowserFriend": {

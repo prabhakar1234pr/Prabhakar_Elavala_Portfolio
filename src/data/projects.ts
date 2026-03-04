@@ -13,8 +13,8 @@ export const projects: Project[] = [
     summary: "🚀 Transform GitHub repositories into personalized learning journeys with AI-powered guidance and context-aware chat assistance.",
     tech: ["Next.js", "FastAPI", "PostgreSQL", "Azure OpenAI", "TypeScript"],
     links: { 
-      github: "https://github.com/prabhakar1234pr/gitguide_frontend",
-      demo: "https://frontend-nextjs-sage-eta.vercel.app/"
+      github: "https://github.com/prabhakar1234pr/GitGuide-nextjs",
+      demo: "https://gitguide.dev/"
     },
     highlightMetrics: ["AI-powered learning paths", "Context-aware chat", "Full-stack architecture"],
   },
@@ -59,13 +59,13 @@ export const projects: Project[] = [
   },
   {
     title: "SubsGen",
-    summary: "🎬 Generate viral Instagram-style subtitles for your talking head videos with word-by-word highlighting (Hormozi/CapCut style).",
-    tech: ["Next.js", "FastAPI", "OpenAI Whisper", "FFmpeg", "TypeScript", "Tailwind CSS"],
+    summary: "🎬 Instagram-style subtitles with word-by-word highlighting, plus AI reel pipeline: CrewAI Flows orchestration, Groq Whisper/Llama, creative EditDirector agent, and Internet Archive music.",
+    tech: ["Next.js", "FastAPI", "CrewAI Flows", "Groq Whisper", "FFmpeg", "TypeScript", "Tailwind CSS"],
     links: { 
       github: "https://github.com/prabhakar1234pr/subsgen-frontend",
-      demo: "https://subsgen-frontend.vercel.app/"
+      demo: "https://subsgen-frontend-qk75e3hl0-prabhakar-elavalas-projects.vercel.app/"
     },
-    highlightMetrics: ["AI-powered transcription", "6 subtitle styles", "Burned-in subtitles"],
+    highlightMetrics: ["AI reel pipeline", "CrewAI Flow orchestration", "6 subtitle styles", "Agent-driven editing"],
   },
   {
     title: "Traffic Safety Analysis System",
