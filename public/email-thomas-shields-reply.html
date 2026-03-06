@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333; max-width: 600px;">
+  <p>Hi Thomas,</p>
+  
+  <p>Here are direct answers to your questions:</p>
+  
+  <p><strong>1. SDK or client library used by external developers?</strong></p>
+  <p>Yes. I built an <strong>MCP server</strong> for Claude Desktop (<a href="https://github.com/prabhakar1234pr/Applying-Jobs-MCP-server">GitHub</a>) that exposes tools for job search, resume tailoring, and referral assistance. Users add it to their Claude config and call it from the chat. I also published <strong>BrowserFriend</strong> on PyPI (<a href="https://pypi.org/project/browserfriend/">pip install browserfriend</a>) — a CLI + Chrome extension that developers install and use. Both are used by external users, not just internal demos.</p>
+  
+  <p><strong>2. Next.js primarily TypeScript?</strong></p>
+  <p>Yes. GitGuide and SubsGen are both Next.js + TypeScript. You can see the code here:</p>
+  <ul>
+    <li><a href="https://github.com/prabhakar1234pr/GitGuide-nextjs">GitGuide-nextjs</a></li>
+    <li><a href="https://github.com/prabhakar1234pr/subsgen-frontend">subsgen-frontend</a></li>
+  </ul>
+  
+  <p><strong>3. OAuth refresh, token storage, scopes, and webhook verification in production?</strong></p>
+  <p>Yes for token handling and scopes. In GitGuide (live at <a href="https://gitguide.dev/">gitguide.dev</a>) I implemented:</p>
+  <ul>
+    <li><strong>GitHub PAT validation</strong> via the GitHub API (user identity, repo access, push permissions)</li>
+    <li><strong>Token storage</strong> in the database after consent</li>
+    <li><strong>Scope checks</strong> (push permissions, latest commit readability)</li>
+    <li><strong>Clerk JWT</strong> for auth (Clerk manages refresh)</li>
+  </ul>
+  <p>I have not yet implemented webhook verification in production. I'm familiar with the pattern and would be comfortable adding it.</p>
+  
+  <p><strong>4. LLM tool-calling/agent workflows with evals and failure handling?</strong></p>
+  <p>Yes. In GitGuide I built a <strong>task verification agent</strong> (Groq + function calling) that:</p>
+  <ul>
+    <li>Takes task context and workspace diffs</li>
+    <li>Returns pass/fail with structured feedback, hints, and code-quality labels</li>
+    <li>Uses <code>execute_with_retry</code> for Supabase reads and service-to-service calls</li>
+    <li>Handles failures by setting <code>status=failed</code> and storing error messages</li>
+  </ul>
+  <p>I've also built <strong>LangGraph workflows</strong> for roadmap generation (with internal auth and retries), <strong>CrewAI Flows</strong> in SubsGen for the AI reel pipeline, and a <strong>multi-agent healthcare chatbot</strong> at CareEscapes (LangGraph + Azure OpenAI). I've dealt with timeouts, retries, and fallbacks in these systems.</p>
+  
+  <p><strong>GitGuide video demo:</strong> <a href="https://www.loom.com/share/fad62951eed04b87ba0bd64e16b2de29">Loom walkthrough</a></p>
+  
+  <p>Happy to go deeper on any of these or schedule a call.</p>
+  
+  <p>Best,<br>Prabhakar Elavala</p>
+  <p><a href="https://prabhakar-elavala-portfolio.vercel.app/">Portfolio</a> | <a href="https://www.linkedin.com/in/prabhakarelavala/">LinkedIn</a> | <a href="https://github.com/prabhakar1234pr">GitHub</a></p>
+</body>
+</html>
