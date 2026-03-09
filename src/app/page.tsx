@@ -127,7 +127,7 @@ export default function Home() {
           <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-300/20 rounded-2xl p-6">
             <h3 className="text-lg font-semibold text-purple-300 mb-3">🎯 MS in Informatics (Analytics)</h3>
             <p className="text-muted-foreground mb-2">Northeastern University • Boston, MA</p>
-            <p className="text-sm text-purple-200">Completed Dec 2024 • GPA: 3.8</p>
+            <p className="text-sm text-purple-200">Completed Dec 2025 • GPA: 3.8</p>
             <p className="text-sm text-muted-foreground mt-3">
               Specializing in data analytics, machine learning, and AI systems with hands-on experience in real-world projects.
             </p>

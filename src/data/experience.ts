@@ -13,7 +13,7 @@ export const education: ExperienceItem[] = [
   {
     role: "M.S - Informatics (Concentration: Analytics)",
     org: "Northeastern University",
-    dates: "January 2024 – December 2024",
+    dates: "January 2024 – December 2025",
     location: "Boston, MA",
     type: "education",
     gpa: "3.8",
