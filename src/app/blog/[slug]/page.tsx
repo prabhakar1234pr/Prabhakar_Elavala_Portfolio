@@ -345,7 +345,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               Written by <span className="text-purple-300 font-medium">Prabhakar Elavala</span>
             </p>
             <p className="text-xs text-muted-foreground">
-              AI/ML Engineer & MS Informatics Student at Northeastern University
+              AI/ML Engineer & MS Informatics Graduate, Northeastern University
             </p>
           </div>
           

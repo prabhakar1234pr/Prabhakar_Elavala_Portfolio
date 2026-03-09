@@ -8,16 +8,12 @@ const jsonLd = {
   "@type": "Person",
   "name": "Prabhakar Elavala",
   "jobTitle": "AI/ML Engineer",
-  "description": "AI/ML Engineer specializing in backend development, data engineering, and machine learning systems. MS Informatics student at Northeastern University.",
+  "description": "AI/ML Engineer specializing in backend development, data engineering, and machine learning systems. MS Informatics, Northeastern University.",
   "url": "https://prabhakar-elavala-portfolio.vercel.app",
   "sameAs": [
     "https://www.linkedin.com/in/prabhakarelavala",
     "https://github.com/prabhakar1234pr"
   ],
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Northeastern University"
-  },
   "alumniOf": {
     "@type": "Organization", 
     "name": "Northeastern University"
@@ -124,14 +120,14 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 py-16 border-t border-white/10">
         <div className="text-center mb-12">
           <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            🎓 Currently
+            🎓 Education
           </h2>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-300/20 rounded-2xl p-6">
             <h3 className="text-lg font-semibold text-purple-300 mb-3">🎯 MS in Informatics (Analytics)</h3>
             <p className="text-muted-foreground mb-2">Northeastern University • Boston, MA</p>
-            <p className="text-sm text-purple-200">Expected Dec 2025 • Current GPA: 3.8</p>
+            <p className="text-sm text-purple-200">Completed Dec 2024 • GPA: 3.8</p>
             <p className="text-sm text-muted-foreground mt-3">
               Specializing in data analytics, machine learning, and AI systems with hands-on experience in real-world projects.
             </p>

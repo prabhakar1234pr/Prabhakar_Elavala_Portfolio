@@ -13,14 +13,14 @@ export const education: ExperienceItem[] = [
   {
     role: "M.S - Informatics (Concentration: Analytics)",
     org: "Northeastern University",
-    dates: "January 2024 – December 2025",
+    dates: "January 2024 – December 2024",
     location: "Boston, MA",
     type: "education",
     gpa: "3.8",
     bullets: [
       "Master's degree in Informatics with specialization in Analytics",
       "Coursework in data science, machine learning, and analytics",
-      "Currently maintaining a 3.8 GPA"
+      "Graduated with 3.8 GPA"
     ],
   },
   {

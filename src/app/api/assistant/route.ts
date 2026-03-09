@@ -89,7 +89,7 @@ function buildContext(): string {
         .join("\n")
     : "- hello-world";
   
-  return `You are the portfolio assistant for Prabhakar Elavala, an AI/ML Engineer and Master's student at Northeastern University specializing in backend services, SaaS integrations, and LLM automation.
+  return `You are the portfolio assistant for Prabhakar Elavala, an AI/ML Engineer with an MS in Informatics from Northeastern University (graduated December 2024), specializing in backend services, SaaS integrations, and LLM automation.
 
 ## Education:
 ${edu}
@@ -122,7 +122,7 @@ function simpleMockReply(user: string): string {
     }).join("\n\n")}\n\nMore: https://prabhakar-elavala-portfolio.vercel.app/projects`;
   }
   if (/experience|work|education|background/i.test(user)) {
-    return `Currently: ${education[0].role} @ ${education[0].org} (GPA: ${education[0].gpa}).\nLatest: ${experience[0].role} @ ${experience[0].org}.\nMore: https://prabhakar-elavala-portfolio.vercel.app/experience`;
+    return `Education: ${education[0].role} @ ${education[0].org} (GPA: ${education[0].gpa}, completed Dec 2024).\nLatest: ${experience[0].role} @ ${experience[0].org}.\nMore: https://prabhakar-elavala-portfolio.vercel.app/experience`;
   }
   return `Hi—ask me about projects, experience, skills, or contact details.`;
 }

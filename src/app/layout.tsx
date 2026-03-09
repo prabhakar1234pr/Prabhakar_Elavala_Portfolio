@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     default: "Prabhakar Elavala - Portfolio | AI/ML Engineer",
     template: "%s | Prabhakar Elavala Portfolio",
   },
-  description: "Prabhakar Elavala's portfolio showcasing AI/ML engineering projects, data science work, and full-stack development. MS Informatics at Northeastern University, Azure AI Certified, building scalable systems with Python, Next.js, and cloud technologies.",
+  description: "Prabhakar Elavala's portfolio showcasing AI/ML engineering projects, data science work, and full-stack development. MS Informatics, Northeastern University, Azure AI Certified, building scalable systems with Python, Next.js, and cloud technologies.",
   keywords: [
     "Prabhakar Elavala",
     "Prabhakar Elavala portfolio", 
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Prabhakar Elavala - Portfolio | AI/ML Engineer",
-    description: "Prabhakar Elavala's portfolio showcasing AI/ML engineering projects, data science work, and full-stack development. MS Informatics at Northeastern University.",
+    description: "Prabhakar Elavala's portfolio showcasing AI/ML engineering projects, data science work, and full-stack development. MS Informatics, Northeastern University.",
     type: "website",
     siteName: "Prabhakar Elavala Portfolio",
     url: "https://prabhakar-elavala-portfolio.vercel.app",

@@ -68,7 +68,7 @@ export default function AboutPage() {
               Prabhakar Elavala
             </h2>
             <p className="text-lg text-muted-foreground mb-4">
-              AI/ML Engineer & MS Informatics Student
+              AI/ML Engineer & MS Informatics Graduate
             </p>
             <p className="text-sm text-muted-foreground">
               📍 Boston, MA | 📧 prabhakarpr554@gmail.com
