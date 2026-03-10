@@ -16,9 +16,9 @@ export const projects: Project[] = [
       demo: "https://gitguide.dev/"
     },
     highlightMetrics: [
-      "3-service FastAPI backend + 7-node LangGraph agent",
-      "Per-user Docker workspaces with Monaco editor & WebSocket terminal",
-      "Qdrant RAG pipeline with sub-3s retrieval over live codebases",
+      "3 backend services",
+      "7-node orchestration graph",
+      "Sub-3s RAG over live code",
     ],
   },
   {
@@ -30,9 +30,9 @@ export const projects: Project[] = [
       demo: "https://huggingface.co/spaces/Prabhakar554/song-popularity-predictor"
     },
     highlightMetrics: [
-      "150 Optuna trials across 5 algorithms — 80% compute reduction",
-      "13-step automated ZenML pipeline with MLflow experiment tracking",
-      "Audio-first: real MP3/WAV input via Essentia feature extraction",
+      "150 hyperparameter trials",
+      "13-step MLOps pipeline",
+      "MP3/WAV audio feature extraction",
     ],
   },
   {
@@ -44,9 +44,9 @@ export const projects: Project[] = [
       demo: "https://subsgen-frontend-qk75e3hl0-prabhakar-elavalas-projects.vercel.app/"
     },
     highlightMetrics: [
-      "6-step CrewAI Flow: Transcribe → Analyse → Review → Edit → Music → Blueprint",
-      "Llama 4 Scout VLM for per-clip visual understanding",
-      "Audio ducking + agent-driven transitions via FFmpeg",
+      "6-step reel pipeline",
+      "Agent-chosen cuts",
+      "Music with audio ducking",
     ],
   },
   {
