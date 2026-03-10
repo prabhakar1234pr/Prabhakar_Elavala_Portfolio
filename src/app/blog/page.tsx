@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export const dynamic = "force-static";
@@ -18,40 +17,38 @@ interface BlogPost {
 function getPosts(): BlogPost[] {
   const dir = path.join(process.cwd(), "src", "content", "blog");
   if (!fs.existsSync(dir)) return [];
-  
+
   return fs
     .readdirSync(dir)
     .filter((f) => f.endsWith(".mdx"))
     .map((file) => {
       const slug = file.replace(/\.mdx$/, "");
       const content = fs.readFileSync(path.join(dir, file), "utf-8");
-      
-      // Extract frontmatter
       const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-      const frontmatter: Record<string, string | string[]> = {};
-      
+      const fm: Record<string, string | string[]> = {};
+
       if (frontmatterMatch) {
-        const frontmatterText = frontmatterMatch[1];
-        frontmatterText.split('\n').forEach(line => {
-          const [key, ...valueParts] = line.split(':');
-          if (key && valueParts.length > 0) {
-            const value = valueParts.join(':').trim();
-            if (key.trim() === 'tags') {
-              frontmatter[key.trim()] = value.split(',').map(tag => tag.trim());
-            } else {
-              frontmatter[key.trim()] = value;
-            }
+        frontmatterMatch[1].split("\n").forEach((line) => {
+          const [key, ...rest] = line.split(":");
+          if (key && rest.length) {
+            const val = rest.join(":").trim();
+            fm[key.trim()] = key.trim() === "tags"
+              ? val.split(",").map((t) => t.trim())
+              : val;
           }
         });
       }
-      
+
+      const str = (v: string | string[] | undefined) =>
+        Array.isArray(v) ? v[0] : v ?? "";
+
       return {
         slug,
-        title: Array.isArray(frontmatter.title) ? frontmatter.title[0] : (frontmatter.title || slug.split("-").map((w) => w[0]?.toUpperCase() + w.slice(1)).join(" ")),
-        summary: Array.isArray(frontmatter.summary) ? frontmatter.summary[0] : (frontmatter.summary || "No summary available"),
-        date: Array.isArray(frontmatter.date) ? frontmatter.date[0] : (frontmatter.date || "2025-01-20"),
-        readTime: Array.isArray(frontmatter.readTime) ? frontmatter.readTime[0] : (frontmatter.readTime || "5 min read"),
-        tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : (frontmatter.tags ? [frontmatter.tags] : ["Tech"])
+        title: str(fm.title) || slug.split("-").map((w) => w[0]?.toUpperCase() + w.slice(1)).join(" "),
+        summary: str(fm.summary) || "No summary available",
+        date: str(fm.date) || "2025-01-20",
+        readTime: str(fm.readTime) || "5 min read",
+        tags: Array.isArray(fm.tags) ? fm.tags : fm.tags ? [fm.tags as string] : ["Tech"],
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -59,99 +56,81 @@ function getPosts(): BlogPost[] {
 
 export default function BlogIndex() {
   const posts = getPosts();
-  
+
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-          Technical Blog
-        </h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          Sharing insights, experiences, and learnings from my journey in AI/ML engineering, 
-          data science, and full-stack development.
+    <div className="mx-auto max-w-5xl px-6 py-14">
+
+      <div className="mb-12">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-violet-400">
+          Writing
+        </p>
+        <h1 className="text-4xl font-extrabold text-white mb-3">Technical Blog</h1>
+        <p className="text-slate-400 max-w-xl">
+          Insights and learnings from my work in AI/ML engineering, data science, and full-stack development.
         </p>
       </div>
 
       {posts.length === 0 ? (
-        <div className="text-center py-12">
-          <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-300/20 rounded-2xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-xl font-semibold mb-3 text-purple-200">
-              📝 Blog Coming Soon!
-            </h3>
-            <p className="text-muted-foreground">
-              I&apos;m working on some exciting technical articles about AI/ML, data science, 
-              and my experiences as a graduate student. Check back soon!
-            </p>
-          </div>
+        <div className="rounded-2xl border border-violet-500/20 bg-gradient-to-r from-violet-500/8 to-cyan-500/8 px-8 py-12 text-center">
+          <h3 className="text-lg font-semibold text-white mb-2">Blog Coming Soon</h3>
+          <p className="text-slate-400 text-sm max-w-md mx-auto">
+            Working on articles about AI/ML, data science, and my experiences as a graduate student.
+            Check back soon!
+          </p>
         </div>
       ) : (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           {posts.map((post) => (
-            <Card
+            <Link
               key={post.slug}
-              className="group bg-white/5 backdrop-blur-sm border border-white/10 hover:border-purple-300/30 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-2xl hover:shadow-purple-500/10"
+              href={`/blog/${post.slug}`}
+              className="group flex flex-col gap-4 rounded-xl border border-white/[0.08] bg-white/[0.03] p-6 hover:border-violet-500/30 hover:bg-violet-500/5 transition-all duration-300"
             >
-              <CardHeader className="pb-4">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                  <span>📅 {new Date(post.date).toLocaleDateString()}</span>
-                  <span>•</span>
-                  <span>⏱️ {post.readTime}</span>
-                </div>
-                <CardTitle className="text-xl group-hover:text-purple-300 transition-colors">
-                  {post.title}
-                </CardTitle>
-              </CardHeader>
+              <div className="flex items-center gap-2 text-xs text-slate-500">
+                <span>{new Date(post.date).toLocaleDateString()}</span>
+                <span>·</span>
+                <span>{post.readTime}</span>
+              </div>
 
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground leading-relaxed">
-                  {post.summary}
-                </p>
+              <h2 className="text-lg font-semibold text-white group-hover:text-violet-300 transition-colors leading-snug">
+                {post.title}
+              </h2>
 
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant="secondary"
-                      className="bg-purple-500/20 text-purple-100 border-purple-300/30 hover:bg-purple-500/30 transition-colors"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+              <p className="text-sm text-slate-400 leading-relaxed flex-1">{post.summary}</p>
 
-                <div className="pt-4 border-t border-white/10">
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 underline transition-colors font-medium"
+              <div className="flex flex-wrap gap-1.5">
+                {post.tags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    variant="secondary"
+                    className="bg-violet-500/10 text-violet-300 border-violet-500/20 text-[10px]"
                   >
-                    📖 Read Full Article
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+
+              <span className="text-xs font-medium text-violet-400 group-hover:text-violet-300 transition-colors">
+                Read article →
+              </span>
+            </Link>
           ))}
         </div>
       )}
 
-      <div className="mt-16 text-center">
-        <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-300/20 rounded-2xl p-8 max-w-2xl mx-auto">
-          <h3 className="text-xl font-semibold mb-3 text-purple-200">
-            💡 Want to discuss these topics?
-          </h3>
-          <p className="text-muted-foreground mb-4">
-            I love connecting with fellow developers, researchers, and students. 
-            Feel free to reach out if you want to discuss any of these articles!
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-all duration-200"
-          >
-            💬 Get In Touch
-          </Link>
-        </div>
+      <div className="mt-16 rounded-2xl border border-violet-500/20 bg-gradient-to-r from-violet-500/8 to-cyan-500/8 px-8 py-10 text-center">
+        <h3 className="text-lg font-semibold text-white mb-2">Want to discuss these topics?</h3>
+        <p className="text-sm text-slate-400 mb-5">
+          Always happy to chat about AI/ML, data engineering, or anything tech.
+        </p>
+        <Link
+          href="/contact"
+          className="inline-flex rounded-lg bg-violet-600 hover:bg-violet-700 px-5 py-2 text-sm font-semibold text-white transition-colors shadow-lg shadow-violet-900/40"
+        >
+          Get In Touch
+        </Link>
       </div>
+
     </div>
   );
 }
-
-

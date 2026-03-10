@@ -1,32 +1,16 @@
 @import "tailwindcss";
-
-@theme {
-  --color-background: light-dark(#ffffff, #0b0b0c);
-  --color-foreground: light-dark(#0b0b0c, #fafafa);
-  --radius: 0.75rem;
-}
-
-:root {
-  color-scheme: light dark;
-}
-
-/* Glassmorphism helpers */
-.glass {
-  background: color-mix(in oklab, var(--color-background) 70%, transparent);
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  border: 1px solid color-mix(in oklab, var(--color-foreground) 8%, transparent);
-}
-
-/* Focus styles */
-:where(a, button, input, textarea, select):focus-visible {
-  outline: 2px solid oklch(0.72 0.15 255);
-  outline-offset: 3px;
-}
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* ─── Clean Brand Tokens ────────────────────────────────── */
+:root {
+  --brand: 139 92 246;        /* violet-500 */
+  --brand-lt: 196 181 253;    /* violet-300 */
+  --accent: 34 211 238;       /* cyan-400   */
+  --radius: 0.75rem;
+  color-scheme: dark;
+}
 
+/* ─── Theme Variables ───────────────────────────────────── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -67,80 +51,79 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* ─── Dark Theme (default + only) ──────────────────────── */
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: oklch(0.08 0.02 265);     /* deep blue-black  */
+  --foreground: oklch(0.96 0 0);
+  --card: oklch(0.12 0.02 265);
+  --card-foreground: oklch(0.96 0 0);
+  --popover: oklch(0.12 0.02 265);
+  --popover-foreground: oklch(0.96 0 0);
+  --primary: oklch(0.62 0.22 290);        /* violet-500       */
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.18 0.02 265);
+  --secondary-foreground: oklch(0.96 0 0);
+  --muted: oklch(0.18 0.02 265);
+  --muted-foreground: oklch(0.55 0.03 265);
+  --accent: oklch(0.18 0.02 265);
+  --accent-foreground: oklch(0.96 0 0);
+  --destructive: oklch(0.65 0.22 22);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.62 0.22 290);
+  --chart-1: oklch(0.62 0.22 290);
+  --chart-2: oklch(0.72 0.16 195);
+  --chart-3: oklch(0.65 0.16 165);
+  --chart-4: oklch(0.75 0.18 85);
+  --chart-5: oklch(0.68 0.22 25);
+  --sidebar: oklch(0.12 0.02 265);
+  --sidebar-foreground: oklch(0.96 0 0);
+  --sidebar-primary: oklch(0.62 0.22 290);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.18 0.02 265);
+  --sidebar-accent-foreground: oklch(0.96 0 0);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.62 0.22 290);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
+/* ─── Base ──────────────────────────────────────────────── */
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: dark;
   }
   body {
     @apply bg-background text-foreground;
   }
 }
+
+/* ─── Glassmorphism ─────────────────────────────────────── */
+.glass {
+  background: oklch(0.10 0.02 265 / 85%);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border-bottom: 1px solid oklch(1 0 0 / 8%);
+}
+
+/* ─── Focus ─────────────────────────────────────────────── */
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid oklch(0.62 0.22 290);
+  outline-offset: 3px;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: oklch(0.62 0.22 290 / 40%);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.62 0.22 290 / 70%);
+}
+
+/* ─── Custom variant (keep for compat) ──────────────────── */
+@custom-variant dark (&:is(.dark *));

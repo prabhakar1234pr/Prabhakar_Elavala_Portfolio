@@ -1,164 +1,143 @@
-import Image from "next/image";
 import Link from "next/link";
 
-const skills = [
-  // Backend & APIs
-  "Python", "FastAPI", "Node.js", "Express.js", "REST APIs", "Webhooks", "OAuth 2.0", "GraphQL", "SQL",
-  
-  // Integrations & SaaS Tools
-  "HubSpot API", "Slack API", "Apollo API", "Salesforce", "Postman", "Redis",
-  
-  // AI/LLMs
-  "LangChain", "LangGraph", "OpenAI API", "Hugging Face", "Prompt Engineering", "RAG Pipelines", "Tool Calling", "Embeddings", "FAISS", "pgvector",
-  
-  // Data & Storage
-  "PostgreSQL", "MongoDB", "BigQuery", "Redis", "Data Warehousing", "dbt", "ETL/ELT", "Pandas", "NumPy", "PySpark",
-  
-  // Machine Learning & Deep Learning
-  "scikit-learn", "PyTorch", "TensorFlow", "XGBoost", "LightGBM", "MLflow", "ZenML",
-  
-  // Testing & Quality
-  "Unit Testing", "Integration Testing", "Playwright", "GitHub Actions", "Contract Testing",
-  
-  // Cloud & Deployment
-  "AWS Lambda", "S3", "CloudWatch", "Glue", "Redshift", "Azure", "Vercel", "Docker", "Kubernetes",
-  
-  // Frontend & Tools
-  "JavaScript", "TypeScript", "React", "Next.js", "Git", "GitHub", "VSCode", "PostHog", "OpenTelemetry"
-];
-
-const interests = [
-  "🤖 Artificial Intelligence & Machine Learning",
-  "📊 Data Science & Analytics", 
-  "🌐 Full-Stack Web Development",
-  "☁️ Cloud Computing & MLOps",
-  "🔍 Computer Vision & NLP",
-  "📈 Predictive Analytics",
-  "🎵 Music & Technology",
-  "📚 Continuous Learning"
+const skillGroups = [
+  {
+    label: "AI / ML",
+    skills: ["LangChain","LangGraph","OpenAI API","Hugging Face","RAG Pipelines","FAISS","pgvector","Embeddings","Prompt Engineering","Tool Calling","MLflow","ZenML","scikit-learn","PyTorch","TensorFlow","XGBoost","LightGBM"],
+  },
+  {
+    label: "Backend & APIs",
+    skills: ["Python","FastAPI","Node.js","Express.js","REST APIs","Webhooks","OAuth 2.0","GraphQL","SQL","Redis","PostgreSQL","MongoDB","BigQuery"],
+  },
+  {
+    label: "Data & Analytics",
+    skills: ["Pandas","NumPy","PySpark","dbt","ETL/ELT","Data Warehousing","Redshift","BigQuery"],
+  },
+  {
+    label: "Cloud & DevOps",
+    skills: ["AWS Lambda","S3","CloudWatch","Glue","Azure","Docker","Kubernetes","Vercel","CI/CD","GitHub Actions","OpenTelemetry","PostHog"],
+  },
+  {
+    label: "Frontend & Tools",
+    skills: ["TypeScript","JavaScript","React","Next.js","Tailwind CSS","Git","GitHub","Playwright","Postman"],
+  },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+    <div className="mx-auto max-w-5xl px-6 py-14">
+
+      {/* ── Header ───────────────────────────────────────── */}
+      <div className="mb-14">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-violet-400">
           About Me
-        </h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          AI/ML Engineer passionate about building intelligent systems that solve real-world problems
         </p>
-      </div>
-
-      <div className="grid gap-12 lg:grid-cols-2 items-start">
-        {/* Profile Section */}
-        <div className="space-y-6">
-          <div className="relative mx-auto w-64 h-64 lg:w-80 lg:h-80">
-            <Image
-              src="/WhatsApp Image 2025-07-12 at 18.14.40_c5d80c46.jpg"
-              alt="Prabhakar Elavala"
-              fill
-              className="rounded-2xl object-cover shadow-xl ring-4 ring-purple-500/20"
-              priority
-            />
-          </div>
-          
-          <div className="text-center lg:text-left">
-            <h2 className="text-2xl font-semibold text-purple-300 mb-2">
-              Prabhakar Elavala
-            </h2>
-            <p className="text-lg text-muted-foreground mb-4">
-              AI/ML Engineer & MS Informatics Graduate
-            </p>
-            <p className="text-sm text-muted-foreground">
-              📍 Boston, MA | 📧 prabhakarpr554@gmail.com
-            </p>
-          </div>
+        <h1 className="text-4xl font-extrabold text-white mb-5">
+          Who I Am
+        </h1>
+        <div className="space-y-4 text-slate-400 max-w-3xl leading-relaxed">
+          <p>
+            I&apos;m an AI/ML engineer with a strong foundation in backend development, data engineering,
+            and applied machine learning. I build scalable APIs, integrate SaaS platforms, deploy
+            LLM-powered applications, and design reliable MLOps pipelines — comfortable across the full
+            stack from data modeling to cloud deployments.
+          </p>
+          <p>
+            Beyond technical skills, I bring a startup-ready mindset: fast learning, adaptability in
+            dynamic environments, and a bias for shipping reliable features quickly. I value clear
+            communication, collaboration, and ownership.
+          </p>
         </div>
 
-        {/* About Content */}
-        <div className="space-y-8">
-          <div>
-            <h3 className="text-xl font-semibold mb-4 text-purple-300">
-              🚀 Who I Am
-            </h3>
-            <div className="space-y-4 text-muted-foreground">
-              <p>
-                I&apos;m an AI/ML engineer with a strong foundation in backend development, data engineering, and applied machine learning. My technical strengths include building scalable APIs, integrating SaaS platforms, deploying LLM-powered applications, and designing reliable MLOps pipelines. I&apos;m comfortable working across the stack—from data modeling and pipelines to model training, inference services, and cloud deployments—with a focus on testing, observability, and performance optimization.
-              </p>
-              <p>
-                Beyond technical skills, I bring a startup-ready mindset: curiosity to learn fast, adaptability in dynamic environments, and a bias for shipping features quickly without sacrificing reliability. I value clear communication, collaboration, and ownership, and thrive when solving problems that require both creativity and precision.
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-semibold mb-4 text-purple-300">
-              💡 What Drives Me
-            </h3>
-            <div className="grid gap-2">
-              {interests.map((interest) => (
-                <div key={interest} className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-300/20 rounded-lg px-4 py-2">
-                  <span className="text-sm text-purple-100">{interest}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Skills Section */}
-      <div className="mt-16">
-        <h3 className="text-2xl font-semibold mb-6 text-center text-purple-300">
-          🛠️ Technical Skills
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {skills.map((skill) => (
-            <div 
-              key={skill} 
-              className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-purple-300/30 transition-all duration-300 rounded-lg px-3 py-2 text-sm text-center"
+        {/* Quick facts */}
+        <div className="mt-8 flex flex-wrap gap-4">
+          {[
+            { label: "Location", value: "Boston, MA" },
+            { label: "Education", value: "MS Informatics, Northeastern" },
+            { label: "GPA", value: "3.8 / 4.0" },
+            { label: "Status", value: "Open to Work" },
+          ].map((f) => (
+            <div
+              key={f.label}
+              className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-3"
             >
-              {skill}
+              <p className="text-[10px] uppercase tracking-wider text-slate-500 mb-0.5">{f.label}</p>
+              <p className="text-sm font-medium text-white">{f.value}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Call to Action */}
-      <div className="mt-16 text-center">
-        <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-300/20 rounded-2xl p-8 max-w-2xl mx-auto">
-          <h3 className="text-xl font-semibold mb-3 text-purple-200">
-            🤝 Let&apos;s Connect!
-          </h3>
-          <p className="text-muted-foreground mb-6">
-            I&apos;m always excited to discuss AI/ML projects, share insights, or explore collaboration opportunities. 
-            Whether you&apos;re looking for a skilled engineer or want to chat about the latest in AI technology, 
-            I&apos;d love to hear from you!
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-all duration-200"
+      {/* ── Interests ────────────────────────────────────── */}
+      <div className="mb-14">
+        <h2 className="text-lg font-semibold text-white mb-5">What Drives Me</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            "Artificial Intelligence",
+            "Data Science & Analytics",
+            "Full-Stack Development",
+            "Cloud Computing & MLOps",
+            "Computer Vision & NLP",
+            "Predictive Analytics",
+            "Music & Technology",
+            "Continuous Learning",
+          ].map((interest) => (
+            <div
+              key={interest}
+              className="rounded-lg border border-violet-500/20 bg-violet-500/5 px-3 py-2.5 text-xs font-medium text-violet-300 text-center"
             >
-              💬 Get In Touch
-            </Link>
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/20 hover:border-purple-300/30 text-purple-200 font-medium py-2 px-6 rounded-lg transition-all duration-200"
-            >
-              🚀 View Projects
-            </Link>
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/20 hover:border-purple-300/30 text-purple-200 font-medium py-2 px-6 rounded-lg transition-all duration-200"
-            >
-              📝 Read Blog
-            </Link>
-          </div>
+              {interest}
+            </div>
+          ))}
         </div>
       </div>
+
+      {/* ── Skills ───────────────────────────────────────── */}
+      <div className="mb-14">
+        <h2 className="text-lg font-semibold text-white mb-6">Technical Skills</h2>
+        <div className="space-y-6">
+          {skillGroups.map((group) => (
+            <div key={group.label}>
+              <p className="text-xs font-semibold uppercase tracking-widest text-violet-400 mb-3">
+                {group.label}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="rounded-md border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 text-xs text-slate-300 hover:border-violet-500/30 hover:text-violet-200 transition-colors"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── CTA ──────────────────────────────────────────── */}
+      <div className="rounded-2xl border border-violet-500/20 bg-gradient-to-r from-violet-500/8 to-cyan-500/8 px-8 py-10 text-center">
+        <h3 className="text-lg font-semibold text-white mb-2">Let&apos;s Connect</h3>
+        <p className="text-sm text-slate-400 mb-6 max-w-lg mx-auto">
+          Always happy to discuss AI/ML projects, share insights, or explore collaboration.
+        </p>
+        <div className="flex flex-wrap gap-3 justify-center">
+          <Link
+            href="/contact"
+            className="rounded-lg bg-violet-600 hover:bg-violet-700 px-5 py-2 text-sm font-semibold text-white transition-colors shadow-lg shadow-violet-900/40"
+          >
+            Get In Touch
+          </Link>
+          <Link
+            href="/projects"
+            className="rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 px-5 py-2 text-sm font-semibold text-slate-300 transition-colors"
+          >
+            View Projects
+          </Link>
+        </div>
+      </div>
+
     </div>
   );
 }
-
-

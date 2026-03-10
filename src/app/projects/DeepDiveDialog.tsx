@@ -16,9 +16,9 @@ export function DeepDiveDialog({ title, content }: DeepDiveDialogProps) {
         <Button 
           variant="outline" 
           size="sm"
-          className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30 border-purple-300/30 hover:border-purple-300/50 text-purple-100 hover:text-white transition-all duration-200"
+          className="bg-violet-500/10 hover:bg-violet-500/20 border-violet-500/30 hover:border-violet-400/50 text-violet-200 hover:text-white transition-all duration-200"
         >
-          🔍 Deep Dive
+          Deep Dive
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] w-[95vw] sm:w-full">

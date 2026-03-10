@@ -14,9 +14,9 @@ export function VideoDemoDialog({ videoSrc, title = "Video Demo" }: VideoDemoDia
         <Button 
           variant="outline" 
           size="sm"
-          className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 hover:from-green-500/30 hover:to-emerald-500/30 border-green-300/30 hover:border-green-300/50 text-green-100 hover:text-white transition-all duration-200"
+          className="bg-cyan-500/10 hover:bg-cyan-500/20 border-cyan-500/30 hover:border-cyan-400/50 text-cyan-200 hover:text-white transition-all duration-200"
         >
-          🎥 Video Demo
+          Video Demo
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-5xl max-h-[90vh] w-[95vw] sm:w-full p-0">
