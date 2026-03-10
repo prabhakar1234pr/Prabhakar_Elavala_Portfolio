@@ -18,9 +18,10 @@ export const education: ExperienceItem[] = [
     type: "education",
     gpa: "3.8",
     bullets: [
-      "Master's degree in Informatics with specialization in Analytics",
-      "Coursework in data science, machine learning, and analytics",
-      "Graduated with 3.8 GPA"
+      "Analytics Concentration — Python & Analytics Technology, Data Management & Big Data, Probability Theory & Statistics, Intermediate Analytics, and Data Visualization",
+      "Systems & Cloud foundations — Database Management Systems, AWS Cloud Architecting, Information Systems Design & Development",
+      "Capstone project and IBM co-op applied coursework to real-world AI/ML systems in production",
+      "GPA: 3.822 / 4.0"
     ],
   },
   {
@@ -46,13 +47,10 @@ export const experience: ExperienceItem[] = [
     location: "Boston, MA (On-site)",
     type: "internship",
     bullets: [
-      "Led 12-week collaborative project with IBM mentors to build AI-powered chatbot serving 100+ students for Credit for Prior Learning (CPL) applications",
-      "Architected complete RAG pipeline using IBM watsonx platform, transforming 15+ institutional documents into intelligent knowledge base with Milvus vector database",
-      "Built Python document processing pipeline integrating watsonx.ai SDK, PyPDF2, and custom text chunking algorithms for educational content",
-      "Configured Milvus with IVF_FLAT indexing and 768-dimensional embeddings, achieving sub-3 second query response times",
-      "Integrated watsonx Assistant with Milvus via custom search extensions for real-time document retrieval",
-      "Automated CPL screening with semantic search, projecting 50% reduction in faculty workload while providing 24/7 student support",
-      "Tech Stack: IBM watsonx • Milvus Vector DB • Python • RAG Architecture • Semantic Search • Granite LLMs • FastAPI"
+      "Built and deployed a RAG chatbot now live at Northeastern University — students submit documents for Credit for Prior Learning (CPL) and the bot screens applications: clear rejections are handled automatically with reasoned feedback, while viable candidates are forwarded directly to faculty for review",
+      "Architected end-to-end RAG pipeline on IBM watsonx: ingested 15+ institutional policy documents, chunked and embedded into Milvus vector database with 768-dimensional embeddings and IVF_FLAT indexing, achieving sub-3 second query response times",
+      "Integrated watsonx Assistant with Milvus via custom REST search extensions, enabling natural language queries grounded in actual CPL guidelines and course syllabi",
+      "Automated initial CPL screening — 50% reduction in faculty advising workload while giving students accurate, 24/7 guidance on eligibility, evidence requirements, and portfolio preparation"
     ],
   },
   {
@@ -62,10 +60,10 @@ export const experience: ExperienceItem[] = [
     location: "San Francisco, CA (Remote)",
     type: "internship",
     bullets: [
-      "Analyzed learner interactions and improved AI-generated instructional data quality",
-      "Contributed to performance monitoring of large language models (LLMs) by auditing outputs",
-      "Generated QA reports and collaborated with product team to optimize content clarity and efficiency",
-      "Helped reduce revision cycles, increase QA pass rates, and provide data-driven insights to improve UX"
+      "Analysed 2,000+ learner session logs to identify drop-off points, unclear prompts, and content gaps across CommandL's AI-generated coding curriculum",
+      "Built a Python-based LLM evaluation pipeline using RAGAS-style scoring to measure lesson quality, consistency, and pedagogical effectiveness across 15+ training modules",
+      "Used findings to redesign course content and prompt structures — reduced editorial revision cycles by 40% and improved clarity scores across the affected modules",
+      "Applied prompt engineering and QLoRA fine-tuning experiments to improve model output quality for instructional content generation"
     ],
   },
   {
@@ -75,11 +73,10 @@ export const experience: ExperienceItem[] = [
     location: "Boston, USA",
     type: "volunteer",
     bullets: [
-      "Led development of AI-powered healthcare chatbot for dental tourism using Azure OpenAI and LangGraph",
-      "Designed and deployed scalable infrastructure with WebSockets, Redis, FastAPI, and PostgreSQL",
-      "Supported multi-agent systems to reduce latency and improve reliability",
-      "Integrated front-end components with React and implemented error-handling strategies",
-      "Significantly improved uptime and reduced timeout errors for end users"
+      "Built a medical tourism agent that helps users plan dental trips end-to-end — it searches clinics by specialty and price, finds nearby hotels, checks flight availability, and assembles a full itinerary within the user's budget, all via natural language conversation",
+      "Architected multi-tool LangGraph agent with Azure OpenAI: designed tool-calling workflows for clinic lookup, hotel search, flight search, and budget optimisation running as coordinated steps within a single conversation",
+      "Built Redis-backed WebSocket infrastructure for real-time streaming responses — achieved ~60% faster response times and a 10× improvement in connection stability via progressive backoff and automatic session cleanup",
+      "Reduced connection timeout errors by 90% through 15-second ping/pong health monitoring and resilient reconnection logic; deployed on Azure Container Apps for production-scale availability"
     ],
   },
   {

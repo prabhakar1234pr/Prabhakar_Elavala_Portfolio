@@ -37,8 +37,9 @@ export default function ContactPage() {
         </p>
         <h1 className="text-4xl font-extrabold text-white mb-3">Get In Touch</h1>
         <p className="text-slate-400 max-w-xl">
-          I recently completed my MS in Informatics at Northeastern University and am actively
-          seeking full-time roles in AI/ML engineering and backend development. Let&apos;s talk.
+          I build AI systems end-to-end — and I&apos;m looking for a team where that matters.
+          If you&apos;re working on something interesting in AI, LLMs, or developer tools,
+          I&apos;d love to hear about it.
         </p>
       </div>
 

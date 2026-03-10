@@ -49,7 +49,7 @@ export default function Home() {
           {/* Left — text */}
           <div className="flex-1 text-center md:text-left">
             <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-violet-400">
-              AI / ML Engineer
+              AI Engineer &amp; Full-Stack Developer
             </p>
 
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl text-white">
@@ -151,13 +151,13 @@ export default function Home() {
           {[
             {
               title: "GitGuide",
-              desc: "AI-powered platform that turns GitHub repos into personalized learning journeys with context-aware chat.",
+              desc: "Paste any GitHub repo and get a structured roadmap, a repo-aware RAG chatbot, and a real cloud IDE with Monaco editor and Docker terminal — all generated from the actual codebase.",
               tags: ["Next.js","FastAPI","Google Vertex AI"],
               href: "https://gitguide.dev/",
             },
             {
               title: "Song Popularity ML Pipeline",
-              desc: "Production ML pipeline predicting song popularity across 600K+ Spotify tracks using ZenML and MLflow.",
+              desc: "Upload an MP3 and get a popularity score. 13-step ZenML pipeline, Optuna search across 5 algorithms, 80% compute reduction via smart sampling, tracked with MLflow.",
               tags: ["MLOps","ZenML","MLflow"],
               href: "https://huggingface.co/spaces/Prabhakar554/song-popularity-predictor",
             },
@@ -201,7 +201,8 @@ export default function Home() {
             Ready to build something great together?
           </h2>
           <p className="text-slate-400 text-sm mb-6 max-w-xl mx-auto">
-            I&apos;m actively seeking full-time roles in AI/ML engineering and backend development.
+            Open to full-time roles in AI engineering, backend systems, and applied ML.
+            Based in San Francisco &mdash; open to remote and relocation.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link

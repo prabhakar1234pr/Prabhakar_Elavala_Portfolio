@@ -26,7 +26,7 @@ export function Header() {
 
         {/* Logo */}
         <Link href="/" className="font-semibold text-white text-sm tracking-tight">
-          Prabhakar<span className="text-violet-400">.</span>
+          Prabhakar Elavala<span className="text-violet-400">.</span>
         </Link>
 
         {/* Desktop nav */}
@@ -73,7 +73,7 @@ export function Header() {
           <div className="fixed inset-x-0 top-0 bg-[oklch(0.10_0.02_265)] border-b border-white/[0.08] shadow-2xl">
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.06]">
               <Link href="/" className="font-semibold text-white text-sm" onClick={() => setOpen(false)}>
-                Prabhakar<span className="text-violet-400">.</span>
+                Prabhakar Elavala<span className="text-violet-400">.</span>
               </Link>
               <button onClick={() => setOpen(false)} className="p-2 text-slate-400 hover:text-white">
                 <X className="w-5 h-5" />
