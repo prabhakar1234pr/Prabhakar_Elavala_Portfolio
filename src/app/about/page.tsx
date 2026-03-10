@@ -52,7 +52,7 @@ export default function AboutPage() {
         {/* Quick facts */}
         <div className="mt-8 flex flex-wrap gap-4">
           {[
-            { label: "Location", value: "Boston, MA" },
+            { label: "Location", value: "San Francisco, CA" },
             { label: "Education", value: "MS Informatics, Northeastern" },
             { label: "GPA", value: "3.8 / 4.0" },
             { label: "Status", value: "Open to Work" },

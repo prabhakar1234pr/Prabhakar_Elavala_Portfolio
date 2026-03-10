@@ -19,7 +19,7 @@ export function Footer() {
               Prabhakar<span className="text-violet-400">.</span>
             </p>
             <p className="text-xs text-slate-500 leading-relaxed max-w-[200px]">
-              AI / ML Engineer · Boston, MA<br />
+              AI / ML Engineer · San Francisco, CA<br />
               Open to full-time &amp; internship roles.
             </p>
             {/* Social icons */}

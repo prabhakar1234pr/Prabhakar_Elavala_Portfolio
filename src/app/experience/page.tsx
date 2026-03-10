@@ -1,5 +1,26 @@
 import { experience, education } from "@/data/experience";
 
+const certifications = [
+  {
+    name: "Azure AI Engineer Associate",
+    issuer: "Microsoft",
+    link: "https://learn.microsoft.com/en-us/users/prabhakarelavala-8349/transcript/d5ylxuolzp2g314?tab=credentials-tab",
+  },
+  {
+    name: "Machine Learning Associate",
+    issuer: "Databricks",
+    link: "https://credentials.databricks.com/e0e3e060-6be5-4cba-ad5e-f28b92b0dc3c#acc.mFQUXin8",
+  },
+  {
+    name: "AWS Cloud Architect",
+    issuer: "AICTE",
+  },
+  {
+    name: "ML Engineer",
+    issuer: "Startup India",
+  },
+];
+
 export default function ExperiencePage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-14">
@@ -37,6 +58,34 @@ export default function ExperiencePage() {
             </li>
           ))}
         </ol>
+      </section>
+
+      {/* Certifications */}
+      <section className="mb-16">
+        <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-emerald-400">
+          Certifications
+        </p>
+        <ul className="space-y-3">
+          {certifications.map((c) => (
+            <li key={c.name} className="flex gap-2 text-sm text-slate-400">
+              <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
+              <span>
+                <span className="font-medium text-white">{c.name}</span>
+                {c.link ? (
+                  <a
+                    href={c.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-2 text-xs text-emerald-400 underline hover:text-emerald-300 transition-colors"
+                  >
+                    Credential
+                  </a>
+                ) : null}
+                {c.issuer ? <span className="text-slate-500"> · {c.issuer}</span> : null}
+              </span>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Experience */}

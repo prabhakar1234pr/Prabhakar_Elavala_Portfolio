@@ -172,7 +172,7 @@ export default function ProjectsPage() {
                     target="_blank"
                     className="text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
                   >
-                    Live Demo ↗
+                    {project.title === "BrowserFriend" ? "PyPI ↗" : "Live Demo ↗"}
                   </Link>
                 )
               )}

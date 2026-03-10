@@ -57,16 +57,14 @@ export default function Home() {
             </h1>
 
             <p className="mt-5 text-base text-slate-400 max-w-lg leading-relaxed">
-              Building production-ready AI systems — from data pipelines and ML
-              models to APIs and cloud deployments.{" "}
-              <span className="text-slate-300">
-                MS Informatics · Azure AI Certified · Northeastern University.
-              </span>
+              I build AI-powered products end-to-end —{" "}
+              <span className="text-slate-300">full-stack apps, LLM pipelines,</span>{" "}
+              and the ML systems that run reliably in production.
             </p>
 
             {/* Skill chips */}
             <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-2">
-              {["LangChain","FastAPI","MLflow","AWS","Next.js"].map((s) => (
+              {["Python","Next.js","FastAPI","LangChain","PyTorch","Docker"].map((s) => (
                 <span
                   key={s}
                   className="rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-300"
@@ -127,7 +125,7 @@ export default function Home() {
               </div>
             </div>
             {/* Open-to-work badge */}
-            <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
+            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
               ● Open to Work
             </span>
           </div>
@@ -154,20 +152,20 @@ export default function Home() {
             {
               title: "GitGuide",
               desc: "AI-powered platform that turns GitHub repos into personalized learning journeys with context-aware chat.",
-              tags: ["Next.js","FastAPI","Azure OpenAI"],
+              tags: ["Next.js","FastAPI","Google Vertex AI"],
               href: "https://gitguide.dev/",
             },
             {
               title: "Song Popularity ML Pipeline",
               desc: "Production ML pipeline predicting song popularity across 600K+ Spotify tracks using ZenML and MLflow.",
-              tags: ["XGBoost","ZenML","MLflow"],
+              tags: ["MLOps","ZenML","MLflow"],
               href: "https://huggingface.co/spaces/Prabhakar554/song-popularity-predictor",
             },
             {
-              title: "AI Healthcare Chatbot",
-              desc: "Dental-tourism chatbot built with Azure OpenAI, LangGraph multi-agent workflows, and WebSocket infra.",
-              tags: ["LangGraph","Azure OpenAI","FastAPI"],
-              href: "https://github.com/prabhakar1234pr",
+              title: "SubsGen",
+              desc: "Instagram-style subtitles with AI reel pipeline: CrewAI Flows orchestration, Groq Whisper/Llama, and agent-driven editing.",
+              tags: ["Visual Language Models","FastAPI","CrewAI Flows"],
+              href: "https://subsgen-frontend-qk75e3hl0-prabhakar-elavalas-projects.vercel.app/",
             },
           ].map((p) => (
             <a

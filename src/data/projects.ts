@@ -19,15 +19,6 @@ export const projects: Project[] = [
     highlightMetrics: ["AI-powered learning paths", "Context-aware chat", "Full-stack architecture"],
   },
   {
-    title: "Job Search MCP Server",
-    summary: "🔍 MCP server for Claude Desktop that searches AI/ML jobs across multiple platforms with AI-powered resume tailoring and referral assistance.",
-    tech: ["Python", "MCP", "Claude AI", "Adzuna API", "Greenhouse API", "Lever API"],
-    links: { 
-      github: "https://github.com/prabhakar1234pr/Applying-Jobs-MCP-server"
-    },
-    highlightMetrics: ["Multi-platform job search", "AI resume tailoring", "Referral message generator"],
-  },
-  {
     title: "Song Popularity ML Pipeline",
     summary: "🎵 Professional-grade ML pipeline predicting song popularity using 600K+ Spotify tracks with ZenML orchestration and MLflow tracking.",
     tech: ["Python", "XGBoost", "ZenML", "MLflow", "FastAPI", "Docker"],
@@ -36,6 +27,25 @@ export const projects: Project[] = [
       demo: "https://huggingface.co/spaces/Prabhakar554/song-popularity-predictor"
     },
     highlightMetrics: ["R² ≈ 0.51 accuracy", "600K+ tracks analyzed", "MLOps best practices"],
+  },
+  {
+    title: "SubsGen",
+    summary: "🎬 Instagram-style subtitles with word-by-word highlighting, plus AI reel pipeline: CrewAI Flows orchestration, Groq Whisper/Llama, creative EditDirector agent, and Internet Archive music.",
+    tech: ["Visual Language Models", "FastAPI", "CrewAI Flows", "Groq Whisper", "FFmpeg", "TypeScript", "Tailwind CSS"],
+    links: { 
+      github: "https://github.com/prabhakar1234pr/subsgen-frontend",
+      demo: "https://subsgen-frontend-qk75e3hl0-prabhakar-elavalas-projects.vercel.app/"
+    },
+    highlightMetrics: ["AI reel pipeline", "CrewAI Flow orchestration", "6 subtitle styles", "Agent-driven editing"],
+  },
+  {
+    title: "Job Search MCP Server",
+    summary: "🔍 MCP server for Claude Desktop that searches AI/ML jobs across multiple platforms with AI-powered resume tailoring and referral assistance.",
+    tech: ["Python", "MCP", "Claude AI", "Adzuna API", "Greenhouse API", "Lever API"],
+    links: { 
+      github: "https://github.com/prabhakar1234pr/Applying-Jobs-MCP-server"
+    },
+    highlightMetrics: ["Multi-platform job search", "AI resume tailoring", "Referral message generator"],
   },
   {
     title: "BrowserFriend",
@@ -56,16 +66,6 @@ export const projects: Project[] = [
       demo: "https://airtext-kduznc54nefybwje8bzscp.streamlit.app/"
     },
     highlightMetrics: ["Hand gesture recognition", "OCR integration", "Text-to-image generation"],
-  },
-  {
-    title: "SubsGen",
-    summary: "🎬 Instagram-style subtitles with word-by-word highlighting, plus AI reel pipeline: CrewAI Flows orchestration, Groq Whisper/Llama, creative EditDirector agent, and Internet Archive music.",
-    tech: ["Next.js", "FastAPI", "CrewAI Flows", "Groq Whisper", "FFmpeg", "TypeScript", "Tailwind CSS"],
-    links: { 
-      github: "https://github.com/prabhakar1234pr/subsgen-frontend",
-      demo: "https://subsgen-frontend-qk75e3hl0-prabhakar-elavalas-projects.vercel.app/"
-    },
-    highlightMetrics: ["AI reel pipeline", "CrewAI Flow orchestration", "6 subtitle styles", "Agent-driven editing"],
   },
   {
     title: "Traffic Safety Analysis System",
