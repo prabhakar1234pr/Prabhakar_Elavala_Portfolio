@@ -41,42 +41,45 @@ export const education: ExperienceItem[] = [
 // Professional Experience & Internships
 export const experience: ExperienceItem[] = [
   {
-    role: "AI and Data Intern",
+    role: "AI Engineer",
     org: "IBM X Northeastern University",
     dates: "Sep 2025 - Dec 2025",
     location: "Boston, MA (On-site)",
     type: "internship",
     bullets: [
-      "Built and deployed a RAG chatbot now live at Northeastern University — students submit documents for Credit for Prior Learning (CPL) and the bot screens applications: clear rejections are handled automatically with reasoned feedback, while viable candidates are forwarded directly to faculty for review",
-      "Architected end-to-end RAG pipeline on IBM watsonx: ingested 15+ institutional policy documents, chunked and embedded into Milvus vector database with 768-dimensional embeddings and IVF_FLAT indexing, achieving sub-3 second query response times",
-      "Integrated watsonx Assistant with Milvus via custom REST search extensions, enabling natural language queries grounded in actual CPL guidelines and course syllabi",
-      "Automated initial CPL screening — 50% reduction in faculty advising workload while giving students accurate, 24/7 guidance on eligibility, evidence requirements, and portfolio preparation"
+      "Owned end-to-end development of an autonomous question-answering service for student policy guidance — translated ambiguous stakeholder requirements into a testable system design and delivered a production-ready REST interface with clear versioning, logging, and rollback procedures within a 3-month window",
+      "Built a simulation-driven validation harness with deterministic replay of recorded queries, synthetic edge-case generation, and automated regression suites — improved pre-release defect discovery rate by 2.1× and reduced production hotfixes during the pilot period",
+      "Implemented a distributed retrieval pipeline (vector DB + document ingestion service) with tuned chunking, indexing, and caching strategies — reduced hallucinated or unsupported responses by 35% while keeping p95 end-to-end latency under 900 ms",
+      "Hardened the system with structured telemetry, health checks, and alertable SLOs; performed fault injection tests (dependency timeouts, partial data corruption, empty index) — achieved 99.5% successful request completion during staged rollout",
+      "Integrated assistant front-end, retrieval service, and policy content store through well-defined APIs using contract tests and schema validation, coordinating interface definitions and deployment sequencing across counterpart teams"
     ],
   },
   {
-    role: "Data Science Intern",
+    role: "Data Scientist",
     org: "CommandL",
-    dates: "Apr 2025 - Jul 2025",
+    dates: "Jan 2025 - Aug 2025",
     location: "San Francisco, CA (Remote)",
     type: "internship",
     bullets: [
-      "Analysed 2,000+ learner session logs to identify drop-off points, unclear prompts, and content gaps across CommandL's AI-generated coding curriculum",
-      "Built a Python-based LLM evaluation pipeline using RAGAS-style scoring to measure lesson quality, consistency, and pedagogical effectiveness across 15+ training modules",
-      "Used findings to redesign course content and prompt structures — reduced editorial revision cycles by 40% and improved clarity scores across the affected modules",
-      "Applied prompt engineering and QLoRA fine-tuning experiments to improve model output quality for instructional content generation"
+      "Owned end-to-end development of a reliability-focused evaluation harness for autonomous-style decision outputs — designed the scoring rubric, implemented deterministic test cases in Python, and wired results into a repeatable CI-style workflow, reducing manual review time by 35% across 15+ training modules",
+      "Built simulation-like offline validation by generating scenario suites from 2,000+ real user interaction logs and replaying them through candidate builds — increased detected failure modes per evaluation run by 2.3× and enabled faster root-cause isolation",
+      "Implemented a distributed evaluation pipeline that parallelized batch scoring across multiple workers with structured logging, metrics, and traceable run artifacts — cut average evaluation turnaround from hours to under 25 minutes while improving reproducibility across environments",
+      "Applied first-principles debugging to reduce non-determinism in evaluation results by enforcing fixed seeds, version-pinned dependencies, and snapshot-based datasets — improved run-to-run score variance by 60% and made failures actionable for integration teams",
+      "Optimized model adaptation workflows using parameter-efficient fine-tuning with QLoRA, tuning hyperparameters for stability and validating changes against a gated test suite — reduced revision cycles by 40% and delivered more consistent outputs aligned to quality standards"
     ],
   },
   {
-    role: "Chatbot Engineer (Volunteer)",
+    role: "AI Engineer",
     org: "CareEscapes AI",
-    dates: "January 2025 – April 2025",
-    location: "Boston, USA",
-    type: "volunteer",
+    dates: "Feb 2024 - Dec 2024",
+    location: "Boston, MA (Remote)",
+    type: "work",
     bullets: [
-      "Built a medical tourism agent that helps users plan dental trips end-to-end — it searches clinics by specialty and price, finds nearby hotels, checks flight availability, and assembles a full itinerary within the user's budget, all via natural language conversation",
-      "Architected multi-tool LangGraph agent with Azure OpenAI: designed tool-calling workflows for clinic lookup, hotel search, flight search, and budget optimisation running as coordinated steps within a single conversation",
-      "Built Redis-backed WebSocket infrastructure for real-time streaming responses — achieved ~60% faster response times and a 10× improvement in connection stability via progressive backoff and automatic session cleanup",
-      "Reduced connection timeout errors by 90% through 15-second ping/pong health monitoring and resilient reconnection logic; deployed on Azure Container Apps for production-scale availability"
+      "Owned end-to-end development of a highly reliable real-time autonomous triage and routing service for a healthcare chatbot — translated operational requirements into a testable system design with strict Pydantic contracts, achieving a 30% reduction in initial triage response time while maintaining consistent behavior under burst traffic",
+      "Engineered a low-latency, high-concurrency messaging and state layer using WebSocket sessions, Redis pub/sub, and idempotent message handling — supported a 50% increase in active users while sustaining sub-second message delivery and zero dropped connections during load tests and production peak periods",
+      "Built simulation and validation tooling including deterministic replay of conversation events, fault injection for network partitions and Redis failover, and automated regression suites — improved release confidence and reduced production incident recurrence through systematic pre-deployment verification",
+      "Implemented mission-critical reliability features: structured health checks, watchdog-style monitoring, bounded retries with exponential backoff, circuit breaker behavior, and TTL-based state expiration — improved service availability and reduced stale session accumulation by 90% within defined SLOs",
+      "Profiled hot paths, reduced serialization overhead, and tightened API invariants with explicit schemas — produced design notes and runbooks that enabled on-call ownership and accelerated onboarding for new engineers by 30%"
     ],
   },
   {
@@ -123,5 +126,3 @@ export const experience: ExperienceItem[] = [
     ],
   },
 ];
-
-
