@@ -2,7 +2,7 @@
 import { PostHogProvider } from "posthog-js/react";
 import posthog from "posthog-js";
 import { useEffect } from "react";
-import { ChatWidget } from "@/components/assistant/ChatWidget";
+import { VoiceWidget } from "@/components/assistant/VoiceWidget";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
@@ -22,7 +22,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
   const content = (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
       {children}
-      <ChatWidget />
+      <VoiceWidget />
       <Toaster richColors position="top-right" />
       {process.env.NEXT_PUBLIC_VERCEL_ANALYTICS === "1" ? <Analytics /> : null}
     </ThemeProvider>
@@ -32,5 +32,3 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
 
   return <PostHogProvider client={posthog}>{content}</PostHogProvider>;
 }
-
-
