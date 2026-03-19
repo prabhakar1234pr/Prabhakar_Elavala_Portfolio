@@ -37,9 +37,9 @@ export default function ContactPage() {
         </p>
         <h1 className="text-4xl font-extrabold text-white mb-3">Get In Touch</h1>
         <p className="text-slate-400 max-w-xl">
-          I build AI systems end-to-end — and I&apos;m looking for a team where that matters.
-          If you&apos;re working on something interesting in AI, LLMs, or developer tools,
-          I&apos;d love to hear about it.
+          I love building things that work and working with teams that care.
+          Whether you have an opportunity, a project, or just want to connect —
+          my inbox is open.
         </p>
       </div>
 

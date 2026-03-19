@@ -37,10 +37,10 @@ export default function AboutPage() {
         </h1>
         <div className="space-y-4 text-slate-400 max-w-3xl leading-relaxed">
           <p>
-            I&apos;m an AI/ML engineer with a strong foundation in backend development, data engineering,
-            and applied machine learning. I build scalable APIs, integrate SaaS platforms, deploy
-            LLM-powered applications, and design reliable MLOps pipelines — comfortable across the full
-            stack from data modeling to cloud deployments.
+            I&apos;m a software engineer with a strong foundation in backend development, data engineering,
+            and applied machine learning. I build scalable APIs, ship full-stack products, and design
+            systems that run reliably in production — comfortable across the stack from data modeling
+            to cloud deployments.
           </p>
           <p>
             Beyond technical skills, I bring a startup-ready mindset: fast learning, adaptability in
@@ -52,7 +52,7 @@ export default function AboutPage() {
         {/* Quick facts */}
         <div className="mt-8 flex flex-wrap gap-4">
           {[
-            { label: "Location", value: "San Francisco, CA" },
+            { label: "Location", value: "San Francisco · Open to relocation" },
             { label: "Education", value: "MS Informatics, Northeastern" },
             { label: "GPA", value: "3.8 / 4.0" },
             { label: "Status", value: "Open to Work" },
@@ -120,7 +120,7 @@ export default function AboutPage() {
       <div className="rounded-2xl border border-violet-500/20 bg-gradient-to-r from-violet-500/8 to-cyan-500/8 px-8 py-10 text-center">
         <h3 className="text-lg font-semibold text-white mb-2">Let&apos;s Connect</h3>
         <p className="text-sm text-slate-400 mb-6 max-w-lg mx-auto">
-          Always happy to discuss AI/ML projects, share insights, or explore collaboration.
+          Always happy to discuss ideas, share insights, or explore what we could build together.
         </p>
         <div className="flex flex-wrap gap-3 justify-center">
           <Link

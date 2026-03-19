@@ -45,7 +45,7 @@ function getPosts(): BlogPost[] {
       return {
         slug,
         title: str(fm.title) || slug.split("-").map((w) => w[0]?.toUpperCase() + w.slice(1)).join(" "),
-        summary: str(fm.summary) || "No summary available",
+        summary: str(fm.summary) || "",
         date: str(fm.date) || "2025-01-20",
         readTime: str(fm.readTime) || "5 min read",
         tags: Array.isArray(fm.tags) ? fm.tags : fm.tags ? [fm.tags as string] : ["Tech"],

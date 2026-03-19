@@ -33,6 +33,43 @@ const jsonLd = {
   ]
 };
 
+// Three focused strengths — replaces the generic KPI stats
+const strengths = [
+  {
+    icon: "⚡",
+    label: "End-to-end AI systems",
+    desc: "From data pipeline to deployed product",
+  },
+  {
+    icon: "🔗",
+    label: "LLM & RAG pipelines",
+    desc: "LangChain, LangGraph, Vertex AI, Groq",
+  },
+  {
+    icon: "🛠",
+    label: "Production-ready engineering",
+    desc: "FastAPI, Docker, AWS, Azure, MLflow",
+  },
+];
+
+const featuredProjects = [
+  {
+    title: "GitGuide",
+    desc: "Paste any GitHub repo and get a structured roadmap, a repo-aware RAG chatbot, and a real cloud IDE with Monaco editor and Docker terminal.",
+    tags: ["Next.js", "FastAPI", "Vertex AI"],
+  },
+  {
+    title: "Song Popularity ML Pipeline",
+    desc: "Upload an MP3 and get a popularity score. 13-step ZenML pipeline, Optuna search across 5 algorithms, 80% compute reduction via smart sampling.",
+    tags: ["MLOps", "ZenML", "MLflow"],
+  },
+  {
+    title: "SubsGen",
+    desc: "Instagram-style subtitles with AI reel pipeline: CrewAI Flows orchestration, Groq Whisper/Llama, and agent-driven editing.",
+    tags: ["CrewAI Flows", "FastAPI", "FFmpeg"],
+  },
+];
+
 export default function Home() {
   return (
     <div className="relative overflow-hidden">
@@ -43,39 +80,51 @@ export default function Home() {
       <HeroCanvas />
 
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-6 pt-24 pb-20 sm:pt-32 sm:pb-28">
-        <div className="flex flex-col-reverse items-center gap-10 md:flex-row md:items-center md:gap-16">
+      <section className="mx-auto max-w-6xl px-6 pt-24 pb-24 sm:pt-32 sm:pb-32">
+        <div className="flex flex-col-reverse items-center gap-12 md:flex-row md:items-center md:gap-20">
 
           {/* Left — text */}
           <div className="flex-1 text-center md:text-left">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-violet-400">
-              AI Engineer &amp; Full-Stack Developer
-            </p>
 
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl text-white">
-              Prabhakar<br />Elavala
+            {/* Open to work pill */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/8 px-3.5 py-1.5 mb-6">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-xs font-semibold text-emerald-300">
+                Open to Work
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-5xl font-extrabold tracking-tight sm:text-7xl text-white leading-[0.95] mb-5 whitespace-nowrap">
+              Prabhakar Elavala
             </h1>
 
-            <p className="mt-5 text-base text-slate-400 max-w-lg leading-relaxed">
-              I build AI-powered products end-to-end —{" "}
-              <span className="text-slate-300">full-stack apps, LLM pipelines,</span>{" "}
-              and the ML systems that run reliably in production.
+            {/* Value prop */}
+            <p className="text-lg text-slate-400 max-w-lg leading-relaxed mb-8">
+              I build AI-powered products end-to-end —
+              full-stack apps, LLM pipelines, and the ML systems
+              that run{" "}
+              <span className="text-slate-200 font-medium">reliably in production.</span>
             </p>
 
-            {/* Skill chips */}
-            <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-2">
-              {["Python","Next.js","FastAPI","LangChain","PyTorch","Docker"].map((s) => (
-                <span
-                  key={s}
-                  className="rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-300"
+            {/* Strengths row */}
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-3 mb-8 pb-8 border-b border-white/[0.06]">
+              {strengths.map((s) => (
+                <div
+                  key={s.label}
+                  className="flex items-center gap-2.5 rounded-lg border border-white/[0.07] bg-white/[0.03] px-3.5 py-2.5"
                 >
-                  {s}
-                </span>
+                  <span className="text-base leading-none">{s.icon}</span>
+                  <div className="text-left">
+                    <p className="text-xs font-semibold text-slate-200 leading-tight">{s.label}</p>
+                    <p className="text-[10px] text-slate-500 mt-0.5">{s.desc}</p>
+                  </div>
+                </div>
               ))}
             </div>
 
             {/* CTAs */}
-            <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
+            <div className="flex flex-wrap justify-center md:justify-start gap-3">
               <Link
                 href="/projects"
                 className={cn(
@@ -109,25 +158,18 @@ export default function Home() {
 
           {/* Right — photo */}
           <div className="relative flex-shrink-0">
-            {/* Glow ring */}
-            <div className="absolute inset-0 rounded-full bg-violet-500/20 blur-2xl scale-110" />
-            {/* Outer ring */}
-            <div className="relative rounded-full p-[3px] bg-gradient-to-br from-violet-500 via-cyan-400 to-violet-600 shadow-2xl shadow-violet-900/50">
-              <div className="rounded-full overflow-hidden w-52 h-52 sm:w-64 sm:h-64 bg-background">
-                <Image
-                  src="/WhatsApp Image 2025-07-12 at 18.14.40_c5d80c46.jpg"
-                  alt="Prabhakar Elavala"
-                  width={256}
-                  height={256}
-                  className="w-full h-full object-cover"
-                  priority
-                />
-              </div>
+            <div className="relative rounded-2xl overflow-hidden w-52 h-52 sm:w-64 sm:h-64 ring-1 ring-white/10">
+              <Image
+                src="/prabhakar.jpg"
+                alt="Prabhakar Elavala"
+                width={256}
+                height={256}
+                className="w-full h-full object-cover"
+                priority
+              />
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
-            {/* Open-to-work badge */}
-            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
-              ● Open to Work
-            </span>
+            <div className="absolute -inset-4 rounded-3xl bg-violet-500/10 blur-2xl -z-10" />
           </div>
 
         </div>
@@ -142,37 +184,19 @@ export default function Home() {
             </p>
             <h2 className="text-2xl font-bold text-white">Featured Projects</h2>
           </div>
-          <Link href="/projects" className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors">
+          <Link
+            href="/projects"
+            className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+          >
             View all →
           </Link>
         </div>
 
         <div className="grid gap-5 md:grid-cols-3">
-          {[
-            {
-              title: "GitGuide",
-              desc: "Paste any GitHub repo and get a structured roadmap, a repo-aware RAG chatbot, and a real cloud IDE with Monaco editor and Docker terminal — all generated from the actual codebase.",
-              tags: ["Next.js","FastAPI","Google Vertex AI"],
-              href: "https://gitguide.dev/",
-            },
-            {
-              title: "Song Popularity ML Pipeline",
-              desc: "Upload an MP3 and get a popularity score. 13-step ZenML pipeline, Optuna search across 5 algorithms, 80% compute reduction via smart sampling, tracked with MLflow.",
-              tags: ["MLOps","ZenML","MLflow"],
-              href: "https://huggingface.co/spaces/Prabhakar554/song-popularity-predictor",
-            },
-            {
-              title: "SubsGen",
-              desc: "Instagram-style subtitles with AI reel pipeline: CrewAI Flows orchestration, Groq Whisper/Llama, and agent-driven editing.",
-              tags: ["Visual Language Models","FastAPI","CrewAI Flows"],
-              href: "https://subsgen-frontend-qk75e3hl0-prabhakar-elavalas-projects.vercel.app/",
-            },
-          ].map((p) => (
-            <a
+          {featuredProjects.map((p) => (
+            <Link
               key={p.title}
-              href={p.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/projects"
               className="group flex flex-col gap-4 rounded-xl border border-white/[0.08] bg-white/[0.03] p-5 hover:border-violet-500/30 hover:bg-violet-500/5 transition-all duration-300"
             >
               <h3 className="font-semibold text-white group-hover:text-violet-300 transition-colors">
@@ -189,7 +213,7 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
@@ -198,11 +222,11 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 py-14 border-t border-white/[0.06]">
         <div className="rounded-2xl border border-violet-500/20 bg-gradient-to-r from-violet-500/8 to-cyan-500/8 px-8 py-10 text-center">
           <h2 className="text-xl font-bold text-white mb-2">
-            Ready to build something great together?
+            Looking for an engineer who ships end-to-end?
           </h2>
           <p className="text-slate-400 text-sm mb-6 max-w-xl mx-auto">
-            Open to full-time roles in AI engineering, backend systems, and applied ML.
-            Based in San Francisco &mdash; open to remote and relocation.
+            Based in San Francisco and open to full-time opportunities.
+            Remote and relocation considered.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link
