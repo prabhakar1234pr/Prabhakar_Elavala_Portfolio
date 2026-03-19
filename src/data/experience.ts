@@ -42,6 +42,19 @@ export const education: ExperienceItem[] = [
 export const experience: ExperienceItem[] = [
   {
     role: "AI Engineer",
+    org: "NXT Financial Group",
+    dates: "Jan 2026 - Present",
+    location: "San Francisco",
+    type: "work",
+    bullets: [
+      "Engineered a custom subscription detection algorithm that groups transactions by merchant, validates recurring billing patterns (weekly/biweekly/monthly/yearly) using gap analysis, and filters by a ≤5% amount variance threshold — auto-detecting subscriptions with zero manual input",
+      "Developed a multi-component Financial Health Score (0–100) across four weighted dimensions: budget adherence, savings goal progress, subscription load ratio, and month-over-month spending trend, with Groq LLM-generated personalized improvement tips",
+      "Built a Subscription Negotiation Engine that identifies high-cost subscriptions (>$20/mo), serves category-aware negotiation tips, and generates AI-powered call scripts via Groq to help users reduce recurring bills — estimating ~20% potential savings per candidate",
+      "Implemented a Spending Anomaly Detector that compares current-month category spend against a 3-month rolling average and flags categories with 30%+ spikes for proactive alerts"
+    ],
+  },
+  {
+    role: "AI Engineer",
     org: "IBM X Northeastern University",
     dates: "Sep 2025 - Dec 2025",
     location: "Boston, MA (On-site)",
