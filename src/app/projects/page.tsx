@@ -241,96 +241,97 @@ export default function ProjectsPage() {
             pointerEvents: released ? "none" : "auto",
           }}
         >
-          <div className="w-full max-w-4xl relative">
+          <div className="w-full max-w-5xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-            {/* Ghost number */}
-            <span
-              className="pointer-events-none select-none hidden lg:block absolute"
-              style={{
-                top: "50%", right: "-40px", transform: "translateY(-50%)",
-                fontSize: "18vw", fontWeight: 900, lineHeight: 1,
-                color: `${accent.primary}08`,
-              }}
-            >
-              {String(current + 1).padStart(2, "0")}
-            </span>
+              {/* ── LEFT: title + buttons ── */}
+              <div className="flex flex-col justify-center">
 
-            {/* Title */}
-            <h1 className="text-5xl sm:text-7xl font-black text-white leading-[0.95] tracking-tight mb-6">
-              {project.title}
-            </h1>
+                {/* Title */}
+                <h1 className="text-4xl sm:text-5xl font-black leading-[1.05] tracking-tight mb-8" style={{ color: "#e2e8f0" }}>
+                  {project.title}
+                </h1>
 
-            {/* Description */}
-            <p className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl mb-7">
-              {project.summary.replace(/^[\p{Emoji}\s]+/u, "")}
-            </p>
-
-            {/* Metrics */}
-            {project.highlightMetrics && project.highlightMetrics.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-7">
-                {project.highlightMetrics.map((m) => (
-                  <span
-                    key={m}
-                    className="rounded-full px-3 py-1 text-xs font-semibold border"
-                    style={{ color: accent.secondary, borderColor: `${accent.secondary}35`, background: `${accent.secondary}10` }}
-                  >
-                    {m}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {/* Tech badges */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {project.tech.map((tech) => (
-                <Badge
-                  key={tech}
-                  variant="secondary"
-                  className="text-xs border"
-                  style={{ background: `${accent.primary}10`, borderColor: `${accent.primary}22`, color: "#cbd5e1" }}
-                >
-                  {tech}
-                </Badge>
-              ))}
-            </div>
-
-            {/* Buttons */}
-            <div className="flex flex-wrap items-center gap-3">
-              {project.links.github && (
-                <Link
-                  href={project.links.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white transition-all"
-                >
-                  <Github className="w-4 h-4" /> GitHub
-                </Link>
-              )}
-
-              {project.links.demo && (
-                project.title === "GitGuide"
-                  ? <ColdStartWarning demoUrl={project.links.demo} />
-                  : (
+                {/* Buttons */}
+                <div className="flex flex-wrap items-center gap-3">
+                  {project.links.github && (
                     <Link
-                      href={project.links.demo}
+                      href={project.links.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold border transition-all"
-                      style={{ color: accent.secondary, borderColor: `${accent.secondary}40`, background: `${accent.secondary}10` }}
+                      className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white transition-all"
                     >
-                      <ExternalLink className="w-4 h-4" />
-                      {project.title === "BrowserFriend" ? "PyPI" : "Live Demo"}
+                      <Github className="w-4 h-4" /> GitHub
                     </Link>
-                  )
-              )}
+                  )}
+                  {project.links.demo && (
+                    project.title === "GitGuide"
+                      ? <ColdStartWarning demoUrl={project.links.demo} />
+                      : (
+                        <Link
+                          href={project.links.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold border transition-all"
+                          style={{ color: accent.secondary, borderColor: `${accent.secondary}40`, background: `${accent.secondary}10` }}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          {project.title === "BrowserFriend" ? "PyPI" : "Live Demo"}
+                        </Link>
+                      )
+                  )}
+                  {project.title === "GitGuide" && (
+                    <VideoDemoDialog videoSrc="/gitguide-demo.mp4" title="GitGuide Video Demo" />
+                  )}
+                  {readme && (
+                    <DeepDiveDialog title={readme.projectTitle} content={readme.content} />
+                  )}
+                </div>
+              </div>
 
-              {project.title === "GitGuide" && (
-                <VideoDemoDialog videoSrc="/gitguide-demo.mp4" title="GitGuide Video Demo" />
-              )}
+              {/* ── RIGHT: description + metrics + tech ── */}
+              <div className="flex flex-col justify-center space-y-6">
 
-              {readme && (
-                <DeepDiveDialog title={readme.projectTitle} content={readme.content} />
-              )}
+                {/* Description */}
+                <p className="text-base leading-relaxed" style={{ color: "#94a3b8" }}>
+                  {project.summary.replace(/^[\p{Emoji}\s]+/u, "")}
+                </p>
+
+                {/* Metrics */}
+                {project.highlightMetrics && project.highlightMetrics.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {project.highlightMetrics.map((m) => (
+                      <span
+                        key={m}
+                        className="rounded-full px-3 py-1 text-xs font-semibold border"
+                        style={{ color: accent.secondary, borderColor: `${accent.secondary}30`, background: `${accent.secondary}08` }}
+                      >
+                        {m}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Divider */}
+                <div className="h-px w-full" style={{ background: `${accent.primary}15` }} />
+
+                {/* Tech stack */}
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-600 mb-3">Tech Stack</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-md px-2.5 py-1 text-xs font-medium border"
+                        style={{ background: "rgba(255,255,255,0.03)", borderColor: "rgba(255,255,255,0.07)", color: "#475569" }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

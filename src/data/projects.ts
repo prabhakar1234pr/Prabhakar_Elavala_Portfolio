@@ -15,11 +15,6 @@ export const projects: Project[] = [
       github: "https://github.com/prabhakar1234pr/GitGuide-nextjs",
       demo: "https://gitguide.dev/"
     },
-    highlightMetrics: [
-      "3 backend services",
-      "7-node orchestration graph",
-      "Sub-3s RAG over live code",
-    ],
   },
   {
     title: "Song Popularity ML Pipeline",
@@ -29,11 +24,6 @@ export const projects: Project[] = [
       github: "https://github.com/prabhakar1234pr/Predicting-song-popularity",
       demo: "https://huggingface.co/spaces/Prabhakar554/song-popularity-predictor"
     },
-    highlightMetrics: [
-      "150 hyperparameter trials",
-      "13-step MLOps pipeline",
-      "MP3/WAV audio feature extraction",
-    ],
   },
   {
     title: "SubsGen",
@@ -43,11 +33,6 @@ export const projects: Project[] = [
       github: "https://github.com/prabhakar1234pr/subsgen-frontend",
       demo: "https://subsgen-frontend-qk75e3hl0-prabhakar-elavalas-projects.vercel.app/"
     },
-    highlightMetrics: [
-      "6-step reel pipeline",
-      "Agent-chosen cuts",
-      "Music with audio ducking",
-    ],
   },
   {
     title: "Pally",
@@ -56,11 +41,6 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/prabhakar1234pr/pally-frontend"
     },
-    highlightMetrics: [
-      "Bidirectional PCM audio + JPEG video stream",
-      "Agent-driven blackboard via function calling",
-      "Barge-in interruption & voice activity detection",
-    ],
   },
   {
     title: "Job Search MCP Server",
@@ -69,7 +49,6 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/prabhakar1234pr/Applying-Jobs-MCP-server"
     },
-    highlightMetrics: ["Multi-platform job search", "AI resume tailoring", "Referral message generator"],
   },
   {
     title: "BrowserFriend",
@@ -79,7 +58,6 @@ export const projects: Project[] = [
       github: "https://github.com/prabhakar1234pr/browserfriend",
       demo: "https://pypi.org/project/browserfriend/"
     },
-    highlightMetrics: ["Tab tracking", "AI-powered insights", "Published on PyPI"],
   },
   {
     title: "AirText",
@@ -89,7 +67,6 @@ export const projects: Project[] = [
       github: "https://github.com/prabhakar1234pr/AirText",
       demo: "https://airtext-kduznc54nefybwje8bzscp.streamlit.app/"
     },
-    highlightMetrics: ["Real-time hand gesture recognition", "OCR integration", "Text-to-image generation"],
   },
   {
     title: "Traffic Safety Analysis System",
@@ -98,7 +75,6 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/prabhakar1234pr/Traffic-Safety-Analysis-and-Prediction-System-"
     },
-    highlightMetrics: ["192K+ collision records", "ML clustering analysis", "Safety recommendations"],
   },
   {
     title: "Sentiment Analysis ML Model",
@@ -108,7 +84,6 @@ export const projects: Project[] = [
       github: "https://github.com/prabhakar1234pr/sentiment-analysis-ml-model",
       demo: "https://sentiment-analysis-ml-model-398g7mjum7qmvrbee73afo.streamlit.app/"
     },
-    highlightMetrics: ["LSTM neural network", "Real-time predictions", "Interactive web app"],
   },
   {
     title: "Blog Manager",
@@ -118,7 +93,6 @@ export const projects: Project[] = [
       github: "https://github.com/prabhakar1234pr/Blog-manager",
       demo: "https://blog-manager-omega.vercel.app/"
     },
-    highlightMetrics: ["Full CRUD operations", "JWT authentication", "Responsive UI"],
   },
   {
     title: "Avatar Store",
@@ -127,6 +101,5 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/prabhakar1234pr/Avatar_Store"
     },
-    highlightMetrics: ["3D avatar customisation", "Real-time rendering", "Browser-based"],
   },
 ];
