@@ -242,13 +242,13 @@ export default function ProjectsPage() {
           }}
         >
           <div className="w-full max-w-5xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-40 items-center">
 
               {/* ── LEFT: title + buttons ── */}
               <div className="flex flex-col justify-center">
 
                 {/* Title */}
-                <h1 className="text-4xl sm:text-5xl font-black leading-[1.05] tracking-tight mb-8" style={{ color: "#e2e8f0" }}>
+                <h1 className="text-4xl sm:text-5xl font-black leading-[1.05] tracking-tight mb-8" style={{ color: "#f1f5f9" }}>
                   {project.title}
                 </h1>
 
@@ -293,7 +293,7 @@ export default function ProjectsPage() {
               <div className="flex flex-col justify-center space-y-6">
 
                 {/* Description */}
-                <p className="text-base leading-relaxed" style={{ color: "#94a3b8" }}>
+                <p className="text-base leading-relaxed" style={{ color: "#cbd5e1" }}>
                   {project.summary.replace(/^[\p{Emoji}\s]+/u, "")}
                 </p>
 
