@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/site/Header";
-import { Footer } from "@/components/site/Footer";
+import { ConditionalFooter } from "@/components/site/ConditionalFooter";
 import { ClientProviders } from "@/app/providers/ClientProviders";
 
 const geistSans = Geist({
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "your-google-verification-code", // You'll get this from Google Search Console
+    google: "your-google-verification-code",
   },
 };
 
@@ -88,8 +88,8 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ClientProviders>
           <Header />
-          <main className="min-h-[calc(100dvh-120px)]">{children}</main>
-          <Footer />
+          <main>{children}</main>
+          <ConditionalFooter />
         </ClientProviders>
       </body>
     </html>
