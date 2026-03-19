@@ -50,6 +50,19 @@ export const projects: Project[] = [
     ],
   },
   {
+    title: "Pally",
+    summary: "Interactive math tutoring app for kids (Grades 1–5) with an AI teacher in a live video-call style interface powered by Google Gemini Live API. Students see a cartoon teacher, speak and type answers, and interact with a shared blackboard—all in real time.",
+    tech: ["Gemini Live API", "FastAPI", "WebSockets", "Next.js", "TypeScript", "Python"],
+    links: {
+      github: "https://github.com/prabhakar1234pr/pally-frontend"
+    },
+    highlightMetrics: [
+      "Bidirectional PCM audio + JPEG video stream",
+      "Agent-driven blackboard via function calling",
+      "Barge-in interruption & voice activity detection",
+    ],
+  },
+  {
     title: "Job Search MCP Server",
     summary: "MCP server for Claude Desktop that searches AI/ML jobs across Greenhouse, Lever, and Adzuna simultaneously, tailors your resume against the live job description, and drafts personalised referral outreach — all from a single Claude conversation.",
     tech: ["Python", "MCP", "Claude AI", "Adzuna API", "Greenhouse API", "Lever API"],
