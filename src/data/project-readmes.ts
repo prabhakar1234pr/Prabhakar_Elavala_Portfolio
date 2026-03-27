@@ -1679,6 +1679,181 @@ Generate viral Instagram-style subtitles for your videos, or let AI build a comp
 - **Agent-Driven Editing**: Per-segment transitions, trim points, audio ducking`
   },
 
+  "Briefed": {
+    projectTitle: "Briefed — AI Meeting Intelligence Platform",
+    content: `# Briefed — AI Meeting Intelligence Platform
+
+Your AI copilot for corporate meetings. Joins Zoom, Google Meet, or Microsoft Teams — answers questions live using your project's knowledge base, fact-checks statements in real-time, takes screenshots on command, and delivers post-meeting intelligence.
+
+---
+
+## What It Does
+
+**During the meeting:**
+- Say **"Hey Sam, what's the timeline for Phase 2?"** → Agent answers using your uploaded project docs
+- Someone states incorrect project data → Agent **proactively corrects** with the right facts
+- Say **"Take a screenshot"** → Captures and saves to your meeting dashboard
+- All Q&A, corrections, and screenshots are logged for post-meeting review
+
+**After the meeting:**
+- AI-generated **summary, action items, and key decisions**
+- Full searchable transcript with speaker attribution
+- Optional email report sent automatically
+
+---
+
+## Architecture
+
+\`\`\`
+┌──────────────────────────────────────────────────────────────────┐
+│                         FRONTEND                                  │
+│  Next.js 16 · React 19 · Tailwind 4 · Supabase Auth             │
+│  Deployed on Vercel                                               │
+└──────────────────┬───────────────────────────────────────────────┘
+                   │ REST API + WebSocket
+┌──────────────────▼───────────────────────────────────────────────┐
+│                         BACKEND                                   │
+│  FastAPI · Python 3.12 · Deployed on Cloud Run (GCP)             │
+│                                                                   │
+│  ┌─────────────┐ ┌──────────────┐ ┌───────────────────────────┐  │
+│  │ Gemini 2.5  │ │ Google Cloud │ │ Recall.ai API             │  │
+│  │ Flash + Pro │ │ TTS Neural2  │ │ Bot joins · Transcript    │  │
+│  │ (Vertex AI) │ │              │ │ Audio inject · Screenshot │  │
+│  └─────────────┘ └──────────────┘ └───────────────────────────┘  │
+└──────────────────┬───────────────────────────────────────────────┘
+                   │
+┌──────────────────▼───────────────────────────────────────────────┐
+│                         DATABASE                                  │
+│  Supabase (PostgreSQL + pgvector + Auth + Storage)               │
+└──────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### Key Technologies
+
+| Layer | Stack |
+|-------|-------|
+| **Frontend** | Next.js 16, React 19, Tailwind 4, Supabase SSR |
+| **Backend** | FastAPI, Python 3.12, uvicorn, httpx |
+| **AI** | Vertex AI Gemini 2.5-flash (live Q&A), Gemini 2.5-pro (post-meeting) |
+| **TTS** | Google Cloud Text-to-Speech (Neural2/Studio voices) |
+| **Meeting Integration** | Recall.ai (bot joins Zoom/Meet/Teams, streams transcript, records) |
+| **Database** | Supabase PostgreSQL + pgvector (768-dim embeddings) |
+| **Vector Search** | Vertex AI text-embedding-004 + pgvector cosine similarity |
+| **CI/CD** | GitHub Actions → Cloud Run; Vercel auto-deploy for frontend |
+
+---
+
+## How the Copilot Works
+
+### Real-Time Q&A Flow
+
+\`\`\`
+User speaks: "Hey Sam, what's the deadline for the API migration?"
+                    │
+                    ▼
+         Recall.ai streams transcript
+                    │
+                    ▼
+         Bot page detects trigger ("Sam" + question)
+                    │
+                    ▼
+         WebSocket → Backend (/ws/copilot/{meeting_id})
+                    │
+           ┌────────┴────────┐
+           ▼                 ▼
+    pgvector search    Fetch recent
+    (top 3 chunks)     transcript (20 lines)
+           │                 │
+           └────────┬────────┘
+                    ▼
+         Gemini 2.5-flash streams answer
+         (grounded in knowledge base)
+                    │
+                    ▼
+         Google Cloud TTS → MP3
+                    │
+                    ▼
+         Recall inject_audio API → plays in meeting
+                    │
+                    ▼
+         Saved to meeting_interactions table
+\`\`\`
+
+### Proactive Fact-Checking
+
+When someone makes a declarative statement (8+ words, not a question), the system automatically checks it against the knowledge base:
+
+1. Gemini evaluates: does the statement contradict verified project docs?
+2. If yes → speaks a diplomatic correction: *"Actually, the correct figure is..."*
+3. If no contradiction → stays silent (no false positives)
+4. Rate-limited: 28s cooldown, max 12 checks/hour
+
+### Screenshot Capture
+
+Say "take a screenshot" → Recall API captures the meeting view → uploaded to Supabase Storage → visible in meeting dashboard.
+
+### Post-Meeting Intelligence
+
+When the meeting ends:
+1. Full transcript downloaded from Recall.ai
+2. Gemini 2.5-pro generates: summary, action items, key decisions
+3. Optionally emailed via Resend
+
+---
+
+## API Endpoints
+
+### REST
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | /health | Health check |
+| POST | /api/meetings/start | Start meeting (creates Recall bot) |
+| GET | /api/meetings/{id} | Get meeting details + transcript |
+| GET | /api/meetings/{id}/interactions | Get Q&A, fact-checks, screenshots |
+| POST | /api/agents/{id}/context | Add knowledge source (URL/text/GitHub) |
+| GET | /api/agents/{id}/context | List agent's knowledge sources |
+| DELETE | /api/agents/{id}/context | Remove knowledge source |
+| POST | /api/agents/{id}/ask | Ask agent a question (non-streaming) |
+| POST | /api/webhooks/recall/bot-status | Recall.ai bot lifecycle events |
+| POST | /api/webhooks/recall/realtime | Recall.ai real-time transcript |
+
+### WebSocket
+
+| Path | Description |
+|------|-------------|
+| /ws/copilot/{meeting_id} | Real-time copilot: trigger → Gemini stream → TTS → inject |
+
+---
+
+## Database Schema
+
+| Table | Purpose |
+|-------|---------|
+| agents | Agent config: name, persona, voice, capabilities |
+| meetings | Meeting records: status, transcript, summary, action items |
+| transcript_lines | Raw transcript segments with speaker + timestamp |
+| context_chunks | Chunked documents with 768-dim pgvector embeddings |
+| meeting_interactions | Logged Q&A, fact-checks, screenshots |
+| screenshots | Screenshot metadata + Supabase Storage paths |
+
+---
+
+## Testing
+
+Tests use an in-memory FakeSupabase mock — no real database needed. Covers: trigger detection, copilot pipeline, WebSocket handler, screenshot flow, auth, webhooks, and context ingestion (~1800 lines, pytest-asyncio).
+
+---
+
+## Project Highlights
+
+- **Real-Time AI Copilot**: Live Q&A and fact-checking during meetings via Recall.ai + Gemini
+- **RAG Knowledge Base**: pgvector cosine similarity search over uploaded project documents
+- **Multimodal Pipeline**: Voice trigger → LLM → TTS → audio injection back into meeting
+- **Post-Meeting Intelligence**: Auto-generated summaries, action items, and email reports
+- **Full-Stack Architecture**: Next.js frontend, FastAPI backend, Supabase database, Cloud Run deployment`
+  },
+
   "BrowserFriend": {
     projectTitle: "BrowserFriend - Browser Analytics Tool",
     content: `# BrowserFriend
