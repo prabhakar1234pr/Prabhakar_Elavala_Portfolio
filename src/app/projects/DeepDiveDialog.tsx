@@ -4,6 +4,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { BookOpen, X, ChevronUp } from "lucide-react";
 
@@ -137,6 +138,7 @@ export function DeepDiveDialog({ title, content }: DeepDiveDialogProps) {
             <div ref={scrollRef} className="flex-1 overflow-y-auto relative">
               <div className="max-w-3xl mx-auto px-6 sm:px-10 py-10 pb-24">
                 <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
                   rehypePlugins={[rehypeRaw]}
                   components={{
                     h1: ({ children }) => {
