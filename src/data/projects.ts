@@ -17,6 +17,15 @@ export const projects: Project[] = [
     },
   },
   {
+    title: "Briefed",
+    summary: "AI copilot that joins your Zoom, Meet, or Teams call — answers questions live from your project's knowledge base, proactively fact-checks statements in real time, and delivers a post-meeting summary with action items and key decisions.",
+    tech: ["Multimodal AI", "Recall.ai", "pgvector", "WebSockets"],
+    links: {
+      github: "https://github.com/prabhakar1234pr/meetstreamIQ",
+      demo: "https://meetstream-iq.vercel.app/"
+    },
+  },
+  {
     title: "Song Popularity ML Pipeline",
     summary: "Audio-first MLOps pipeline — upload an actual MP3 and get a popularity score. Essentia extracts 18 audio features, a 13-step ZenML pipeline runs data ingestion through champion model selection, and Optuna hyperparameter search (150 trials, 5 algorithms) with smart sampling cuts compute time by 80% while preserving accuracy.",
     tech: ["Python", "XGBoost", "ZenML", "MLflow", "Optuna", "Essentia", "Docker"],

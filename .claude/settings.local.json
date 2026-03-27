@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Desktop_Commander__list_directory",
+      "Bash(cat /c/Portfolio/prabhakar-portfolio/src/app/blog/[slug]/page.tsx)",
+      "Bash(grep -E \"\\\\.mdx$\")"
+    ]
+  }
+}
