@@ -347,13 +347,13 @@ Temperature is 0.7 on the first pass. If the output isn't valid JSON, it retries
 
 Two parallel visual tracks:
 
-**AI Infographics** — Gemini 3 Pro Image takes the `infographic_prompt` and generates a contextual illustration, brand colors baked into the prompt itself: *Primary Blue #2F94FB, Deep Blue #2367D3, Indigo #4B3FE0*.
+**AI Infographics** — Gemini 3 Pro Image takes the \`infographic_prompt\` and generates a contextual illustration, brand colors baked into the prompt itself: *Primary Blue #2F94FB, Deep Blue #2367D3, Indigo #4B3FE0*.
 
-**Data Charts** — Matplotlib builds bar, line, or pie charts from the `chart_data` JSON with a branded stylesheet: Poppins font, consistent color palette, bold titles. Charts are more reliable than AI for structured numerical data — so the stack uses the right tool for each job.
+**Data Charts** — Matplotlib builds bar, line, or pie charts from the \`chart_data\` JSON with a branded stylesheet: Poppins font, consistent color palette, bold titles. Charts are more reliable than AI for structured numerical data — so the stack uses the right tool for each job.
 
 ### Step 4 — Cloud Storage
 
-All generated assets (infographic PNG, chart PNG, HTML, plain text) get uploaded to **Google Cloud Storage** under `{user_id}/newsletter_{edition_id}/` — fully scoped per user to prevent any cross-tenant data access.
+All generated assets (infographic PNG, chart PNG, HTML, plain text) get uploaded to **Google Cloud Storage** under \`{user_id}/newsletter_{edition_id}/\` — fully scoped per user to prevent any cross-tenant data access.
 
 ### Step 5 — HTML Rendering
 
@@ -367,7 +367,7 @@ A **Jinja2** template receives the content JSON + GCS image URLs as context and 
 
 ## Scheduling Architecture
 
-Cloud Scheduler fires an HTTP POST to `/internal/run-due` every hour. The endpoint queries Firestore for all active subscriptions whose `delivery_hour` matches the current UTC hour, spawns a daemon thread per subscription, and returns 200 immediately. The pipeline runs fully async in the background.
+Cloud Scheduler fires an HTTP POST to \`/internal/run-due\` every hour. The endpoint queries Firestore for all active subscriptions whose \`delivery_hour\` matches the current UTC hour, spawns a daemon thread per subscription, and returns 200 immediately. The pipeline runs fully async in the background.
 
 Users configure delivery time in their local timezone — the platform converts to UTC and stores that. No race conditions, no drift.
 
@@ -378,9 +378,9 @@ Users configure delivery time in their local timezone — the platform converts 
 - **Frontend:** Firebase Auth (email + Google OAuth)
 - **Backend:** Firebase ID tokens verified server-side via Firebase Admin SDK
 - **API protection:** Bearer token on all user routes
-- **Cloud Scheduler:** Separate `X-Internal-Secret` header to keep the internal trigger unexposed to the public API surface
+- **Cloud Scheduler:** Separate \`X-Internal-Secret\` header to keep the internal trigger unexposed to the public API surface
 
-Every Firestore query filters by `user["uid"]` derived from the verified token. Every GCS path is scoped to `user_id`. Users cannot see, modify, or trigger each other's subscriptions — ever.
+Every Firestore query filters by \`user["uid"]\` derived from the verified token. Every GCS path is scoped to \`user_id\`. Users cannot see, modify, or trigger each other's subscriptions — ever.
 
 ---
 
@@ -394,13 +394,13 @@ Key pages:
 - **Archive** — past editions per subscription
 - **History** — full rendered newsletter viewer
 
-State is managed through Firebase Auth hooks and a thin `lib/api.js` wrapper that injects the Bearer token on every request.
+State is managed through Firebase Auth hooks and a thin \`lib/api.js\` wrapper that injects the Bearer token on every request.
 
 ---
 
 ## Self-Improving by Design
 
-Synthesis prompts live in Firestore with an `is_active` flag. To change how the AI writes, update the active prompt document — no code change, no redeploy. Multiple versions can coexist, enabling A/B testing across editions.
+Synthesis prompts live in Firestore with an \`is_active\` flag. To change how the AI writes, update the active prompt document — no code change, no redeploy. Multiple versions can coexist, enabling A/B testing across editions.
 
 ---
 
