@@ -293,6 +293,140 @@ Each subtopic has a \`prompt\` that instructs the AI how to teach it. \`getLesso
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for a complete file-by-file reference.`
   },
+  "Newsletter": {
+    projectTitle: "Newsletter — Automated AI Newsletter Platform",
+    content: `# Newsletter
+
+A fully automated, end-to-end AI newsletter platform. You pick a topic and a delivery time — the platform takes care of everything else. Every hour, a Cloud Scheduler trigger wakes up the pipeline, researches the latest news across 120+ sub-topics from live RSS feeds, synthesises editorial content with Gemini 2.5 Pro, generates branded charts and AI infographics, renders a polished HTML email with Jinja2, and delivers it straight to subscribers' inboxes.
+
+---
+
+## What Makes This Different
+
+Most newsletter tools are glorified editors — you still write everything. This one doesn't ask you to write anything. The moment you create a subscription, the machine takes over. Research, writing, visuals, delivery — all automated, all opinionated, all on schedule.
+
+The architecture runs a **6-step linear pipeline** for every subscription:
+
+\`\`\`
+Research → Synthesise → Visualise → Upload → Render → Send
+\`\`\`
+
+Each step is deterministic, independently testable, and produces a verifiable intermediate artifact. If step 3 fails, you know exactly what broke and why.
+
+---
+
+## The Pipeline in Detail
+
+### Step 1 — Research
+
+The platform aggregates from **125+ curated RSS feeds** spanning 10 topic categories and 120+ sub-topics (AI, Geopolitics, Cinema, Sports, Business, Science, Health, Gaming, Culture, Education).
+
+- **newspaper4k** extracts full article text from each feed entry
+- **feedparser** handles the RSS parsing
+- A keyword-filtering layer matches articles to sub-genres with precision
+- If a sub-topic has no dedicated feed, it falls back to a **Google News RSS query** — meaning any topic is theoretically coverable, even obscure ones
+
+### Step 2 — Content Synthesis
+
+The raw research bundle goes into **Gemini 2.5 Pro** with a versioned prompt (stored in Firestore, hotswappable without a redeploy). The model returns structured JSON:
+
+\`\`\`json
+{
+  "headline": "...",
+  "subtitle": "...",
+  "sections": [...],
+  "chart_data": { "type": "bar", "labels": [...], "values": [...] },
+  "infographic_prompt": "...",
+  "sources": [...]
+}
+\`\`\`
+
+Temperature is 0.7 on the first pass. If the output isn't valid JSON, it retries at 0.3. The model never writes HTML — it writes data. The presentation layer handles everything downstream.
+
+### Step 3 — Visual Generation
+
+Two parallel visual tracks:
+
+**AI Infographics** — Gemini 3 Pro Image takes the `infographic_prompt` and generates a contextual illustration, brand colors baked into the prompt itself: *Primary Blue #2F94FB, Deep Blue #2367D3, Indigo #4B3FE0*.
+
+**Data Charts** — Matplotlib builds bar, line, or pie charts from the `chart_data` JSON with a branded stylesheet: Poppins font, consistent color palette, bold titles. Charts are more reliable than AI for structured numerical data — so the stack uses the right tool for each job.
+
+### Step 4 — Cloud Storage
+
+All generated assets (infographic PNG, chart PNG, HTML, plain text) get uploaded to **Google Cloud Storage** under `{user_id}/newsletter_{edition_id}/` — fully scoped per user to prevent any cross-tenant data access.
+
+### Step 5 — HTML Rendering
+
+A **Jinja2** template receives the content JSON + GCS image URLs as context and produces email-safe HTML. The template handles responsive layout, embedded images, brand header, and an unsubscribe link in the footer. A plain text fallback is generated via regex HTML stripping for clients that can't render HTML.
+
+### Step 6 — Email Delivery
+
+**Gmail SMTP with app passwords** — no OAuth complexity, works reliably from Cloud Run. Multipart MIME envelope (HTML + plain text), delivered to the subscriber's address.
+
+---
+
+## Scheduling Architecture
+
+Cloud Scheduler fires an HTTP POST to `/internal/run-due` every hour. The endpoint queries Firestore for all active subscriptions whose `delivery_hour` matches the current UTC hour, spawns a daemon thread per subscription, and returns 200 immediately. The pipeline runs fully async in the background.
+
+Users configure delivery time in their local timezone — the platform converts to UTC and stores that. No race conditions, no drift.
+
+---
+
+## Authentication & Multi-Tenancy
+
+- **Frontend:** Firebase Auth (email + Google OAuth)
+- **Backend:** Firebase ID tokens verified server-side via Firebase Admin SDK
+- **API protection:** Bearer token on all user routes
+- **Cloud Scheduler:** Separate `X-Internal-Secret` header to keep the internal trigger unexposed to the public API surface
+
+Every Firestore query filters by `user["uid"]` derived from the verified token. Every GCS path is scoped to `user_id`. Users cannot see, modify, or trigger each other's subscriptions — ever.
+
+---
+
+## Frontend
+
+Built with **React 19 + Vite**, styled with **Tailwind CSS 4** and **Radix UI** components. **Framer Motion** handles transitions. The landing page runs a **Three.js** particle background for visual depth.
+
+Key pages:
+- **Dashboard** — subscription list with pause/resume/delete controls
+- **Onboarding** — multi-step subscription creation: pick topic, sub-topics, tone, audience, delivery time
+- **Archive** — past editions per subscription
+- **History** — full rendered newsletter viewer
+
+State is managed through Firebase Auth hooks and a thin `lib/api.js` wrapper that injects the Bearer token on every request.
+
+---
+
+## Self-Improving by Design
+
+Synthesis prompts live in Firestore with an `is_active` flag. To change how the AI writes, update the active prompt document — no code change, no redeploy. Multiple versions can coexist, enabling A/B testing across editions.
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Backend API | FastAPI, Python 3.13 |
+| AI Synthesis | Gemini 2.5 Pro (editorial content) |
+| AI Visuals | Gemini 3 Pro Image (infographics), Matplotlib (charts) |
+| RSS Scraping | newspaper4k, feedparser, BeautifulSoup4 |
+| Email Rendering | Jinja2 HTML templates |
+| Email Delivery | Gmail SMTP |
+| Database | Google Cloud Firestore |
+| File Storage | Google Cloud Storage |
+| Scheduling | Google Cloud Scheduler + Cloud Run |
+| Auth | Firebase Auth (client) + Firebase Admin SDK (server) |
+| Frontend | React 19, Vite, Tailwind CSS 4, Radix UI, Framer Motion, Three.js |
+| Deployment | Cloud Run (backend), Vercel (frontend) |
+
+---
+
+## What's Unique About This Stack
+
+Most projects here use Postgres or Qdrant for storage. This one uses **Google Cloud Firestore** — a real-time document database that makes subscription state updates instant without polling. **Cloud Scheduler** handles cron-style automation natively on GCP without managing any cron infrastructure. **newspaper4k** is a modern rewrite of the classic newspaper3k library that handles paywalled and JS-heavy articles more gracefully. **Jinja2** for email templating keeps the HTML generation completely separate from the content pipeline — the template can be redesigned without touching a single line of Python logic.`
+  },
   "Job Search MCP Server": {
     projectTitle: "Job Search MCP Server - AI-Powered Job Search Assistant",
     content: `# Job Search MCP Server
@@ -1233,75 +1367,6 @@ This project is a professional-grade machine learning pipeline designed to predi
 - **Portfolio-ready:** Demonstrates advanced ML engineering skills`
   },
 
-  "Blog Manager": {
-    projectTitle: "Blog Manager - Full-Stack Application",
-    content: `# Blog Manager
-
-A full-stack blog management application built with **React** (frontend) and **Node.js / Express** (backend).  
-Users can register, login, create, view, and delete blog posts, manage their profiles, and interact via a responsive UI.
-
-## 🚀 Why Blog Manager?
-
-- Centralized blog creation + management with user auth
-- Clean, modern UI + responsive design
-- Separation of concerns: backend API + frontend UI
-
-## ✨ Features
-
-- User registration & login via email
-- Create / Read / Delete operations for blog posts
-- User profile management
-- Responsive frontend (works well on mobile & desktop)
-- Clean, intuitive UI
-
-## 🗂 Project Structure
-
-\`\`\`
-Blog-Manager/
-├── backend/                 # Node.js / Express server
-│   ├── controllers/         # Route handler logic
-│   ├── db.js               # Database (PostgreSQL) config
-│   ├── schema.sql          # Database schema setup
-│   ├── server.js           # Entry-point of backend API
-│   └── package.json        # Backend dependencies
-├── react-blog-manager/     # Frontend (React)
-│   ├── public/             # Static assets
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── assets/         # Images, icons etc.
-│   │   └── App.js          # Main React component
-│   └── package.json        # Frontend dependencies
-├── .gitignore
-└── README.md
-\`\`\`
-
-## ⚙️ Prerequisites
-
-- **Node.js:** v14 or higher
-- **npm** or **yarn**
-- **PostgreSQL** (or any SQL database you configure)
-- Environment variables setup for database connection, server port, etc.
-
-## 🧰 Technologies Used
-
-**Frontend:**
-- React, React Router, CSS3, modern JavaScript (ES6+)
-
-**Backend:**
-- Node.js, Express, PostgreSQL, dotenv, cors
-
-## 🌐 Live Demo
-[https://blog-manager-omega.vercel.app/](https://blog-manager-omega.vercel.app/)
-
-## Project Highlights
-
-- **Full-stack architecture** with clear separation of concerns
-- **User authentication** and session management
-- **CRUD operations** for blog posts
-- **Responsive design** for all devices
-- **Production deployment** on Vercel`
-  },
-
   "Traffic Safety Analysis System": {
     projectTitle: "Traffic Safety Analysis & Prediction System",
     content: `# Traffic Safety Analysis and Prediction System
@@ -1424,84 +1489,6 @@ Post-training, the model was saved for later use. A Streamlit web application wa
 ## Project Impact
 
 The project showcases the integration of advanced NLP techniques with modern web technologies, creating a practical tool for sentiment analysis that can be easily used by non-technical users. This demonstrates real-world application of machine learning in text analysis and user experience design.`
-  },
-
-  "Avatar Store": {
-    projectTitle: "Avatar Store - 3D Avatar Customization",
-    content: `# Avatar Store
-
-A modern **3D avatar customization web app** built with **React + Vite** and styled using **Tailwind CSS**.  
-The project is designed to allow users to create, customize, and store avatars in a visually rich, responsive UI.
-
-## 🚀 Why Avatar Store?
-
-- **Immersive**: Lets users visualize and personalize avatars
-- **Fast development**: Powered by React + Vite + HMR (Hot Module Replacement)
-- **Scalable UI**: Built with Tailwind CSS and PostCSS for flexible styling
-
-## ✨ Features
-
-- ⚡ **Hot Module Replacement (HMR)** for instant updates during dev
-- 🔍 **ESLint Integration** for code quality
-- 🎨 **Tailwind CSS** utility-first styling
-- 🔧 **Vite Build Tool** for blazing-fast dev & production builds
-- 🌐 **Responsive design** for desktop and mobile
-
-## 🛠 Architecture
-
-The app follows a **React component-based structure** with **Vite** as the build system.
-
-1. **Frontend**: React (with JSX components in \`/src\`)
-2. **Styling**: Tailwind CSS + PostCSS
-3. **Bundling/Build**: Vite for dev + production builds
-4. **Configuration**: Babel (\`.babelrc\`), Tailwind (\`tailwind.config.js\`), PostCSS (\`postcss.config.cjs\`)
-
-## 📂 Project Layout
-
-\`\`\`
-Avatar_Store/
-├── Assets/                 # Static assets (images, icons, fonts)
-├── node_modules/           # Dependencies
-├── public/                 # Public static files
-├── src/                    # React components & main app logic
-├── .babelrc               # Babel config
-├── .gitignore             # Git ignore rules
-├── index.html             # Main HTML entry point
-├── package.json           # Project metadata & scripts
-├── package-lock.json      # Dependency lockfile
-├── postcss.config.cjs     # PostCSS config
-├── tailwind.config.js     # Tailwind config
-└── vite.config.js         # Vite config
-\`\`\`
-
-## 🧑‍💻 Technology Stack
-
-- **React** → Component-based UI
-- **Vite** → Fast dev server & build tool
-- **Tailwind CSS** → Utility-first styling
-- **PostCSS** → CSS transformations
-- **Babel** → JavaScript compiler
-
-## 🗺 Roadmap
-
-- Add avatar 3D model rendering with Three.js
-- Add avatar storage backend (Firebase/Node.js)
-- Support for exporting avatars as GLTF/OBJ
-- User authentication & profile management
-
-## 📜 Available Scripts
-
-- \`npm run dev\` → start dev server
-- \`npm run build\` → build for production
-- \`npm run preview\` → preview production build
-
-## Project Highlights
-
-- **Modern Build Tools**: Leverages Vite for extremely fast development cycles
-- **Component Architecture**: Clean, maintainable React component structure
-- **Responsive Design**: Works seamlessly across all device sizes
-- **Developer Experience**: Hot reloading and modern development workflow
-- **Scalable Styling**: Utility-first CSS approach with Tailwind`
   },
 
   "AirText": {

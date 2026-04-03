@@ -52,6 +52,15 @@ export const projects: Project[] = [
     },
   },
   {
+    title: "Newsletter",
+    summary: "Fully automated AI newsletter engine — drops curated research from 120+ RSS feeds into Gemini 2.5 Pro, gets back editorial sections, branded charts, and AI-generated infographics, then renders everything into polished HTML and fires it to subscribers on their own schedule.",
+    tech: ["FastAPI", "Gemini 2.5 Pro", "Google Firestore", "Cloud Scheduler", "newspaper4k", "Jinja2", "Firebase Auth"],
+    links: {
+      github: "https://github.com/prabhakar1234pr/newsletter",
+      demo: "https://newsletter-three-drab.vercel.app/"
+    },
+  },
+  {
     title: "Job Search MCP Server",
     summary: "MCP server for Claude Desktop that searches AI/ML jobs across Greenhouse, Lever, and Adzuna simultaneously, tailors your resume against the live job description, and drafts personalised referral outreach — all from a single Claude conversation.",
     tech: ["Python", "MCP", "Claude AI", "Adzuna API", "Greenhouse API", "Lever API"],
@@ -92,23 +101,6 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/prabhakar1234pr/sentiment-analysis-ml-model",
       demo: "https://sentiment-analysis-ml-model-398g7mjum7qmvrbee73afo.streamlit.app/"
-    },
-  },
-  {
-    title: "Blog Manager",
-    summary: "Full-stack blog platform with JWT authentication, full CRUD, and a responsive UI. Built to learn the React + Node.js + PostgreSQL stack end-to-end.",
-    tech: ["React", "Node.js", "Express", "PostgreSQL", "JWT"],
-    links: {
-      github: "https://github.com/prabhakar1234pr/Blog-manager",
-      demo: "https://blog-manager-omega.vercel.app/"
-    },
-  },
-  {
-    title: "Avatar Store",
-    summary: "3D avatar customisation app built with React and Three.js. An early project exploring real-time 3D rendering in the browser with Vite and Tailwind CSS.",
-    tech: ["React", "Vite", "Tailwind CSS", "Three.js", "JavaScript"],
-    links: {
-      github: "https://github.com/prabhakar1234pr/Avatar_Store"
     },
   },
 ];
