@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 export const size = {
   width: 32,
@@ -6,8 +8,13 @@ export const size = {
 };
 
 export const contentType = "image/png";
+export const runtime = "nodejs";
 
-export default function Icon() {
+export default async function Icon() {
+  const imagePath = path.join(process.cwd(), "public", "prabhakar.jpg");
+  const imageBuffer = await readFile(imagePath);
+  const imageDataUrl = `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -23,7 +30,7 @@ export default function Icon() {
         }}
       >
         <img
-          src="https://prabhakar-elavala-portfolio.vercel.app/prabhakar.jpg"
+          src={imageDataUrl}
           alt="Prabhakar"
           style={{
             width: "100%",
