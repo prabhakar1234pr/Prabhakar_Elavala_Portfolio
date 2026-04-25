@@ -76,6 +76,11 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
+  icons: {
+    icon: "/prabhakar.jpg",
+    shortcut: "/prabhakar.jpg",
+    apple: "/prabhakar.jpg",
+  },
 };
 
 export default function RootLayout({
