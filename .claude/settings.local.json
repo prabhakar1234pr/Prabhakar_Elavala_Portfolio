@@ -3,7 +3,12 @@
     "allow": [
       "mcp__Desktop_Commander__list_directory",
       "Bash(cat /c/Portfolio/prabhakar-portfolio/src/app/blog/[slug]/page.tsx)",
-      "Bash(grep -E \"\\\\.mdx$\")"
+      "Bash(grep -E \"\\\\.mdx$\")",
+      "Bash(grep -r \"markdown\\\\|table\\\\|thead\\\\|tbody\" C:Portfolioprabhakar-portfoliosrc --include=*.css --include=*.tsx --include=*.ts)",
+      "Bash(npx next:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

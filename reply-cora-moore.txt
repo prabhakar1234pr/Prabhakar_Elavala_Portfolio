@@ -1,0 +1,19 @@
+Subject: Re: Corgi & other opportunities — follow-up
+
+Hi Cora,
+
+Thanks for the thoughtful follow-up. Quick answers to both:
+
+1. Skills & experiences I'm hoping to develop next
+- Deeper ownership of LLM/agentic systems in production — eval harnesses, guardrails, cost/latency tuning, and observability at scale.
+- More exposure to large-scale distributed systems and data infra (streaming pipelines, vector DB internals, multi-tenant serving).
+- Broader product and user-impact scope — working closely with founders/PMs on 0-to-1 features, not just executing on a spec.
+- Leadership reps — mentoring junior engineers, owning technical design docs, and driving cross-team architecture decisions.
+
+2. Rotational vs. clearly defined role
+I lean toward a clearly defined role with a strong core focus (AI/ML or backend-heavy full-stack), but inside a small, fast-moving team where scope naturally expands. At startups I've worked at, I've ended up touching backend, ML, infra, and frontend because the team needed it — I enjoy that kind of organic breadth much more than a formal rotation program. So: defined ownership, but in an environment where I can go wide when it matters.
+
+Happy to jump on a quick call whenever convenient to go deeper on specific roles.
+
+Best,
+Prabhakar Elavala

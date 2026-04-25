@@ -135,6 +135,12 @@ export default function AboutPage() {
           >
             View Projects
           </Link>
+          <Link
+            href="/resume"
+            className="rounded-lg border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 px-5 py-2 text-sm font-semibold text-cyan-300 transition-colors"
+          >
+            View Resume
+          </Link>
         </div>
       </div>
 

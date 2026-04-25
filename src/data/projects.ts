@@ -22,7 +22,7 @@ export const projects: Project[] = [
     tech: ["Multimodal AI", "Recall.ai", "pgvector", "WebSockets"],
     links: {
       github: "https://github.com/prabhakar1234pr/meetstreamIQ",
-      demo: "https://meetstream-iq.vercel.app/"
+      demo: "https://briefed-mu.vercel.app/"
     },
   },
   {
