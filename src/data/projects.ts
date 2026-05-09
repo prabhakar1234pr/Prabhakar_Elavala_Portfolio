@@ -40,7 +40,7 @@ export const projects: Project[] = [
     tech: ["FastAPI", "CrewAI Flows", "Groq Whisper", "Llama 4 Scout VLM", "FFmpeg", "Next.js"],
     links: {
       github: "https://github.com/prabhakar1234pr/subsgen-frontend",
-      demo: "https://subsgen-frontend-qk75e3hl0-prabhakar-elavalas-projects.vercel.app/"
+      demo: "https://subsgen-frontend.vercel.app/"
     },
   },
   {
