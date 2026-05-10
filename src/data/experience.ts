@@ -47,10 +47,9 @@ export const experience: ExperienceItem[] = [
     location: "San Francisco",
     type: "work",
     bullets: [
-      "Engineered a custom subscription detection algorithm that groups transactions by merchant, validates recurring billing patterns (weekly/biweekly/monthly/yearly) using gap analysis, and filters by a ≤5% amount variance threshold — auto-detecting subscriptions with zero manual input",
-      "Developed a multi-component Financial Health Score (0–100) across four weighted dimensions: budget adherence, savings goal progress, subscription load ratio, and month-over-month spending trend, with Groq LLM-generated personalized improvement tips",
-      "Built a Subscription Negotiation Engine that identifies high-cost subscriptions (>$20/mo), serves category-aware negotiation tips, and generates AI-powered call scripts via Groq to help users reduce recurring bills — estimating ~20% potential savings per candidate",
-      "Implemented a Spending Anomaly Detector that compares current-month category spend against a 3-month rolling average and flags categories with 30%+ spikes for proactive alerts"
+      "As the founding engineer at FutureFlow, I led the end-to-end development of a personal finance platform spanning mobile, backend, banking integrations, and Azure cloud infrastructure. I built the React Native/Expo mobile app, designed the FastAPI backend, integrated Plaid for secure bank connectivity, and developed core product features including transaction tracking, recurring subscription detection, spending analytics, budgets, goals, net worth, credit profile surfaces, OTP authentication, and RevenueCat-based subscription billing.",
+      "I owned the full technical stack from product implementation to deployment. On the backend, I built async Python services with FastAPI, SQLAlchemy, PostgreSQL, Plaid sync workflows, encrypted token storage, rate limiting, webhooks, background sync jobs, and test coverage. On mobile, I implemented the app navigation, authenticated user flows, Plaid Link experience, financial dashboards, transaction views, recurring payments, settings, phone verification, and premium UI components.",
+      "I also managed the Azure infrastructure for the company, including Azure Container Apps, Azure Container Registry, Azure Database for PostgreSQL Flexible Server, Azure Key Vault, Application Insights, Log Analytics, and CI/CD deployment workflows. My role covered architecture, feature development, cloud operations, security hardening, production-readiness planning, and cross-platform integration across mobile, API, database, and third-party financial services."
     ],
   },
   {
