@@ -12,13 +12,9 @@ import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
 
 const ACCENTS = [
-  { primary: "#8b5cf6", secondary: "#06b6d4" },
-  { primary: "#06b6d4", secondary: "#8b5cf6" },
-  { primary: "#10b981", secondary: "#8b5cf6" },
-  { primary: "#f59e0b", secondary: "#ef4444" },
-  { primary: "#ef4444", secondary: "#f59e0b" },
-  { primary: "#6366f1", secondary: "#06b6d4" },
-  { primary: "#ec4899", secondary: "#8b5cf6" },
+  { primary: "#ffffff", secondary: "#d4d4d8" },
+  { primary: "#f4f4f5", secondary: "#d4d4d8" },
+  { primary: "#e4e4e7", secondary: "#a1a1aa" },
 ];
 
 function ColdStartWarning({ demoUrl }: { demoUrl: string }) {
@@ -26,7 +22,7 @@ function ColdStartWarning({ demoUrl }: { demoUrl: string }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition-all">
+        <button className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/8 px-4 py-2 text-sm font-semibold text-white/85 transition-all hover:bg-white/16">
           <ExternalLink className="w-4 h-4" /> Live Demo
         </button>
       </DialogTrigger>
@@ -35,15 +31,15 @@ function ColdStartWarning({ demoUrl }: { demoUrl: string }) {
           <DialogTitle>Cold Start Notice</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-2">
-          <p className="text-slate-400 text-sm">
+          <p className="text-sm text-white/68">
             This demo uses free-tier backend servers, so there will be a{" "}
             <strong className="text-white">~2 minute cold start</strong> on first visit.
           </p>
-          <p className="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">
+          <p className="rounded-lg border border-white/18 bg-white/6 p-3 text-xs text-white/70">
             Please be patient — the app will load after the initial startup.
           </p>
           <div className="flex gap-3 pt-1">
-            <Button onClick={() => { window.open(demoUrl, "_blank"); setOpen(false); }} className="flex-1 bg-violet-600 hover:bg-violet-700 text-white border-0">
+            <Button onClick={() => { window.open(demoUrl, "_blank"); setOpen(false); }} className="flex-1 border border-white/20 bg-white text-black hover:bg-white/85">
               Continue to Demo
             </Button>
             <Button variant="outline" onClick={() => setOpen(false)} className="flex-1">Cancel</Button>
@@ -170,7 +166,7 @@ export default function ProjectsPage() {
           style={{
             position: "absolute", inset: 0, pointerEvents: "none",
             transition: "background 0.7s ease",
-            background: `radial-gradient(ellipse 70% 55% at 65% 50%, ${accent.primary}14 0%, transparent 70%)`,
+            background: `radial-gradient(ellipse 70% 55% at 65% 50%, ${accent.primary}1f 0%, transparent 70%)`,
           }}
         />
 
@@ -187,7 +183,7 @@ export default function ProjectsPage() {
               title={p.title}
               className="group relative flex items-center justify-end gap-2"
             >
-              <span className="pointer-events-none absolute right-6 whitespace-nowrap rounded-md border border-white/10 bg-[oklch(0.10_0.02_265)] px-2 py-1 text-[10px] font-medium text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="pointer-events-none absolute right-6 whitespace-nowrap rounded-md border border-white/20 bg-black/70 px-2 py-1 text-[10px] font-medium text-white/80 opacity-0 transition-opacity group-hover:opacity-100">
                 {p.title}
               </span>
               <span
@@ -195,7 +191,7 @@ export default function ProjectsPage() {
                 style={{
                   width:      (!released && i === current) ? "8px"  : "6px",
                   height:     (!released && i === current) ? "24px" : "6px",
-                  background: (!released && i === current) ? accent.primary : "#475569",
+                  background: (!released && i === current) ? accent.primary : "#71717a",
                   opacity:    (!released && i === current) ? 1 : 0.4,
                 }}
               />
@@ -204,7 +200,7 @@ export default function ProjectsPage() {
         </nav>
 
         {/* Progress bar */}
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "2px", background: "rgba(255,255,255,0.04)", zIndex: 20 }}>
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "2px", background: "rgba(255,255,255,0.09)", zIndex: 20 }}>
           <div
             style={{
               height: "100%",
@@ -220,12 +216,12 @@ export default function ProjectsPage() {
           <span className="text-2xl font-black text-white font-mono leading-none">
             {String(current + 1).padStart(2, "0")}
           </span>
-          <span className="text-slate-600 text-sm font-mono">/ {String(total).padStart(2, "0")}</span>
+          <span className="text-sm font-mono text-white/45">/ {String(total).padStart(2, "0")}</span>
         </div>
 
         {/* Scroll hint bottom-right */}
         <p style={{ position: "absolute", bottom: "20px", right: "40px", zIndex: 20 }}
-           className="text-[10px] font-medium text-slate-600 tracking-widest uppercase">
+           className="text-[10px] font-medium uppercase tracking-widest text-white/45">
           {!released && (current < total - 1 ? "Scroll to explore ↓" : "Scroll for more ↓")}
         </p>
 
@@ -259,7 +255,7 @@ export default function ProjectsPage() {
                       href={project.links.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white transition-all"
+                      className="inline-flex items-center gap-2 rounded-lg border border-white/18 bg-white/8 px-4 py-2 text-sm font-semibold text-white/82 transition-all hover:bg-white/16 hover:text-white"
                     >
                       <Github className="w-4 h-4" /> GitHub
                     </Link>
@@ -273,7 +269,7 @@ export default function ProjectsPage() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold border transition-all"
-                          style={{ color: accent.secondary, borderColor: `${accent.secondary}40`, background: `${accent.secondary}10` }}
+                          style={{ color: "rgba(255,255,255,0.87)", borderColor: "rgba(255,255,255,0.22)", background: "rgba(255,255,255,0.08)" }}
                         >
                           <ExternalLink className="w-4 h-4" />
                           {project.title === "BrowserFriend" ? "PyPI" : "Live Demo"}
@@ -293,7 +289,7 @@ export default function ProjectsPage() {
               <div className="flex flex-col justify-center space-y-6">
 
                 {/* Description */}
-                <p className="text-base leading-relaxed" style={{ color: "#cbd5e1" }}>
+                <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
                   {project.summary.replace(/^[\p{Emoji}\s]+/u, "")}
                 </p>
 
@@ -304,7 +300,7 @@ export default function ProjectsPage() {
                       <span
                         key={m}
                         className="rounded-full px-3 py-1 text-xs font-semibold border"
-                        style={{ color: accent.secondary, borderColor: `${accent.secondary}30`, background: `${accent.secondary}08` }}
+                        style={{ color: "rgba(255,255,255,0.84)", borderColor: "rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.08)" }}
                       >
                         {m}
                       </span>
@@ -313,17 +309,17 @@ export default function ProjectsPage() {
                 )}
 
                 {/* Divider */}
-                <div className="h-px w-full" style={{ background: `${accent.primary}15` }} />
+                <div className="h-px w-full" style={{ background: "rgba(255,255,255,0.18)" }} />
 
                 {/* Tech stack */}
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-600 mb-3">Tech Stack</p>
+                  <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-white/50">Tech Stack</p>
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech) => (
                       <span
                         key={tech}
                         className="rounded-md px-2.5 py-1 text-xs font-medium border"
-                        style={{ background: "rgba(255,255,255,0.03)", borderColor: "rgba(255,255,255,0.07)", color: "#475569" }}
+                        style={{ background: "rgba(255,255,255,0.08)", borderColor: "rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.78)" }}
                       >
                         {tech}
                       </span>
@@ -338,15 +334,15 @@ export default function ProjectsPage() {
       </div>
 
       {/* ══ FOOTER ZONE ══ */}
-      <footer className="border-t border-white/[0.06] bg-background">
+      <footer className="border-t border-white/10 bg-background">
         <div className="mx-auto max-w-6xl px-6 py-10">
           <div className="grid gap-8 sm:grid-cols-3">
 
             <div className="space-y-3">
               <p className="font-semibold text-white text-sm">
-                Prabhakar<span className="text-violet-400">.</span>
+                Prabhakar<span className="text-white/70">.</span>
               </p>
-              <p className="text-xs text-slate-500 leading-relaxed max-w-[200px]">
+              <p className="max-w-[200px] text-xs leading-relaxed text-white/55">
                 AI / ML Engineer · San Francisco, CA<br />
                 Open to full-time &amp; internship roles.
               </p>
@@ -362,7 +358,7 @@ export default function ProjectsPage() {
                     target={s.href.startsWith("mailto") ? undefined : "_blank"}
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className="flex h-7 w-7 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.03] text-[10px] font-bold text-slate-400 hover:border-violet-500/40 hover:text-violet-300 transition-colors"
+                    className="flex h-7 w-7 items-center justify-center rounded-md border border-white/15 bg-white/5 text-[10px] font-bold text-white/60 transition-colors hover:border-white/30 hover:text-white"
                   >
                     {s.icon}
                   </a>
@@ -371,7 +367,7 @@ export default function ProjectsPage() {
             </div>
 
             <div className="space-y-3">
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">Quick Links</p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-white/50">Quick Links</p>
               <nav className="flex flex-col gap-2">
                 {[
                   { href: "/projects",   label: "Projects"   },
@@ -379,7 +375,7 @@ export default function ProjectsPage() {
                   { href: "/blog",       label: "Blog"       },
                   { href: "/contact",    label: "Contact"    },
                 ].map((l) => (
-                  <Link key={l.href} href={l.href} className="text-xs text-slate-400 hover:text-white transition-colors w-fit">
+                  <Link key={l.href} href={l.href} className="w-fit text-xs text-white/65 transition-colors hover:text-white">
                     {l.label}
                   </Link>
                 ))}
@@ -387,23 +383,22 @@ export default function ProjectsPage() {
             </div>
 
             <div className="space-y-3">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/8 px-3 py-1 text-xs font-medium text-emerald-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/8 px-3 py-1 text-xs font-medium text-white/80">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white/85" />
                 Available for Opportunities
               </span>
-              <p className="text-xs text-slate-500">
-                Built with <span className="text-slate-400">Next.js</span> · <span className="text-slate-400">TypeScript</span> · <span className="text-slate-400">Tailwind CSS</span>
+              <p className="text-xs text-white/55">
+                Built with <span className="text-white/72">Next.js</span> · <span className="text-white/72">TypeScript</span> · <span className="text-white/72">Tailwind CSS</span>
               </p>
-              <p className="text-xs text-slate-500">
-                Deployed on{" "}
-                <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <p className="text-xs text-white/55">
+                Deployed on{" "}<a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-white/75 transition-colors hover:text-white">
                   Vercel
                 </a>
               </p>
             </div>
           </div>
 
-          <div className="mt-8 border-t border-white/[0.06] pt-6 text-center text-xs text-slate-600">
+          <div className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/45">
             © {new Date().getFullYear()} Prabhakar Elavala. All rights reserved.
           </div>
         </div>

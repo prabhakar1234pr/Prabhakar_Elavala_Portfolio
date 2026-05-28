@@ -9,16 +9,16 @@ const quickLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] mt-6">
+    <footer className="mt-6 border-t border-white/10">
       <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="grid gap-8 sm:grid-cols-3">
 
           {/* Brand col */}
           <div className="space-y-3">
             <p className="font-semibold text-white text-sm">
-              Prabhakar<span className="text-violet-400">.</span>
+              Prabhakar<span className="text-white/70">.</span>
             </p>
-            <p className="text-xs text-slate-500 leading-relaxed max-w-[200px]">
+            <p className="max-w-[200px] text-xs leading-relaxed text-white/55">
               AI / ML Engineer · San Francisco, CA<br />
               Open to full-time &amp; internship roles.
             </p>
@@ -35,7 +35,7 @@ export function Footer() {
                   target={s.href.startsWith("mailto") ? undefined : "_blank"}
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="flex h-7 w-7 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.03] text-[10px] font-bold text-slate-400 hover:border-violet-500/40 hover:text-violet-300 transition-colors"
+                  className="flex h-7 w-7 items-center justify-center rounded-md border border-white/15 bg-white/5 text-[10px] font-bold text-white/60 transition-colors hover:border-white/30 hover:text-white"
                 >
                   {s.icon}
                 </a>
@@ -45,7 +45,7 @@ export function Footer() {
 
           {/* Quick links */}
           <div className="space-y-3">
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-white/50">
               Quick Links
             </p>
             <nav className="flex flex-col gap-2">
@@ -53,7 +53,7 @@ export function Footer() {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="text-xs text-slate-400 hover:text-white transition-colors w-fit"
+                  className="w-fit text-xs text-white/65 transition-colors hover:text-white"
                 >
                   {l.label}
                 </Link>
@@ -63,23 +63,20 @@ export function Footer() {
 
           {/* Status + built-with */}
           <div className="space-y-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/8 px-3 py-1 text-xs font-medium text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/8 px-3 py-1 text-xs font-medium text-white/80">
+              <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse" />
               Available for Opportunities
             </span>
-            <p className="text-xs text-slate-500">
-              Built with{" "}
-              <span className="text-slate-400">Next.js</span> ·{" "}
-              <span className="text-slate-400">TypeScript</span> ·{" "}
-              <span className="text-slate-400">Tailwind CSS</span>
+            <p className="text-xs text-white/55">
+              Built with <span className="text-white/72">Next.js</span> · <span className="text-white/72">TypeScript</span> · <span className="text-white/72">Tailwind CSS</span>
             </p>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-white/55">
               Deployed on{" "}
               <a
                 href="https://vercel.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white transition-colors"
+                className="text-white/75 transition-colors hover:text-white"
               >
                 Vercel
               </a>
@@ -88,7 +85,7 @@ export function Footer() {
 
         </div>
 
-        <div className="mt-8 border-t border-white/[0.06] pt-6 text-center text-xs text-slate-600">
+        <div className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/45">
           © {new Date().getFullYear()} Prabhakar Elavala. All rights reserved.
         </div>
       </div>

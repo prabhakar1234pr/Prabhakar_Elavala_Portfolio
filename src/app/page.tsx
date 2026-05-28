@@ -36,17 +36,14 @@ const jsonLd = {
 // Three focused strengths — replaces the generic KPI stats
 const strengths = [
   {
-    icon: "⚡",
     label: "End-to-end AI systems",
     desc: "From data pipeline to deployed product",
   },
   {
-    icon: "🔗",
     label: "LLM & RAG pipelines",
     desc: "LangChain, LangGraph, Vertex AI, Groq",
   },
   {
-    icon: "🛠",
     label: "Production-ready engineering",
     desc: "FastAPI, Docker, AWS, Azure, MLflow",
   },
@@ -73,6 +70,8 @@ const featuredProjects = [
 export default function Home() {
   return (
     <div className="relative overflow-hidden">
+      <div className="liquid-orb left-[-12rem] top-[4rem] h-[24rem] w-[24rem] bg-white/35" />
+      <div className="liquid-orb right-[-9rem] top-[18rem] h-[20rem] w-[20rem] bg-zinc-200/30" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -80,44 +79,43 @@ export default function Home() {
       <HeroCanvas />
 
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-6 pt-24 pb-24 sm:pt-32 sm:pb-32">
+      <section className="mx-auto max-w-6xl px-6 pb-24 pt-24 sm:pb-32 sm:pt-32">
         <div className="flex flex-col-reverse items-center gap-12 md:flex-row md:items-center md:gap-20">
 
           {/* Left — text */}
-          <div className="flex-1 text-center md:text-left">
+          <div className="motion-enter flex-1 text-center md:text-left">
 
             {/* Open to work pill */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/8 px-3.5 py-1.5 mb-6">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-xs font-semibold text-emerald-300">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white/85" />
+              <span className="text-xs font-semibold text-white/80">
                 Open to Work
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl font-extrabold tracking-tight sm:text-7xl text-white leading-[0.95] mb-5 whitespace-nowrap">
+            <h1 className="mb-5 whitespace-nowrap text-5xl font-extrabold leading-[0.95] tracking-tight text-white sm:text-7xl">
               Prabhakar Elavala
             </h1>
 
             {/* Value prop */}
-            <p className="text-lg text-slate-400 max-w-lg leading-relaxed mb-8">
+            <p className="mb-8 max-w-lg text-lg leading-relaxed text-white/68">
               I build AI-powered products end-to-end —
               full-stack apps, LLM pipelines, and the ML systems
               that run{" "}
-              <span className="text-slate-200 font-medium">reliably in production.</span>
+              <span className="font-medium text-white/94">reliably in production.</span>
             </p>
 
             {/* Strengths row */}
-            <div className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-3 mb-8 pb-8 border-b border-white/[0.06]">
+            <div className="mb-8 flex flex-wrap justify-center gap-3 border-b border-white/10 pb-8 sm:flex-row md:justify-start">
               {strengths.map((s) => (
                 <div
                   key={s.label}
-                  className="flex items-center gap-2.5 rounded-lg border border-white/[0.07] bg-white/[0.03] px-3.5 py-2.5"
+                  className="glass-panel flex items-center gap-2.5 rounded-lg px-3.5 py-2.5 transition-transform duration-300 hover:-translate-y-0.5"
                 >
-                  <span className="text-base leading-none">{s.icon}</span>
                   <div className="text-left">
-                    <p className="text-xs font-semibold text-slate-200 leading-tight">{s.label}</p>
-                    <p className="text-[10px] text-slate-500 mt-0.5">{s.desc}</p>
+                    <p className="text-xs font-semibold leading-tight text-white/90">{s.label}</p>
+                    <p className="mt-0.5 text-[10px] text-white/55">{s.desc}</p>
                   </div>
                 </div>
               ))}
@@ -129,7 +127,7 @@ export default function Home() {
                 href="/projects"
                 className={cn(
                   buttonVariants(),
-                  "bg-violet-600 hover:bg-violet-700 text-white shadow-lg shadow-violet-900/40 border-0"
+                  "border border-white/20 bg-white text-black shadow-lg shadow-black/30 hover:bg-white/85"
                 )}
               >
                 View Projects
@@ -139,7 +137,7 @@ export default function Home() {
                 download
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "border-violet-500/40 text-violet-300 hover:bg-violet-500/10 hover:text-violet-200"
+                  "border-white/25 bg-white/6 text-white/85 hover:bg-white/16 hover:text-white"
                 )}
               >
                 Download Resume
@@ -148,7 +146,7 @@ export default function Home() {
                 href="/contact"
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
-                  "text-slate-400 hover:text-white"
+                  "text-white/65 hover:bg-white/8 hover:text-white"
                 )}
               >
                 Contact
@@ -157,8 +155,8 @@ export default function Home() {
           </div>
 
           {/* Right — photo */}
-          <div className="relative flex-shrink-0">
-            <div className="relative rounded-2xl overflow-hidden w-52 h-52 sm:w-64 sm:h-64 ring-1 ring-white/10">
+          <div className="relative flex-shrink-0 motion-enter">
+            <div className="glass-panel relative h-52 w-52 overflow-hidden rounded-2xl sm:h-64 sm:w-64">
               <Image
                 src="/prabhakar.jpg"
                 alt="Prabhakar Elavala"
@@ -169,24 +167,24 @@ export default function Home() {
               />
               <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
-            <div className="absolute -inset-4 rounded-3xl bg-violet-500/10 blur-2xl -z-10" />
+            <div className="absolute -inset-4 -z-10 rounded-3xl bg-white/15 blur-3xl" />
           </div>
 
         </div>
       </section>
 
       {/* ── FEATURED PROJECTS ────────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-6 py-16 border-t border-white/[0.06]">
+      <section className="mx-auto max-w-6xl border-t border-white/10 px-6 py-16">
         <div className="mb-10 flex items-end justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-violet-400 mb-2">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/60">
               Selected Work
             </p>
             <h2 className="text-2xl font-bold text-white">Featured Projects</h2>
           </div>
           <Link
             href="/projects"
-            className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+            className="text-sm text-white/70 transition-colors hover:text-white"
           >
             View all →
           </Link>
@@ -197,17 +195,17 @@ export default function Home() {
             <Link
               key={p.title}
               href="/projects"
-              className="group flex flex-col gap-4 rounded-xl border border-white/[0.08] bg-white/[0.03] p-5 hover:border-violet-500/30 hover:bg-violet-500/5 transition-all duration-300"
+              className="glass-panel group flex flex-col gap-4 rounded-xl p-5 transition-all duration-300 hover:-translate-y-1"
             >
-              <h3 className="font-semibold text-white group-hover:text-violet-300 transition-colors">
+              <h3 className="font-semibold text-white transition-colors group-hover:text-white/80">
                 {p.title}
               </h3>
-              <p className="text-sm text-slate-400 leading-relaxed flex-1">{p.desc}</p>
+              <p className="flex-1 text-sm leading-relaxed text-white/65">{p.desc}</p>
               <div className="flex flex-wrap gap-1.5">
                 {p.tags.map((t) => (
                   <span
                     key={t}
-                    className="rounded-md bg-violet-500/10 border border-violet-500/20 px-2 py-0.5 text-xs text-violet-300"
+                    className="rounded-md border border-white/20 bg-white/10 px-2 py-0.5 text-xs text-white/75"
                   >
                     {t}
                   </span>
@@ -219,12 +217,12 @@ export default function Home() {
       </section>
 
       {/* ── CTA STRIP ────────────────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-6 py-14 border-t border-white/[0.06]">
-        <div className="rounded-2xl border border-violet-500/20 bg-gradient-to-r from-violet-500/8 to-cyan-500/8 px-8 py-10 text-center">
+      <section className="mx-auto max-w-6xl border-t border-white/10 px-6 py-14">
+        <div className="glass-panel rounded-2xl px-8 py-10 text-center">
           <h2 className="text-xl font-bold text-white mb-2">
             Looking for an engineer who ships end-to-end?
           </h2>
-          <p className="text-slate-400 text-sm mb-6 max-w-xl mx-auto">
+          <p className="mx-auto mb-6 max-w-xl text-sm text-white/65">
             Based in San Francisco and open to full-time opportunities.
             Remote and relocation considered.
           </p>
@@ -233,7 +231,7 @@ export default function Home() {
               href="/contact"
               className={cn(
                 buttonVariants(),
-                "bg-violet-600 hover:bg-violet-700 text-white shadow-lg shadow-violet-900/40 border-0"
+                  "border border-white/20 bg-white text-black shadow-lg shadow-black/30 hover:bg-white/85"
               )}
             >
               Get in Touch
@@ -242,7 +240,7 @@ export default function Home() {
               href="/experience"
               className={cn(
                 buttonVariants({ variant: "outline" }),
-                "border-white/15 text-slate-300 hover:bg-white/5"
+                  "border-white/25 bg-white/6 text-white/85 hover:bg-white/16"
               )}
             >
               View Experience

@@ -22,44 +22,43 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full glass">
-      <div className="mx-auto max-w-6xl px-5 py-3.5 flex items-center justify-between">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
 
         {/* Logo */}
-        <Link href="/" className="font-semibold text-white text-sm tracking-tight">
-          Prabhakar Elavala<span className="text-violet-400">.</span>
+        <Link href="/" className="text-sm font-semibold tracking-tight text-white/95 transition-opacity hover:opacity-90">
+          Prabhakar Elavala<span className="text-white/70">.</span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden items-center gap-1 md:flex">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`relative px-3 py-1.5 text-sm rounded-md transition-colors ${
+              className={`relative rounded-md px-3 py-1.5 text-sm transition-all duration-300 ${
                 isActive(item.href)
-                  ? "text-white font-medium"
-                  : "text-slate-400 hover:text-white"
+                  ? "glass-panel text-white"
+                  : "text-white/60 hover:text-white"
               }`}
             >
               {item.label}
               {isActive(item.href) && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-violet-400" />
+                <span className="absolute -bottom-1 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-white/70" />
               )}
             </Link>
           ))}
-          <a
-            href="/Prabhakar_Resume.pdf"
-            download
-            className="ml-3 rounded-md border border-violet-500/40 bg-violet-500/10 px-3 py-1.5 text-xs font-semibold text-violet-300 hover:bg-violet-500/20 hover:text-violet-200 transition-colors"
+          <Link
+            href="/resume"
+            className="ml-3 rounded-md border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white/85 transition-all hover:bg-white/20 hover:text-white"
           >
             Resume
-          </a>
+          </Link>
         </nav>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden p-2 rounded-md text-slate-400 hover:text-white transition-colors"
+          className="rounded-md p-2 text-white/70 transition-colors hover:text-white md:hidden"
           aria-label="Toggle menu"
         >
           {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -69,13 +68,13 @@ export function Header() {
       {/* Mobile drawer */}
       {open && (
         <div className="fixed inset-0 z-50 md:hidden">
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
-          <div className="fixed inset-x-0 top-0 bg-[oklch(0.10_0.02_265)] border-b border-white/[0.08] shadow-2xl">
-            <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.06]">
+          <div className="fixed inset-0 bg-black/65 backdrop-blur-md" onClick={() => setOpen(false)} />
+          <div className="fixed inset-x-0 top-0 border-b border-white/15 bg-black/80 shadow-2xl backdrop-blur-2xl">
+            <div className="flex items-center justify-between border-b border-white/10 px-5 py-3.5">
               <Link href="/" className="font-semibold text-white text-sm" onClick={() => setOpen(false)}>
-                Prabhakar Elavala<span className="text-violet-400">.</span>
+                Prabhakar Elavala<span className="text-white/70">.</span>
               </Link>
-              <button onClick={() => setOpen(false)} className="p-2 text-slate-400 hover:text-white">
+              <button onClick={() => setOpen(false)} className="p-2 text-white/70 hover:text-white">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -85,23 +84,22 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-colors ${
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
                     isActive(item.href)
-                      ? "bg-violet-500/10 text-white font-medium border-l-2 border-violet-400"
-                      : "text-slate-400 hover:text-white hover:bg-white/5"
+                      ? "bg-white/12 text-white font-medium"
+                      : "text-white/65 hover:bg-white/6 hover:text-white"
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
               <div className="pt-3 px-3">
-                <a
-                  href="/Prabhakar_Resume.pdf"
-                  download
-                  className="block w-full text-center rounded-lg border border-violet-500/40 bg-violet-500/10 py-2 text-sm font-semibold text-violet-300 hover:bg-violet-500/20 transition-colors"
+                <Link
+                  href="/resume"
+                  className="block w-full rounded-lg border border-white/20 bg-white/8 py-2 text-center text-sm font-semibold text-white/85 transition-colors hover:bg-white/16"
                 >
                   Download Resume
-                </a>
+                </Link>
               </div>
             </nav>
           </div>

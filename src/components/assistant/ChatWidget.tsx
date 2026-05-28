@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import ReactMarkdown from "react-markdown";
-import { BotMessageSquare, Send } from "lucide-react";
+import { MessageCircle, Send, Sparkles } from "lucide-react";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -60,12 +60,15 @@ export function ChatWidget() {
             className="h-14 w-14 rounded-full shadow-lg bg-purple-600 hover:bg-purple-700 text-white"
             aria-label="Open chat assistant"
           >
-            <BotMessageSquare className="size-6" />
+            <Sparkles className="size-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent className="flex flex-col w-[90vw] sm:w-[420px]">
+        <SheetContent className="right-4 bottom-24 top-auto flex h-[70vh] max-h-[620px] min-h-[460px] w-[90vw] flex-col overflow-visible rounded-2xl border border-white/15 sm:w-[420px] [&>button]:!top-[-2.75rem] [&>button]:!right-0 [&>button]:z-20 [&>button]:border [&>button]:border-white/20 [&>button]:bg-black/75 [&>button]:text-white/80 [&>button]:hover:bg-black [&>button]:hover:text-white">
           <SheetHeader>
-            <SheetTitle>AI Assistant</SheetTitle>
+            <SheetTitle className="flex items-center gap-2">
+              <MessageCircle className="h-4 w-4" />
+              AI Assistant
+            </SheetTitle>
           </SheetHeader>
           <div className="mt-4 flex-1 overflow-y-auto space-y-3">
             {messages.map((m, i) => (

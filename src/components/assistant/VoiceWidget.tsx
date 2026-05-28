@@ -16,14 +16,15 @@ import {
 } from "@/components/ui/sheet";
 import ReactMarkdown from "react-markdown";
 import {
-  BotMessageSquare,
+  Sparkles,
   Mic,
   MicOff,
   Volume2,
   VolumeX,
   Send,
-  MessageSquare,
+  Keyboard,
   RotateCcw,
+  AudioLines,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -82,7 +83,7 @@ function toPlainText(md: string): string {
 
 // ─── Waveform ─────────────────────────────────────────────────────────────────
 function Waveform({ active, variant }: { active: boolean; variant: "mic" | "speaker" }) {
-  const color  = variant === "mic" ? "#a78bfa" : "#22d3ee";
+  const color  = variant === "mic" ? "#f4f4f5" : "#d4d4d8";
   const delays = [0, 120, 60, 180, 30];
   return (
     <div className="flex items-center gap-[3px] h-7" aria-hidden>
@@ -103,9 +104,9 @@ function Waveform({ active, variant }: { active: boolean; variant: "mic" | "spea
 // ─── Status badge ─────────────────────────────────────────────────────────────
 const STATUS_MAP: Record<VStatus, { label: string; cls: string; dot: string }> = {
   idle:       { label: "Ready",      cls: "bg-white/5 text-white/40 border-white/10",               dot: "bg-white/30" },
-  listening:  { label: "Listening…", cls: "bg-purple-500/20 text-purple-300 border-purple-500/40",  dot: "bg-purple-400 animate-pulse" },
-  processing: { label: "Thinking…",  cls: "bg-amber-500/20 text-amber-300 border-amber-500/40",     dot: "bg-amber-400 animate-pulse" },
-  speaking:   { label: "Speaking…",  cls: "bg-cyan-500/20 text-cyan-300 border-cyan-500/40",        dot: "bg-cyan-400 animate-pulse" },
+  listening:  { label: "Listening…", cls: "bg-white/12 text-white/82 border-white/22",  dot: "bg-white animate-pulse" },
+  processing: { label: "Thinking…",  cls: "bg-white/12 text-white/82 border-white/22",   dot: "bg-white animate-pulse" },
+  speaking:   { label: "Speaking…",  cls: "bg-white/12 text-white/82 border-white/22",   dot: "bg-white animate-pulse" },
 };
 function StatusBadge({ status }: { status: VStatus }) {
   const s = STATUS_MAP[status];
@@ -124,7 +125,7 @@ function TypingDots() {
       <div className="inline-block px-3 py-2 rounded-lg bg-white/5 border border-white/10">
         <span className="flex gap-1 items-center">
           {[0, 150, 300].map((d) => (
-            <span key={d} className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce"
+            <span key={d} className="h-1.5 w-1.5 animate-bounce rounded-full bg-white/75"
               style={{ animationDelay: `${d}ms` }} />
           ))}
         </span>
@@ -339,13 +340,13 @@ export function VoiceWidget() {
       {messages.map((m, i) => (
         <div key={i} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
           {m.role === "assistant" && (
-            <div className="w-6 h-6 rounded-full bg-purple-600/60 flex items-center justify-center mr-2 mt-0.5 shrink-0">
-              <BotMessageSquare className="size-3 text-white" />
+            <div className="mr-2 mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/22">
+              <Sparkles className="size-3 text-white" />
             </div>
           )}
           <div className={`px-3 py-2 rounded-xl max-w-[80%] text-sm leading-relaxed ${
             m.role === "user"
-              ? "bg-purple-600 text-white rounded-br-sm"
+              ? "rounded-br-sm bg-white text-black"
               : "bg-white/5 border border-white/10 text-foreground rounded-bl-sm"
           }`}>
             {m.role === "assistant" ? (
@@ -353,7 +354,7 @@ export function VoiceWidget() {
                 <ReactMarkdown components={{
                   a: ({ href, children }) => (
                     <a href={href} target="_blank" rel="noopener noreferrer"
-                      className="text-purple-400 hover:text-purple-300 underline underline-offset-2">
+                      className="text-white/82 hover:text-white underline underline-offset-2">
                       {children}
                     </a>
                   ),
@@ -372,14 +373,14 @@ export function VoiceWidget() {
 
       {isStreaming && streamingContent && (
         <div className="flex justify-start">
-          <div className="w-6 h-6 rounded-full bg-purple-600/60 flex items-center justify-center mr-2 mt-0.5 shrink-0">
-            <BotMessageSquare className="size-3 text-white" />
+          <div className="mr-2 mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/22">
+            <Sparkles className="size-3 text-white" />
           </div>
           <div className="px-3 py-2 rounded-xl rounded-bl-sm max-w-[80%] text-sm bg-white/5 border border-white/10 text-foreground leading-relaxed">
             <div className="prose prose-sm dark:prose-invert max-w-none">
               <ReactMarkdown>{streamingContent}</ReactMarkdown>
             </div>
-            <span className="inline-block w-0.5 h-3.5 bg-purple-400 animate-pulse ml-0.5 align-middle" />
+            <span className="ml-0.5 inline-block h-3.5 w-0.5 animate-pulse align-middle bg-white/70" />
           </div>
         </div>
       )}
@@ -390,21 +391,21 @@ export function VoiceWidget() {
   );
 
   const fabRing =
-    vStatus === "listening" ? "ring-4 ring-red-400/50 animate-pulse" :
-    vStatus === "speaking"  ? "ring-4 ring-cyan-400/40" : "";
+    vStatus === "listening" ? "ring-4 ring-white/45 animate-pulse" :
+    vStatus === "speaking"  ? "ring-4 ring-white/35" : "";
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button size="icon"
-            className={`h-14 w-14 rounded-full shadow-xl bg-purple-600 hover:bg-purple-700 text-white transition-all ${fabRing}`}
+            className={`h-14 w-14 rounded-full border border-white/20 bg-white text-black shadow-xl shadow-black/45 transition-all hover:bg-white/85 ${fabRing}`}
             aria-label="Open AI assistant">
-            <BotMessageSquare className="size-6" />
+            <Sparkles className="size-6" />
           </Button>
         </SheetTrigger>
 
-        <SheetContent className="flex flex-col w-[92vw] sm:w-[430px] gap-0 p-0 overflow-hidden">
+        <SheetContent className="right-4 bottom-24 top-auto flex h-[70vh] max-h-[620px] min-h-[460px] w-[92vw] flex-col gap-0 overflow-visible rounded-2xl border border-white/15 p-0 sm:w-[430px] [&>button]:!top-[-2.75rem] [&>button]:!right-0 [&>button]:z-20 [&>button]:border [&>button]:border-white/20 [&>button]:bg-black/75 [&>button]:text-white/80 [&>button]:hover:bg-black [&>button]:hover:text-white">
           {/* Header */}
           <SheetHeader className="px-4 pt-4 pb-3 border-b border-white/10 shrink-0">
             <div className="flex items-center justify-between">
@@ -418,15 +419,15 @@ export function VoiceWidget() {
                 <div className="flex items-center gap-0.5 p-0.5 rounded-lg bg-white/5 border border-white/10">
                   <button onClick={() => setMode("chat")}
                     className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
-                      mode === "chat" ? "bg-purple-600 text-white shadow-sm" : "text-white/40 hover:text-white/70"
+                      mode === "chat" ? "bg-white text-black shadow-sm" : "text-white/40 hover:text-white/70"
                     }`}>
-                    <MessageSquare className="size-3" /> Chat
+                    <Keyboard className="size-3" /> Type
                   </button>
                   <button onClick={() => setMode("voice")}
                     className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
-                      mode === "voice" ? "bg-purple-600 text-white shadow-sm" : "text-white/40 hover:text-white/70"
+                      mode === "voice" ? "bg-white text-black shadow-sm" : "text-white/40 hover:text-white/70"
                     }`}>
-                    <Mic className="size-3" /> Voice
+                    <AudioLines className="size-3" /> Voice
                   </button>
                 </div>
               </div>
@@ -441,7 +442,7 @@ export function VoiceWidget() {
               </div>
               <div className="px-4 py-3 border-t border-white/10 flex items-center gap-2 shrink-0">
                 <input ref={inputRef}
-                  className="flex-1 rounded-xl border border-white/10 bg-white/5 px-3.5 py-2 text-sm placeholder:text-white/25 focus:outline-none focus:ring-1 focus:ring-purple-500/60 transition-all"
+                  className="flex-1 rounded-xl border border-white/12 bg-white/6 px-3.5 py-2 text-sm placeholder:text-white/25 transition-all focus:outline-none focus:ring-1 focus:ring-white/45"
                   placeholder="Ask anything…"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -450,7 +451,7 @@ export function VoiceWidget() {
                 />
                 <Button onClick={() => sendChat()}
                   disabled={loading || isStreaming || !input.trim()}
-                  className="bg-purple-600 hover:bg-purple-700 text-white shrink-0 rounded-xl h-9 w-9 p-0"
+                  className="h-9 w-9 shrink-0 rounded-xl border border-white/20 bg-white p-0 text-black hover:bg-white/85"
                   size="icon">
                   <Send className="size-4" />
                 </Button>
@@ -466,7 +467,7 @@ export function VoiceWidget() {
               </div>
 
               {transcript && (
-                <div className="mx-4 mb-2 px-3 py-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-sm text-purple-200 italic shrink-0">
+                <div className="mx-4 mb-2 shrink-0 rounded-xl border border-white/20 bg-white/8 px-3 py-2 text-sm italic text-white/78">
                   &ldquo;{transcript}&rdquo;
                 </div>
               )}
@@ -491,19 +492,19 @@ export function VoiceWidget() {
                       disabled={vStatus === "processing" || vStatus === "speaking"}
                       className={`w-16 h-16 rounded-full flex items-center justify-center transition-all shadow-lg disabled:opacity-40 disabled:cursor-not-allowed ${
                         vStatus === "listening"
-                          ? "bg-red-500 hover:bg-red-600 scale-110 ring-4 ring-red-400/40"
-                          : "bg-purple-600 hover:bg-purple-700 ring-4 ring-purple-500/20 hover:scale-105"
+                          ? "scale-110 bg-white text-black ring-4 ring-white/45"
+                          : "bg-white text-black ring-4 ring-white/20 hover:scale-105 hover:bg-white/85"
                       }`}
                       aria-label={vStatus === "listening" ? "Stop listening" : "Start listening"}>
                       {vStatus === "listening"
-                        ? <MicOff className="size-6 text-white" />
-                        : <Mic    className="size-6 text-white" />}
+                        ? <MicOff className="size-6 text-black" />
+                        : <Mic    className="size-6 text-black" />}
                     </button>
 
                     <button onClick={() => setAutoListen((v) => !v)}
                       className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all ${
                         autoListen
-                          ? "bg-cyan-500/20 border-cyan-500/40 text-cyan-300"
+                          ? "border-white/30 bg-white/18 text-white"
                           : "bg-white/5 border-white/10 text-white/30 hover:text-white/60 hover:bg-white/10"
                       }`}
                       title={autoListen ? "Auto-listen ON" : "Auto-listen OFF (hands-free)"}>

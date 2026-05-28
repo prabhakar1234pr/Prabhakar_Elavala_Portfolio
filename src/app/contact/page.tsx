@@ -32,11 +32,11 @@ export default function ContactPage() {
 
       {/* Header */}
       <div className="mb-12">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-violet-400">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/60">
           Contact
         </p>
         <h1 className="text-4xl font-extrabold text-white mb-3">Get In Touch</h1>
-        <p className="text-slate-400 max-w-xl">
+        <p className="max-w-xl text-white/66">
           I love building things that work and working with teams that care.
           Whether you have an opportunity, a project, or just want to connect —
           my inbox is open.
@@ -47,7 +47,7 @@ export default function ContactPage() {
 
         {/* Contact info */}
         <div className="space-y-4">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-5">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-widest text-white/50">
             Reach Out Directly
           </p>
 
@@ -59,29 +59,29 @@ export default function ContactPage() {
           ].map((item) => (
             <div
               key={item.label}
-              className="flex flex-col gap-0.5 rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-4"
+              className="glass-panel flex flex-col gap-0.5 rounded-xl px-5 py-4"
             >
-              <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-white/50">
                 {item.label}
               </span>
               <Link
                 href={item.href}
                 target={item.href.startsWith("http") ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                className="text-sm text-violet-300 hover:text-violet-200 transition-colors"
+                className="text-sm text-white/80 transition-colors hover:text-white"
               >
                 {item.value}
               </Link>
             </div>
           ))}
 
-          <p className="text-xs text-slate-500 pt-2">
+          <p className="pt-2 text-xs text-white/50">
             Typically responds within 24 hours.
           </p>
         </div>
 
         {/* Form */}
-        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-6">
+        <div className="glass-panel rounded-xl p-6">
           <p className="text-sm font-semibold text-white mb-5">Send a Message</p>
 
           <form
@@ -89,40 +89,40 @@ export default function ContactPage() {
             action={async (fd) => onSubmit(fd)}
           >
             <div className="space-y-1.5">
-              <Label htmlFor="name" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <Label htmlFor="name" className="text-xs font-medium uppercase tracking-wider text-white/60">
                 Name
               </Label>
               <Input
                 id="name" name="name" required placeholder="Your name"
-                className="bg-white/[0.04] border-white/[0.08] focus:border-violet-500/50 text-white placeholder:text-slate-600 h-10"
+                className="h-10 border-white/15 bg-black/20 text-white placeholder:text-white/35 focus:border-white/45"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <Label htmlFor="email" className="text-xs font-medium uppercase tracking-wider text-white/60">
                 Email
               </Label>
               <Input
                 id="email" name="email" type="email" required placeholder="your@email.com"
-                className="bg-white/[0.04] border-white/[0.08] focus:border-violet-500/50 text-white placeholder:text-slate-600 h-10"
+                className="h-10 border-white/15 bg-black/20 text-white placeholder:text-white/35 focus:border-white/45"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="message" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <Label htmlFor="message" className="text-xs font-medium uppercase tracking-wider text-white/60">
                 Message
               </Label>
               <Textarea
                 id="message" name="message" required rows={5}
                 placeholder="Tell me about your project or opportunity..."
-                className="bg-white/[0.04] border-white/[0.08] focus:border-violet-500/50 text-white placeholder:text-slate-600 resize-none"
+                className="resize-none border-white/15 bg-black/20 text-white placeholder:text-white/35 focus:border-white/45"
               />
             </div>
 
             <Button
               disabled={loading}
               type="submit"
-              className="w-full bg-violet-600 hover:bg-violet-700 text-white border-0 shadow-lg shadow-violet-900/40 h-10"
+              className="h-10 w-full border border-white/20 bg-white text-black shadow-lg shadow-black/30 hover:bg-white/85"
             >
               {loading ? (
                 <span className="flex items-center gap-2">

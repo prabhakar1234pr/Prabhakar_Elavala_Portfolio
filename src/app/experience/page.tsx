@@ -24,10 +24,10 @@ const certifications = [
 type Section = "experience" | "education";
 
 const TYPE_BADGE: Record<string, string> = {
-  work:       "border-emerald-500/30 bg-emerald-500/10 text-emerald-300",
-  internship: "border-violet-500/30 bg-violet-500/10 text-violet-300",
-  "part-time":"border-slate-500/30  bg-slate-500/10  text-slate-400",
-  education:  "border-cyan-500/30   bg-cyan-500/10   text-cyan-300",
+  work:       "border-white/25 bg-white/10 text-white/85",
+  internship: "border-white/25 bg-white/10 text-white/85",
+  "part-time":"border-white/25 bg-white/10 text-white/75",
+  education:  "border-white/25 bg-white/10 text-white/85",
 };
 const TYPE_LABEL: Record<string, string> = {
   work:       "Full-time",
@@ -36,10 +36,10 @@ const TYPE_LABEL: Record<string, string> = {
   education:  "Education",
 };
 const TYPE_DOT: Record<string, string> = {
-  work:       "bg-emerald-400",
-  internship: "bg-violet-400",
-  "part-time":"bg-slate-400",
-  education:  "bg-cyan-400",
+  work:       "bg-white/80",
+  internship: "bg-white/80",
+  "part-time":"bg-white/65",
+  education:  "bg-white/80",
 };
 
 export default function ExperiencePage() {
@@ -59,27 +59,27 @@ export default function ExperiencePage() {
 
       {/* ── Page header ── */}
       <div className="mb-10">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-violet-400">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/60">
           My Journey
         </p>
         <h1 className="text-4xl font-extrabold text-white mb-3">
           Experience &amp; Education
         </h1>
-        <p className="text-slate-400 text-sm max-w-lg">
+        <p className="max-w-lg text-sm text-white/66">
           Professional roles, academic background, and certifications in AI/ML engineering.
         </p>
       </div>
 
       {/* ── Section tabs ── */}
-      <div className="flex gap-1 mb-8 p-1 rounded-xl border border-white/[0.07] bg-white/[0.02] w-fit">
+      <div className="mb-8 flex w-fit gap-1 rounded-xl border border-white/15 bg-white/5 p-1 backdrop-blur-xl">
         {(["experience", "education"] as Section[]).map((s) => (
           <button
             key={s}
             onClick={() => handleSection(s)}
             className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all capitalize ${
               section === s
-                ? "bg-violet-600 text-white shadow-lg shadow-violet-900/40"
-                : "text-slate-400 hover:text-white"
+                ? "bg-white text-black shadow-lg shadow-black/35"
+                : "text-white/62 hover:text-white"
             }`}
           >
             {s}
@@ -98,8 +98,8 @@ export default function ExperiencePage() {
               onClick={() => setActiveIdx(i)}
               className={`group w-full text-left rounded-xl px-4 py-3.5 border transition-all duration-200 ${
                 activeIdx === i
-                  ? "border-violet-500/40 bg-violet-500/10"
-                  : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.05]"
+                  ? "glass-panel border-white/25 bg-white/12"
+                  : "border-white/[0.10] bg-white/[0.04] hover:border-white/[0.20] hover:bg-white/[0.08]"
               }`}
             >
               {/* Active indicator bar */}
@@ -108,17 +108,17 @@ export default function ExperiencePage() {
                   className={`mt-1.5 h-2 w-2 flex-shrink-0 rounded-full transition-colors ${
                     activeIdx === i
                       ? (TYPE_DOT[item.type ?? "work"])
-                      : "bg-slate-600 group-hover:bg-slate-500"
+                      : "bg-white/35 group-hover:bg-white/55"
                   }`}
                 />
                 <div className="min-w-0">
                   <p className={`text-sm font-semibold leading-tight truncate transition-colors ${
-                    activeIdx === i ? "text-white" : "text-slate-300 group-hover:text-white"
+                    activeIdx === i ? "text-white" : "text-white/78 group-hover:text-white"
                   }`}>
                     {item.org}
                   </p>
-                  <p className="text-xs text-slate-500 truncate mt-0.5">{item.role}</p>
-                  <p className="text-[10px] text-slate-600 mt-1">{item.dates}</p>
+                  <p className="mt-0.5 truncate text-xs text-white/55">{item.role}</p>
+                  <p className="mt-1 text-[10px] text-white/40">{item.dates}</p>
                 </div>
               </div>
             </button>
@@ -126,24 +126,24 @@ export default function ExperiencePage() {
 
           {/* Certifications card — only on education tab */}
           {section === "education" && (
-            <div className="mt-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-4">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 mb-3">
+            <div className="glass-panel mt-4 rounded-xl px-4 py-4">
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-white/72">
                 Certifications
               </p>
               <div className="space-y-2.5">
                 {certifications.map((c) => (
                   <div key={c.name} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
+                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white/75" />
                     <div>
                       <p className="text-xs font-medium text-white leading-snug">{c.name}</p>
                       <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-[10px] text-slate-500">{c.issuer}</span>
+                        <span className="text-[10px] text-white/55">{c.issuer}</span>
                         {c.link && (
                           <a
                             href={c.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-0.5 text-[10px] text-emerald-400 hover:text-emerald-300 transition-colors"
+                            className="inline-flex items-center gap-0.5 text-[10px] text-white/80 transition-colors hover:text-white"
                           >
                             Verify <ExternalLink className="w-2.5 h-2.5" />
                           </a>
@@ -158,10 +158,10 @@ export default function ExperiencePage() {
         </div>
 
         {/* ── RIGHT: detail panel ── */}
-        <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-8 lg:p-10 min-h-[420px]">
+        <div className="glass-panel min-h-[420px] rounded-2xl p-8 lg:p-10">
 
           {/* Top accent */}
-          <div className="h-px w-full bg-gradient-to-r from-violet-500/60 via-cyan-400/40 to-transparent mb-8" />
+          <div className="mb-8 h-px w-full bg-gradient-to-r from-white/55 via-white/25 to-transparent" />
 
           {/* Role + badge */}
           <div className="flex flex-wrap items-start justify-between gap-3 mb-1">
@@ -174,9 +174,9 @@ export default function ExperiencePage() {
           </div>
 
           {/* Org + meta */}
-          <p className="text-lg font-semibold text-violet-300 mb-3">{active.org}</p>
+          <p className="mb-3 text-lg font-semibold text-white/84">{active.org}</p>
 
-          <div className="flex flex-wrap gap-4 text-xs text-slate-500 mb-8">
+          <div className="mb-8 flex flex-wrap gap-4 text-xs text-white/55">
             <span className="flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5" />
               {active.dates}
@@ -189,7 +189,7 @@ export default function ExperiencePage() {
             )}
             {active.gpa && (
               <span className="flex items-center gap-1.5">
-                <span className="text-emerald-400 font-semibold">GPA {active.gpa} / 4.0</span>
+                <span className="font-semibold text-white/84">GPA {active.gpa} / 4.0</span>
               </span>
             )}
           </div>
@@ -198,8 +198,8 @@ export default function ExperiencePage() {
           <ul className="space-y-4">
             {active.bullets.map((b, i) => (
               <li key={i} className="flex gap-3 group">
-                <span className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-500/50 group-hover:bg-violet-400 transition-colors" />
-                <p className="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">
+                <span className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white/55 transition-colors group-hover:bg-white/78" />
+                <p className="text-sm leading-relaxed text-white/68 transition-colors group-hover:text-white/80">
                   {b}
                 </p>
               </li>
@@ -207,8 +207,8 @@ export default function ExperiencePage() {
           </ul>
 
           {/* Bottom accent */}
-          <div className="mt-10 pt-6 border-t border-white/[0.05] flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-600">
+          <div className="mt-10 flex items-center justify-between border-t border-white/10 pt-6">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-white/45">
               {activeIdx + 1} of {items.length}
             </span>
             <div className="flex gap-1.5">
@@ -218,8 +218,8 @@ export default function ExperiencePage() {
                   onClick={() => setActiveIdx(i)}
                   className={`rounded-full transition-all duration-300 ${
                     i === activeIdx
-                      ? "w-5 h-1.5 bg-violet-400"
-                      : "w-1.5 h-1.5 bg-white/20 hover:bg-white/40"
+                      ? "h-1.5 w-5 bg-white/80"
+                      : "h-1.5 w-1.5 bg-white/25 hover:bg-white/45"
                   }`}
                 />
               ))}

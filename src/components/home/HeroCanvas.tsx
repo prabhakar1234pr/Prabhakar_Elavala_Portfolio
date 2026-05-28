@@ -15,12 +15,11 @@ export function HeroCanvas() {
     <div className="absolute inset-0 -z-10 md:block [@media(prefers-reduced-motion:reduce)]:hidden">
       <Suspense fallback={null}>
         <Canvas dpr={[1, 1.5]} camera={{ position: [0, 1.2, 7.5], fov: 60 }}>
-          {/* Background star field */}
-          <Stars radius={60} depth={50} count={4000} factor={2} fade speed={0.6} />
+          <Stars radius={60} depth={50} count={3000} factor={2.2} fade speed={0.45} />
 
           {/* Lights */}
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 7, 5]} intensity={1} />
+          <ambientLight intensity={0.44} />
+          <directionalLight position={[5, 7, 5]} intensity={0.7} />
 
           {/* Camera rig for subtle motion */}
           <CameraRig />
@@ -31,7 +30,7 @@ export function HeroCanvas() {
           {/* Removed: Computer, sun, earth and moon as requested */}
         </Canvas>
       </Suspense>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent to-background/80" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-background/35 to-background/80" />
     </div>
   );
 }
@@ -52,8 +51,8 @@ function GridFloor() {
     const ctx = canvas.getContext("2d")!;
     ctx.fillStyle = "#000";
     ctx.fillRect(0,0,size,size);
-    ctx.strokeStyle = "#5b21b6";
-    ctx.globalAlpha = 0.8;
+    ctx.strokeStyle = "#d4d4d8";
+    ctx.globalAlpha = 0.22;
     for (let i=0;i<size;i+=16){
       ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,size); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(size,i); ctx.stroke();
@@ -67,7 +66,7 @@ function GridFloor() {
   return (
     <mesh ref={gridRef} rotation={[-Math.PI/2.4, 0, 0]} position={[0, -1.2, 0]}>
       <planeGeometry args={[200, 200]} />
-      <meshBasicMaterial map={gridTex} color={0x60a5fa} opacity={0.35} transparent />
+      <meshBasicMaterial map={gridTex} color={0xffffff} opacity={0.18} transparent />
     </mesh>
   );
 }
