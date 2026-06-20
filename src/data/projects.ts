@@ -18,8 +18,8 @@ export const projects: Project[] = [
   },
   {
     title: "Briefed",
-    summary: "AI copilot that joins your Zoom, Meet, or Teams call — answers questions live from your project's knowledge base, proactively fact-checks statements in real time, and delivers a post-meeting summary with action items and key decisions.",
-    tech: ["Multimodal AI", "Recall.ai", "pgvector", "WebSockets"],
+    summary: "An AI teammate (\"Bora\") that joins your Zoom, Meet, or Teams call and talks back in real time. A Pipecat voice pipeline — Silero VAD, Deepgram STT, Gemini 2.5-flash, ElevenLabs TTS — answers questions out loud grounded in your knowledge base, and a turn-taking gate makes the bot raise its hand and wait to be called on before interjecting, so it never talks over the room. Afterwards it writes the summary, action items, and decisions.",
+    tech: ["Pipecat", "Recall.ai", "Deepgram STT", "Gemini 2.5 Flash", "ElevenLabs", "pgvector", "Cloud Run"],
     links: {
       github: "https://github.com/prabhakar1234pr/meetstreamIQ",
       demo: "https://briefed-mu.vercel.app/"

@@ -1667,178 +1667,112 @@ Generate viral Instagram-style subtitles for your videos, or let AI build a comp
   },
 
   "Briefed": {
-    projectTitle: "Briefed — AI Meeting Intelligence Platform",
-    content: `# Briefed — AI Meeting Intelligence Platform
+    projectTitle: "Briefed (Agent Bora) — Real-Time AI Meeting Teammate",
+    content: `# Briefed (Agent Bora) — Real-Time AI Meeting Teammate
 
-Your AI copilot for corporate meetings. Joins Zoom, Google Meet, or Microsoft Teams — answers questions live using your project's knowledge base, fact-checks statements in real-time, takes screenshots on command, and delivers post-meeting intelligence.
+Briefed sends an AI teammate ("Bora") into your Zoom, Google Meet, or Microsoft Teams call. It listens to the live conversation, answers questions **out loud, in real time** grounded in your knowledge base, and — unlike a typical bot — **raises its hand and waits to be called on** before volunteering a correction, so it never talks over the room. After the call it writes the summary, action items, and decisions.
 
 ---
 
 ## What It Does
 
 **During the meeting:**
-- Say **"Hey Sam, what's the timeline for Phase 2?"** → Agent answers using your uploaded project docs
-- Someone states incorrect project data → Agent **proactively corrects** with the right facts
-- Say **"Take a screenshot"** → Captures and saves to your meeting dashboard
-- All Q&A, corrections, and screenshots are logged for post-meeting review
+- Ask **"Bora, what's the timeline for Phase 2?"** -> it answers out loud from your project's knowledge base.
+- Someone states something factually wrong -> Bora **raises its hand**; when a human says *"go on, Bora,"* it speaks the correction.
+- Say **"take a screenshot"** -> captures the meeting view to your dashboard.
+- Every answer, interjection, and screenshot is logged for review.
 
 **After the meeting:**
-- AI-generated **summary, action items, and key decisions**
-- Full searchable transcript with speaker attribution
-- Optional email report sent automatically
+- AI-generated **summary, action items, and key decisions**, plus a searchable transcript — optionally emailed automatically.
 
 ---
 
-## Architecture
+## Why It's Hard
+
+A meeting bot that *speaks* has to solve three problems at once:
+1. **Latency** — a spoken reply has to land in about a second to feel natural.
+2. **Turn-taking** — when should an AI talk in a room full of humans?
+3. **Grounding** — it can never make facts up.
+
+Briefed is built around those three constraints.
+
+---
+
+## Live Voice Pipeline (Pipecat)
+
+Real-time audio runs through a **Pipecat 1.2** pipeline — one task per meeting:
 
 \`\`\`
-┌──────────────────────────────────────────────────────────────────┐
-│                         FRONTEND                                  │
-│  Next.js 16 · React 19 · Tailwind 4 · Supabase Auth             │
-│  Deployed on Vercel                                               │
-└──────────────────┬───────────────────────────────────────────────┘
-                   │ REST API + WebSocket
-┌──────────────────▼───────────────────────────────────────────────┐
-│                         BACKEND                                   │
-│  FastAPI · Python 3.12 · Deployed on Cloud Run (GCP)             │
-│                                                                   │
-│  ┌─────────────┐ ┌──────────────┐ ┌───────────────────────────┐  │
-│  │ Gemini 2.5  │ │ Google Cloud │ │ Recall.ai API             │  │
-│  │ Flash + Pro │ │ TTS Neural2  │ │ Bot joins · Transcript    │  │
-│  │ (Vertex AI) │ │              │ │ Audio inject · Screenshot │  │
-│  └─────────────┘ └──────────────┘ └───────────────────────────┘  │
-└──────────────────┬───────────────────────────────────────────────┘
-                   │
-┌──────────────────▼───────────────────────────────────────────────┐
-│                         DATABASE                                  │
-│  Supabase (PostgreSQL + pgvector + Auth + Storage)               │
-└──────────────────────────────────────────────────────────────────┘
+Recall meeting audio  (PCM16 16kHz, server-side WebSocket)
+  -> Silero VAD                  (speech endpointing)
+  -> Deepgram STT                (nova-3 streaming, interim + final)
+  -> TurnGate                    (decides if / when Bora speaks)
+  -> LLM context aggregator
+  -> Gemini 2.5-flash            (Vertex AI, thinking_budget = 0)
+  -> ElevenLabs TTS (flash v2.5)   --or--   Recall native audio injection
+  -> back into the meeting
 \`\`\`
 
-### Key Technologies
-
-| Layer | Stack |
-|-------|-------|
-| **Frontend** | Next.js 16, React 19, Tailwind 4, Supabase SSR |
-| **Backend** | FastAPI, Python 3.12, uvicorn, httpx |
-| **AI** | Vertex AI Gemini 2.5-flash (live Q&A), Gemini 2.5-pro (post-meeting) |
-| **TTS** | Google Cloud Text-to-Speech (Neural2/Studio voices) |
-| **Meeting Integration** | Recall.ai (bot joins Zoom/Meet/Teams, streams transcript, records) |
-| **Database** | Supabase PostgreSQL + pgvector (768-dim embeddings) |
-| **Vector Search** | Vertex AI text-embedding-004 + pgvector cosine similarity |
-| **CI/CD** | GitHub Actions → Cloud Run; Vercel auto-deploy for frontend |
+**Barge-in is first-class:** if a human starts talking while Bora is mid-sentence, VAD cancels the in-flight STT / LLM / TTS frames and flushes the output buffer.
 
 ---
 
-## How the Copilot Works
+## The "Raise Your Hand" Turn-Taking Gate
 
-### Real-Time Q&A Flow
+This is the heart of the project. Bora is **silent by default**. A \`TurnGate\` processor sits between the STT and the LLM and decides every utterance's fate:
 
-\`\`\`
-User speaks: "Hey Sam, what's the deadline for the API migration?"
-                    │
-                    ▼
-         Recall.ai streams transcript
-                    │
-                    ▼
-         Bot page detects trigger ("Sam" + question)
-                    │
-                    ▼
-         WebSocket → Backend (/ws/copilot/{meeting_id})
-                    │
-           ┌────────┴────────┐
-           ▼                 ▼
-    pgvector search    Fetch recent
-    (top 3 chunks)     transcript (20 lines)
-           │                 │
-           └────────┬────────┘
-                    ▼
-         Gemini 2.5-flash streams answer
-         (grounded in knowledge base)
-                    │
-                    ▼
-         Google Cloud TTS → MP3
-                    │
-                    ▼
-         Recall inject_audio API → plays in meeting
-                    │
-                    ▼
-         Saved to meeting_interactions table
-\`\`\`
+- **Directly addressed** ("Bora, ...") -> answer immediately.
+- **A question with no name** -> a ~200 ms Gemini-flash *addressed-classifier* decides whether it was meant for Bora.
+- **A statement** -> a fast **Nebius / Qwen** gate checks it against the knowledge base. Only if someone is **factually wrong** or the team is **stuck** (above a confidence threshold) does Bora **raise its hand** — a visible signal in the meeting — and *wait*. It never interrupts. When a human grants the floor ("go on, Bora"), it speaks the specific point it flagged. If no one calls on it before a timeout, it quietly lowers its hand.
 
-### Proactive Fact-Checking
-
-When someone makes a declarative statement (8+ words, not a question), the system automatically checks it against the knowledge base:
-
-1. Gemini evaluates: does the statement contradict verified project docs?
-2. If yes → speaks a diplomatic correction: *"Actually, the correct figure is..."*
-3. If no contradiction → stays silent (no false positives)
-4. Rate-limited: 28s cooldown, max 12 checks/hour
-
-### Screenshot Capture
-
-Say "take a screenshot" → Recall API captures the meeting view → uploaded to Supabase Storage → visible in meeting dashboard.
-
-### Post-Meeting Intelligence
-
-When the meeting ends:
-1. Full transcript downloaded from Recall.ai
-2. Gemini 2.5-pro generates: summary, action items, key decisions
-3. Optionally emailed via Resend
+It's a deliberate **human-in-the-loop** design: the agent acts autonomously to *detect* when it can help, but a human keeps **final authority** over when it actually speaks.
 
 ---
 
-## API Endpoints
+## Latency Engineering
 
-### REST
-
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | /health | Health check |
-| POST | /api/meetings/start | Start meeting (creates Recall bot) |
-| GET | /api/meetings/{id} | Get meeting details + transcript |
-| GET | /api/meetings/{id}/interactions | Get Q&A, fact-checks, screenshots |
-| POST | /api/agents/{id}/context | Add knowledge source (URL/text/GitHub) |
-| GET | /api/agents/{id}/context | List agent's knowledge sources |
-| DELETE | /api/agents/{id}/context | Remove knowledge source |
-| POST | /api/agents/{id}/ask | Ask agent a question (non-streaming) |
-| POST | /api/webhooks/recall/bot-status | Recall.ai bot lifecycle events |
-| POST | /api/webhooks/recall/realtime | Recall.ai real-time transcript |
-
-### WebSocket
-
-| Path | Description |
-|------|-------------|
-| /ws/copilot/{meeting_id} | Real-time copilot: trigger → Gemini stream → TTS → inject |
+Making a spoken answer feel conversational meant hunting milliseconds:
+- Default Silero / Deepgram settings kept the analyzer "speaking" too long, causing multi-second STT lag. Fixed with tuned VAD (\`stop_secs = 0.5\`) and Deepgram \`endpointing = 300 ms\`, so finals emit ~300 ms after a pause.
+- Gemini runs with \`thinking_budget = 0\` to keep first-token latency around 600 ms.
+- A state machine with watchdog timers (a SPEAKING watchdog and a hand-raise timeout) guarantees the gate can never deadlock and leave Bora mute.
 
 ---
 
-## Database Schema
+## Grounding & Knowledge
 
-| Table | Purpose |
-|-------|---------|
-| agents | Agent config: name, persona, voice, capabilities |
-| meetings | Meeting records: status, transcript, summary, action items |
-| transcript_lines | Raw transcript segments with speaker + timestamp |
-| context_chunks | Chunked documents with 768-dim pgvector embeddings |
-| meeting_interactions | Logged Q&A, fact-checks, screenshots |
-| screenshots | Screenshot metadata + Supabase Storage paths |
+Each agent has a persona plus a knowledge base built from uploaded docs and **GitHub repositories** (ingested via a GitHub App). Content is chunked, embedded with Gemini \`text-embedding-004\`, and stored as \`vector(768)\` in Postgres; retrieval runs through a \`match_context_chunks\` pgvector function. The turn gate pulls the same knowledge base and prior-meeting context, so even its fact-checks are grounded. Cross-meeting memory lets Bora reference earlier calls.
 
 ---
 
-## Testing
+## Reliability
 
-Tests use an in-memory FakeSupabase mock — no real database needed. Covers: trigger detection, copilot pipeline, WebSocket handler, screenshot flow, auth, webhooks, and context ingestion (~1800 lines, pytest-asyncio).
+A single meeting drives **two WebSockets that connect at different times** — Recall's audio input and the bot-page output / control channel. A \`MeetingSession\` is the rendezvous point both attach to. Either socket can drop and reconnect (Recall retries every 3 s; the bot-page hot-swaps its socket into the live pipeline) without rebuilding the pipeline.
 
 ---
 
-## Project Highlights
+## Infrastructure & Cloud Migration
 
-- **Real-Time AI Copilot**: Live Q&A and fact-checking during meetings via Recall.ai + Gemini
-- **RAG Knowledge Base**: pgvector cosine similarity search over uploaded project documents
-- **Multimodal Pipeline**: Voice trigger → LLM → TTS → audio injection back into meeting
-- **Post-Meeting Intelligence**: Auto-generated summaries, action items, and email reports
-- **Full-Stack Architecture**: Next.js frontend, FastAPI backend, Supabase database, Cloud Run deployment`
+- **Backend:** FastAPI on **Cloud Run** · **Frontend:** Next.js 16 / React 19 on **Vercel** · **Auth:** Firebase.
+- **Data:** **Cloud SQL** (Postgres 16 + pgvector), with **Secret Manager** and **GCS** for screenshots and the bot page.
+- Briefed originally ran on Supabase and was **migrated to a dedicated GCP stack in June 2026** after the project was accepted into Google for Startups.
+- **CI/CD:** GitHub Actions builds and deploys the backend to Cloud Run on every push; Vercel auto-deploys the frontend.
+
+---
+
+## Stack
+
+Pipecat · Recall.ai · Silero VAD · Deepgram (nova-3) · Gemini 2.5-flash (Vertex AI) · Nebius / Qwen · ElevenLabs · pgvector · Cloud SQL · Cloud Run · GCS · Secret Manager · Firebase Auth · LangSmith · Next.js 16 / React 19 · FastAPI · Python 3.12
+
+---
+
+## Highlights
+
+- **Real-time voice teammate** — speaks into live Zoom / Meet / Teams calls via a Pipecat pipeline, not just text.
+- **"Raise your hand" turn-taking** — autonomous detection of when to help, with humans keeping final say over when the bot speaks.
+- **Sub-second latency engineering** — tuned VAD, Deepgram endpointing, and zero-thinking Gemini for natural back-and-forth.
+- **Grounded RAG** — pgvector over docs + GitHub repos, with cross-meeting memory.
+- **Production-grade reliability** — dual-WebSocket rendezvous, automatic reconnects, and a watchdog state machine.
+- **Owned a full cloud migration** — Supabase -> GCP (Cloud Run, Cloud SQL, Secret Manager) via Google for Startups.`
   },
 
   "BrowserFriend": {
