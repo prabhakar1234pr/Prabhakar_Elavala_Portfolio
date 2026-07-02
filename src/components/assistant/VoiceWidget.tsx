@@ -401,7 +401,9 @@ export function VoiceWidget() {
       <Sheet open={open} onOpenChange={setOpen} modal={false}>
         <SheetTrigger asChild>
           <Button size="icon"
-            className={`h-14 w-14 rounded-full border border-white/20 bg-white text-black shadow-xl shadow-black/45 transition-all hover:bg-white/85 ${fabRing}`}
+            className={`h-14 w-14 rounded-full border border-white/20 bg-white text-black shadow-xl shadow-black/45 transition-all duration-200 hover:bg-white/85 ${
+              open ? "pointer-events-none scale-0 opacity-0" : "scale-100 opacity-100"
+            } ${fabRing}`}
             aria-label="Open AI assistant">
             <Sparkles className="size-6" />
           </Button>
@@ -411,7 +413,8 @@ export function VoiceWidget() {
           asPopover
           hideOverlay
           hideClose
-          className="right-4 bottom-24 top-auto flex h-[70vh] max-h-[620px] min-h-[460px] w-[92vw] max-w-[calc(100vw-2rem)] origin-bottom-right flex-col gap-0 overflow-hidden rounded-2xl border border-white/15 p-0 shadow-2xl shadow-black/60 sm:w-[420px] sm:max-w-[420px]">
+          style={{ background: "linear-gradient(180deg, oklch(0.19 0 0), oklch(0.14 0 0))" }}
+          className="right-4 bottom-4 top-auto flex h-[calc(100dvh-2rem)] max-h-[760px] min-h-[480px] w-[92vw] max-w-[calc(100vw-2rem)] origin-bottom-right flex-col gap-0 overflow-hidden rounded-2xl border border-white/12 p-0 shadow-2xl shadow-black/70 backdrop-blur-none sm:w-[420px] sm:max-w-[420px]">
           {/* Header */}
           <SheetHeader className="px-4 pt-4 pb-3 border-b border-white/10 shrink-0">
             <div className="flex items-center justify-between">
