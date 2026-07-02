@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -25,6 +26,7 @@ import {
   Keyboard,
   RotateCcw,
   AudioLines,
+  X,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -396,7 +398,7 @@ export function VoiceWidget() {
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      <Sheet open={open} onOpenChange={setOpen}>
+      <Sheet open={open} onOpenChange={setOpen} modal={false}>
         <SheetTrigger asChild>
           <Button size="icon"
             className={`h-14 w-14 rounded-full border border-white/20 bg-white text-black shadow-xl shadow-black/45 transition-all hover:bg-white/85 ${fabRing}`}
@@ -405,7 +407,11 @@ export function VoiceWidget() {
           </Button>
         </SheetTrigger>
 
-        <SheetContent className="right-4 bottom-24 top-auto flex h-[70vh] max-h-[620px] min-h-[460px] w-[92vw] flex-col gap-0 overflow-visible rounded-2xl border border-white/15 p-0 sm:w-[430px] [&>button]:!top-[-2.75rem] [&>button]:!right-0 [&>button]:z-20 [&>button]:border [&>button]:border-white/20 [&>button]:bg-black/75 [&>button]:text-white/80 [&>button]:hover:bg-black [&>button]:hover:text-white">
+        <SheetContent
+          asPopover
+          hideOverlay
+          hideClose
+          className="right-4 bottom-24 top-auto flex h-[70vh] max-h-[620px] min-h-[460px] w-[92vw] max-w-[calc(100vw-2rem)] origin-bottom-right flex-col gap-0 overflow-hidden rounded-2xl border border-white/15 p-0 shadow-2xl shadow-black/60 sm:w-[420px] sm:max-w-[420px]">
           {/* Header */}
           <SheetHeader className="px-4 pt-4 pb-3 border-b border-white/10 shrink-0">
             <div className="flex items-center justify-between">
@@ -430,6 +436,11 @@ export function VoiceWidget() {
                     <AudioLines className="size-3" /> Voice
                   </button>
                 </div>
+                <SheetClose
+                  className="w-7 h-7 rounded-md flex items-center justify-center text-white/30 hover:text-white/70 hover:bg-white/5 transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
+                  aria-label="Close assistant">
+                  <X className="size-4" />
+                </SheetClose>
               </div>
             </div>
           </SheetHeader>
